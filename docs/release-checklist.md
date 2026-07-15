@@ -5,7 +5,9 @@
 - [ ] 編集ガイドラインに沿い、誤字・事実・単位・出典を確認した
 - [ ] 広告、提供、アフィリエイトの表示が明瞭である
 - [ ] 記事HTMLと `data/articles.json` のメタデータが一致している
-- [ ] 公開商品のURL、仕様、在庫、画像利用条件、`checkedAt` を確認した
+- [ ] 公開商品のURL、仕様、在庫、画像利用条件、Source Registryの `last_verified` を確認した
+- [ ] `node scripts/validate-products.mjs` が成功した
+- [ ] Productionでは `publishable: true` の商品だけが表示され、Preview（`?preview=1`）は確認用途に限定されている
 
 ## 表示とアクセシビリティ
 

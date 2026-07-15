@@ -44,9 +44,9 @@ python -m http.server 8000
 - `selection_role` は記事内の役割を表し、ランキング順位として扱わない。同一記事内で重複させない。
 - `shop`、`dimensions`、`materials`、`shipping` に販売主体、寸法、素材、送料条件の確認結果を残す。
 - `affiliate_url` は発行済みの正規URLだけを登録する。未契約・未発行時は `null` とする。
-- `source` は検証に使った一次情報URL、`last_verified` は確認日時をISO 8601形式で記録する。
+- `source_id` でルートの `source_registry` を参照し、販売ページ、メーカー、出典種別、`last_verified` を一元管理する。
 - `affiliate_url` が未設定の商品は必ず `publishable: false` とする。アフィリエイトURL設定済みかつ出典確認済みの場合だけ `true` にできる。
-- Productionでは `publishable: true` の商品のみ表示する。Preview（記事URLに `?preview=1`）では検証用に `official_url` へのフォールバックを許可する。
+- Productionでは `publishable: true` の商品のみ表示する。
 - 価格、評価、在庫、仕様は公開前と定期メンテナンス時に再確認する。変更時はルートの `updated_at` も更新する。
 - 商品を削除せず、掲載を止める場合は `publishable: false` にして記事から除外する。
 
@@ -59,5 +59,12 @@ python -m http.server 8000
 ```sh
 node scripts/validate-products.mjs
 ```
+
+## PreviewとProduction
+
+- **Production**: 通常の記事URLを使用する。`publishable: true` かつ有効な `affiliate_url` と確認済みの出典を持つ商品だけをカード表示する。現在は6商品すべての `affiliate_url` が未設定で `publishable: false` のため、商品カードは0件となる。
+- **Preview**: 記事URLに `?preview=1` を付ける。非公開商品も確認でき、リンク先は `affiliate_url`、Source Registryの `rakuten_url`、`official_url` の順でフォールバックする。編集・リンク確認専用であり、公開URLとして案内しない。
+
+ローカルでは `http://localhost:8000/articles/sofa-for-couples/?preview=1` で6商品のカードを確認できます。本番公開前に楽天アフィリエイトURLを登録し、出典を再確認してから `publishable: true` へ変更し、Validationを再実行してください。
 
 公開URL: <https://futari-kurashi.vercel.app>
