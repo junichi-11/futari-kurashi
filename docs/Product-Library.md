@@ -59,3 +59,5 @@ Selection Roleは「誰の、どの場面に合うか」を短く示す編集ラ
 ## Editorial Product Story
 
 `components/product-card.js` の `<margin-product-list>` が、記事ID、記事の商品ID配列、Product Library、Source Registryから縦長の商品セクションを生成します。商品画像、Selection Role、商品名、編集コピー、本文、価格、寸法、素材、向いている暮らし、注意点、更新日、リンクをHTMLへ直接重複記載しません。商品データ更新後はJSONだけで表示へ反映されます。
+
+各商品の `editorial_evaluation` はMARGIN独自の6軸を、1〜5の `level` と短い `note` で保持します。表示では数値を前面に出さず、細い線と編集コメントで傾向を示します。総合順位には変換しません。記事テンプレートの詳しい運用は `docs/Editorial-Template.md` を参照してください。

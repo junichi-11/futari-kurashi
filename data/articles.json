@@ -1,6 +1,6 @@
 {
-  "version": 1,
-  "updatedAt": "2026-07-15T00:00:00+09:00",
+  "version": 2,
+  "updatedAt": "2026-07-16T00:00:00+09:00",
   "articles": [
     {
       "id": "sofa-for-couples",
@@ -12,6 +12,10 @@
       "tags": ["ソファ", "ふたり暮らし", "新生活"],
       "path": "/articles/sofa-for-couples/",
       "image": "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=1600&q=88",
+      "heroImage": {
+        "url": "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=2200&q=88",
+        "alt": "自然光の入るリビングに置かれたソファ"
+      },
       "publishedAt": "2026-07-15",
       "updatedAt": "2026-07-16",
       "status": "published",
@@ -23,7 +27,43 @@
         "lowya-vg-mosa",
         "iwatsuki-iw-72-2p",
         "relax-form-alfredo-160"
-      ]
+      ],
+      "comparison": {
+        "title": "6つのソファを、暮らしの場面で比べる。",
+        "description": "優劣ではなく、ふたりの時間と部屋の条件を重ねるための見取り図です。",
+        "axes": [
+          { "id": "compact", "label": "コンパクトなLDK" },
+          { "id": "morning", "label": "休日の朝" },
+          { "id": "movie", "label": "映画・動画" },
+          { "id": "recline", "label": "横になる" },
+          { "id": "guests", "label": "来客" },
+          { "id": "care", "label": "手入れ" },
+          { "id": "delivery", "label": "搬入" },
+          { "id": "price", "label": "価格帯", "productField": "price" }
+        ],
+        "values": {
+          "veroman-45731341914": { "compact": "一脚ずつ置ける", "morning": "ひとり時間に", "movie": "別々の姿勢", "recline": "腰掛け中心", "guests": "席を増やせる", "care": "張地の確認を", "delivery": "幅73cm" },
+          "receno-agra-3seat": { "compact": "広さが必要", "morning": "深くくつろぐ", "movie": "姿勢を崩せる", "recline": "奥行100cm", "guests": "三人掛け", "care": "カバー着脱可", "delivery": "幅180cm" },
+          "norte-nrt-s-501517": { "compact": "動線を確保", "morning": "余白ある座面", "movie": "長時間向き", "recline": "幅180cm", "guests": "三人掛け", "care": "布張り", "delivery": "開梱設置" },
+          "lowya-vg-mosa": { "compact": "幅143cm", "morning": "低い目線", "movie": "背を調整", "recline": "ベッドにも", "guests": "可変しやすい", "care": "カバー非着脱", "delivery": "玄関先渡し" },
+          "iwatsuki-iw-72-2p": { "compact": "幅125cm", "morning": "端正な座り", "movie": "二人で並ぶ", "recline": "腰掛け中心", "guests": "二人掛け", "care": "拭き取りやすい", "delivery": "組立約30分" },
+          "relax-form-alfredo-160": { "compact": "中央置きも", "morning": "向きを選ばない", "movie": "デイベッド型", "recline": "横になりやすい", "guests": "多方向から", "care": "レザーテックス", "delivery": "大型便" }
+        }
+      },
+      "beforeYouChoose": [
+        { "label": "設置寸法", "text": "本体の外寸を床へ写し、通路とテーブルの余白まで見る。" },
+        { "label": "搬入経路", "text": "玄関、曲がり角、階段、エレベーターを梱包寸法でたどる。" },
+        { "label": "送料", "text": "地域追加料金、開梱設置、階段搬入の条件を注文前に確かめる。" },
+        { "label": "カバー・手入れ", "text": "着脱、洗濯、日常の拭き取りを無理なく続けられるか考える。" },
+        { "label": "価格・在庫", "text": "表示価格と在庫は変わるため、楽天の商品ページで最後に見直す。" }
+      ],
+      "closing": {
+        "eyebrow": "A place for two",
+        "title": "ソファを選ぶことは、休日の居場所を決めること。",
+        "body": "完璧な一脚は、ひとつに決まりません。静かな朝を長くしたいふたりと、夜更けまで映画を観たいふたりでは、心地よい深さも幅も変わります。選ぶのは家具でありながら、その先にある時間です。次の休日を思い浮かべたとき、自然に座っている場所を選べたなら、それがふたりにとっての答えなのだと思います。"
+      },
+      "relatedArticleIds": [],
+      "journalPath": "/#journal"
     }
   ]
 }

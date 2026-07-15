@@ -56,6 +56,8 @@ python -m http.server 8000
 
 詳細な登録・採点・公開判定・Selection Roleの運用は `docs/Product-Library.md` を参照してください。変更後は次を実行します。
 
+新しいPremium Editorial Articleを制作する際は、`docs/Editorial-Template.md` のデータ項目とコンポーネント構成を使用します。
+
 ```sh
 node scripts/validate-products.mjs
 ```

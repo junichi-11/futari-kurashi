@@ -41,6 +41,14 @@
       "editorial_copy": "同じ部屋で、別々にくつろぐ自由。",
       "editorial_body": "ふたり暮らしに、大きなソファがひとつ必要とは限りません。幅73cmの一人掛けなら、窓辺や本棚のそばへ居場所を分けられます。並ぶ時間と、ひとりで沈む時間。その両方を一つの部屋に残したい、小さなリビングのための選択です。必要ならもう一脚を足し、向きも自由に変えられます。",
       "suited_for": "一人ずつの居場所をつくりたい、コンパクトなリビング",
+      "editorial_evaluation": {
+        "Space": { "level": 5, "note": "一脚ずつ配置できる" },
+        "Together": { "level": 3, "note": "別々の姿勢を尊重" },
+        "Comfort": { "level": 3, "note": "深く腰掛ける一人席" },
+        "Care": { "level": 3, "note": "フランネルの日常ケア" },
+        "Delivery": { "level": 5, "note": "幅73cmの軽やかさ" },
+        "Longevity": { "level": 3, "note": "松材フレーム" }
+      },
       "rating": { "value": null, "scale": 5, "count": 0 },
       "product_score": { "EditorialFit": 8, "Design": 6, "Function": 8, "Price": 9, "Longevity": 6, "ReviewQuality": 8, "TotalScore": 75.0 },
       "pros": ["幅73cmで配置の自由度が高い", "フランネル生地と松材フレームを採用", "座面高約45cmで立ち座りしやすい"],
@@ -68,6 +76,14 @@
       "editorial_copy": "朝の予定を、少しだけ遅らせる。",
       "editorial_body": "奥行100cmの座面は、きちんと座るより、脚を上げたり横を向いたりする姿勢が似合います。コーヒーを置いて本をひらき、会話が途切れても気にならない。AGRAは、何もしない朝をふたりの習慣に変えるような、深さのあるソファです。低い座面が、部屋の視線も穏やかに整えます。",
       "suited_for": "休日の朝をソファで長く過ごしたい、余白のある間取り",
+      "editorial_evaluation": {
+        "Space": { "level": 2, "note": "奥行100cmの存在感" },
+        "Together": { "level": 5, "note": "姿勢を自由に変えられる" },
+        "Comfort": { "level": 5, "note": "フェザーに深く沈む" },
+        "Care": { "level": 4, "note": "背・座面カバーを外せる" },
+        "Delivery": { "level": 2, "note": "搬入寸法を丁寧に" },
+        "Longevity": { "level": 5, "note": "無垢材と交換可能なカバー" }
+      },
       "rating": { "value": 4.88, "scale": 5, "count": 8 },
       "product_score": { "EditorialFit": 9, "Design": 9, "Function": 8, "Price": 4, "Longevity": 9, "ReviewQuality": 5, "TotalScore": 73.3 },
       "pros": ["奥行100cmであぐらや横座りをしやすい", "クッションにフェザーとシリコンフィルを採用", "背・座面カバーを取り外せる"],
@@ -95,6 +111,14 @@
       "editorial_copy": "一本の映画を、姿勢を変えながら。",
       "editorial_body": "幅180cmの座面には、肩を寄せる時間と、少し離れて脚を伸ばす時間の両方があります。フェザーを含むクッションと複数の支持材が、長い上映時間の姿勢替えを受け止める。映画のあともそのまま話したくなる、夜の居場所です。開梱設置まで任せられることも、迎え入れやすさのひとつです。",
       "suited_for": "映画や配信作品を、ふたりでゆっくり観る夜",
+      "editorial_evaluation": {
+        "Space": { "level": 2, "note": "幅180cmの余白" },
+        "Together": { "level": 5, "note": "並んでも距離を保てる" },
+        "Comfort": { "level": 5, "note": "複層支持とフェザー" },
+        "Care": { "level": 3, "note": "布張りの定期ケア" },
+        "Delivery": { "level": 4, "note": "開梱設置に対応" },
+        "Longevity": { "level": 4, "note": "無垢材と複数の支持材" }
+      },
       "rating": { "value": 4.83, "scale": 5, "count": 6 },
       "product_score": { "EditorialFit": 8, "Design": 6, "Function": 9, "Price": 9, "Longevity": 8, "ReviewQuality": 9, "TotalScore": 81.7 },
       "pros": ["幅180cmの3人掛けでふたりに余白がある", "フェザー入り座面と複数の支持材を採用", "開梱設置配送に対応"],
@@ -122,6 +146,14 @@
       "editorial_copy": "木の脚が、部屋の呼吸を整える。",
       "editorial_body": "低い座面と細い木脚が、家具の輪郭を軽やかに見せます。肘と背を倒せば、昼寝や来客時の小さなベッドにも。主張の強い一脚ではなく、木や布の色を重ねた部屋へ静かになじむ、模様替えの余地を残すソファです。ワンルームでも、床の見える面積を確保しやすい佇まいです。",
       "suited_for": "木の家具や淡い色を基調にした、ナチュラルな住まい",
+      "editorial_evaluation": {
+        "Space": { "level": 4, "note": "幅143cmと低い視線" },
+        "Together": { "level": 4, "note": "背と肘を調整できる" },
+        "Comfort": { "level": 4, "note": "横になる形へ変わる" },
+        "Care": { "level": 2, "note": "カバーは外せない" },
+        "Delivery": { "level": 3, "note": "玄関先での受け取り" },
+        "Longevity": { "level": 3, "note": "可変機構をいたわる" }
+      },
       "rating": { "value": 4.08, "scale": 5, "count": 97 },
       "product_score": { "EditorialFit": 8, "Design": 8, "Function": 7, "Price": 7, "Longevity": 7, "ReviewQuality": 8, "TotalScore": 75.0 },
       "pros": ["幅143cmで二人掛けとして比較的コンパクト", "背と肘を倒してミニベッドとして使える", "張地とカラーの選択肢が多い"],
@@ -149,6 +181,14 @@
       "editorial_copy": "余白も予算も、使い切らない。",
       "editorial_body": "幅125cmの中に、ふたりで腰掛けられる座面幅を確保。合成皮革と天然木の組み合わせには、気負わないレトロさがあります。新生活の予算をソファだけに寄せず、照明や食卓にも残したい。そんな配分まで含めて考えやすい一脚です。軽やかな脚元は、掃除の動線にも小さな余白を残します。",
       "suited_for": "限られた広さと予算を、無理なく整えたい新生活",
+      "editorial_evaluation": {
+        "Space": { "level": 5, "note": "幅125cmに二人分" },
+        "Together": { "level": 3, "note": "端正に並ぶ座面" },
+        "Comfort": { "level": 3, "note": "ほどよく硬質な佇まい" },
+        "Care": { "level": 4, "note": "合成皮革を拭き取れる" },
+        "Delivery": { "level": 4, "note": "コンパクト、組立あり" },
+        "Longevity": { "level": 3, "note": "天然木の脚元" }
+      },
       "rating": { "value": null, "scale": 5, "count": 0 },
       "product_score": { "EditorialFit": 7, "Design": 7, "Function": 7, "Price": 10, "Longevity": 6, "ReviewQuality": 9, "TotalScore": 76.7 },
       "pros": ["幅125cmで座面幅110cmを確保", "合成皮革と天然木のレトロな組み合わせ", "北海道を含む送料無料設定"],
@@ -176,6 +216,14 @@
       "editorial_copy": "向きを決めないソファは、暮らしを決めつけない。",
       "editorial_body": "背の低いアイランド型は、壁際だけでなく部屋の中央にも置けます。座る、横になる、反対側から腰掛ける。暮らしの変化に合わせて使い方を更新できることが、長く使う家具の価値。素材と内部構造まで確かめて選びたい一脚です。住み替えのあとも、置き方を考え直せる自由があります。",
       "suited_for": "模様替えや住み替えの先まで、長く使える家具を選びたいふたり",
+      "editorial_evaluation": {
+        "Space": { "level": 3, "note": "中央置きで動線を分ける" },
+        "Together": { "level": 5, "note": "多方向から腰掛けられる" },
+        "Comfort": { "level": 5, "note": "デイベッドとして使える" },
+        "Care": { "level": 4, "note": "レザーテックスの扱いやすさ" },
+        "Delivery": { "level": 2, "note": "大型便の条件を確認" },
+        "Longevity": { "level": 5, "note": "高密度ウレタンとSバネ" }
+      },
       "rating": { "value": 4.28, "scale": 5, "count": 18 },
       "product_score": { "EditorialFit": 8, "Design": 7, "Function": 9, "Price": 5, "Longevity": 9, "ReviewQuality": 4, "TotalScore": 70.0 },
       "pros": ["幅160cmのデイベッド型で多方向から使える", "高密度ウレタンとSバネを採用", "関家具公式ストアで販売"],

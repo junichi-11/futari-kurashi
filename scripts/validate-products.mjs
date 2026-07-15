@@ -2,9 +2,12 @@ import { readFile } from "node:fs/promises";
 import process from "node:process";
 
 const libraryPath = new URL("../data/products.json", import.meta.url);
+const articlesPath = new URL("../data/articles.json", import.meta.url);
 const library = JSON.parse(await readFile(libraryPath, "utf8"));
+const articleData = JSON.parse(await readFile(articlesPath, "utf8"));
 const errors = [];
 const scoreKeys = ["EditorialFit", "Design", "Function", "Price", "Longevity", "ReviewQuality"];
+const evaluationKeys = ["Space", "Together", "Comfort", "Care", "Delivery", "Longevity"];
 const categoryNames = ["Living", "Dining", "Lighting", "Storage", "Kitchen", "Home Appliance", "Bedroom"];
 const sourceTypes = new Set(["manufacturer_direct", "brand_direct", "authorized_retailer"]);
 const sources = new Map(library.source_registry.map(source => [source.id, source]));
@@ -66,6 +69,10 @@ for (const product of library.products ?? []) {
   if (product.image_source_url !== source?.rakuten_url) errors.push(`${product.id}: image_source_url must match source rakuten_url`);
   if (!product.image_alt || !product.editorial_copy || !product.suited_for) errors.push(`${product.id}: editorial presentation is incomplete`);
   if (!product.editorial_body || product.editorial_body.length < 120 || product.editorial_body.length > 200) errors.push(`${product.id}: editorial_body must be 120-200 characters`);
+  for (const key of evaluationKeys) {
+    const evaluation = product.editorial_evaluation?.[key];
+    if (!Number.isInteger(evaluation?.level) || evaluation.level < 1 || evaluation.level > 5 || !evaluation.note) errors.push(`${product.id}: editorial_evaluation.${key} must have a 1-5 level and note`);
+  }
   for (const key of scoreKeys) {
     const value = product.product_score?.[key];
     if (!Number.isInteger(value) || value < 0 || value > 10) errors.push(`${product.id}: ${key} must be an integer from 0 to 10`);
@@ -83,9 +90,23 @@ for (const id of ids) {
   if (occurrences !== 1) errors.push(`${id}: must appear in exactly one category, found ${occurrences}`);
 }
 
+const articleIds = new Set(articleData.articles.map(article => article.id));
+for (const article of articleData.articles) {
+  if (!article.title || !article.subtitle || !article.category || !isHttps(article.heroImage?.url)) errors.push(`${article.id}: reusable article metadata is incomplete`);
+  if (!Array.isArray(article.productIds) || article.productIds.some(id => !ids.has(id))) errors.push(`${article.id}: productIds contain an unknown product`);
+  const axes = article.comparison?.axes ?? [];
+  if (axes.length === 0 || new Set(axes.map(axis => axis.id)).size !== axes.length) errors.push(`${article.id}: comparison axes are missing or duplicated`);
+  for (const productId of article.productIds ?? []) {
+    for (const axis of axes) if (!axis.productField && !article.comparison?.values?.[productId]?.[axis.id]) errors.push(`${article.id}: comparison value missing for ${productId}.${axis.id}`);
+  }
+  if (!Array.isArray(article.beforeYouChoose) || article.beforeYouChoose.length === 0 || article.beforeYouChoose.some(item => !item.label || !item.text)) errors.push(`${article.id}: beforeYouChoose is incomplete`);
+  if (!article.closing?.title || !article.closing?.body) errors.push(`${article.id}: closing copy is incomplete`);
+  if (!Array.isArray(article.relatedArticleIds) || article.relatedArticleIds.some(id => !articleIds.has(id) || id === article.id)) errors.push(`${article.id}: relatedArticleIds contain an invalid article`);
+}
+
 if (errors.length) {
   console.error(`Product Library validation failed (${errors.length})`);
   for (const error of errors) console.error(`- ${error}`);
   process.exit(1);
 }
-console.log(`Product Library valid: ${library.products.length} products, ${sources.size} sources, ${categoryNames.length} categories`);
+console.log(`Product Library valid: ${library.products.length} products, ${sources.size} sources, ${categoryNames.length} categories, ${articleData.articles.length} editorial template`);
