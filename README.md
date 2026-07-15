@@ -9,6 +9,8 @@
 - `data/articles.json` — 記事メタデータ
 - `data/products.json` — 掲載商品データ
 - `docs/` — 編集方針とリリース手順
+- `components/` — JSONから表示を生成する共通コンポーネント
+- `scripts/` — Product Libraryの検証コード
 - `robots.txt` / `sitemap.xml` — クローラー向け設定
 - `_headers` / `_redirects` — 静的ホスティング向け配信設定
 
@@ -51,5 +53,11 @@ python -m http.server 8000
 記事側では表示順を `data/articles.json` の `productIds` で管理します。Product Libraryの配列順には依存しません。
 
 初期6商品は第一号記事専用の候補です。将来30商品以上へ増やす際も、商品IDを不変にし、記事ごとの参照配列で採用範囲を分離します。
+
+詳細な登録・採点・公開判定・Selection Roleの運用は `docs/Product-Library.md` を参照してください。変更後は次を実行します。
+
+```sh
+node scripts/validate-products.mjs
+```
 
 公開URL: <https://futari-kurashi.vercel.app>

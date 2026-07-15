@@ -14,7 +14,7 @@
 <meta property="og:image" content="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=1600&q=88">
 <meta name="twitter:card" content="summary_large_image">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"Article","headline":"ふたり暮らしソファおすすめ6選","description":"Product Libraryで検証した6商品を、ふたりの過ごし方と部屋の余白から比較します。","datePublished":"2026-07-15","dateModified":"2026-07-15","inLanguage":"ja","mainEntityOfPage":"https://futari-kurashi.vercel.app/articles/sofa-for-couples/","image":"https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=1600&q=88","author":{"@type":"Organization","name":"MARGIN編集部"},"publisher":{"@type":"Organization","name":"MARGIN"}}
+{"@context":"https://schema.org","@type":"Article","headline":"ふたり暮らしソファおすすめ6選","description":"Product Libraryで検証した6商品を、ふたりの過ごし方と部屋の余白から比較します。","datePublished":"2026-07-15","dateModified":"2026-07-16","inLanguage":"ja","mainEntityOfPage":"https://futari-kurashi.vercel.app/articles/sofa-for-couples/","image":"https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=1600&q=88","author":{"@type":"Organization","name":"MARGIN編集部"},"publisher":{"@type":"Organization","name":"MARGIN"}}
 </script>
 <style>
 :root{--ink:#11120f;--paper:#f4f1ea;--muted:#6f716c;--line:rgba(17,18,15,.16);--accent:#9a6547;--serif:"Yu Mincho","Hiragino Mincho ProN",Georgia,serif;--sans:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic UI","Yu Gothic",sans-serif}
@@ -38,7 +38,7 @@
   <div class="article">
     <h2 id="selection"><span class="eyebrow">01 / Selection</span><br>ふたり暮らしに選ぶ、6つのソファ。</h2>
     <p>価格は2026年7月15日の確認時点です。順位ではなく、ふたりの住まい方に対応する6つのSelection Roleで整理しています。商品情報はProduct Libraryを正本とします。</p>
-    <div class="product-list" id="product-list" aria-live="polite"><p class="product-status">Product Libraryを読み込んでいます。</p></div>
+    <margin-product-list class="product-list" article-id="sofa-for-couples"></margin-product-list>
     <noscript><p class="note">商品一覧の表示にはJavaScriptが必要です。選び方の本文は引き続きお読みいただけます。</p></noscript>
     <h2 id="scene"><span class="eyebrow">02 / Scene</span><br>まず、ふたりがどう過ごすか。</h2>
     <p>ソファ選びの出発点は、人数ではなく場面です。並んで映画を見るのか、片方が横になり、もう片方が床に座るのか。食後の短い休憩が中心なのか、休日の大半をここで過ごすのか。よくある時間を具体的にすると、必要な奥行きや肘掛けの形が見えてきます。</p>
@@ -61,26 +61,6 @@
 </article>
 </main>
 <footer class="footer"><div class="footer-inner"><a href="/">MARGIN</a><span>余白から考える、ふたり暮らしの選択。</span><span>© 2026 MARGIN</span></div></footer>
-<script>
-const productIds=["tansu-no-gen-3way-sofa-bed-100","receno-noana-2seat-natural","cellutane-waraku-kiwami-2p","lowya-f201-g1003-2-5seat","kagu350-vintage-2p-g11212","sekikagu-sweet-2p-leather"];
-const previewMode=new URLSearchParams(location.search).get("preview")==="1";
-const escapeHtml=value=>String(value).replace(/[&<>'"]/g,char=>({"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;",'"':"&quot;"}[char]));
-const formatPrice=price=>new Intl.NumberFormat("ja-JP",{style:"currency",currency:price.currency,maximumFractionDigits:0}).format(price.amount);
-const renderList=items=>items.map((item,index)=>{
-  const rating=item.rating&&item.rating.value!==null?`★ ${item.rating.value} / ${item.rating.scale}（${item.rating.count}件）`:item.rating&&item.rating.count?`評価集計前（${item.rating.count}件）`:"レビューなし";
-  const link=item.affiliate_url||item.official_url;
-  const pros=item.pros.map(value=>`<li>${escapeHtml(value)}</li>`).join("");
-  const cons=item.cons.map(value=>`<li>${escapeHtml(value)}</li>`).join("");
-  return `<section class="product-card" data-product-id="${escapeHtml(item.id)}"><div class="product-card__meta"><span>${escapeHtml(item.selection_role)} / ${escapeHtml(item.brand)}</span><span>${escapeHtml(formatPrice(item.price))} · ${escapeHtml(rating)}</span></div><h3>${escapeHtml(item.name)}</h3><p class="product-card__summary">${escapeHtml(item.summary)}</p><div class="product-card__facts"><div><strong>Pros</strong><ul>${pros}</ul></div><div><strong>Cons</strong><ul>${cons}</ul></div></div><a class="product-card__link" href="${escapeHtml(link)}" target="_blank" rel="noopener noreferrer${item.affiliate_url?" sponsored":""}">${item.affiliate_url?"楽天市場で確認する":"Preview: 商品ページを確認する"} ↗</a></section>`;
-}).join("");
-fetch("/data/products.json").then(response=>{if(!response.ok)throw new Error(`HTTP ${response.status}`);return response.json()}).then(library=>{
-  const eligible=library.products.filter(item=>item.publishable||(previewMode&&item.official_url));
-  const byId=new Map(eligible.map(item=>[item.id,item]));
-  const products=productIds.map(id=>byId.get(id)).filter(Boolean);
-  if(!previewMode&&products.length===0){document.getElementById("product-list").innerHTML='<p class="product-status">商品リンクの準備中です。公開可能になり次第、6つのSelection Roleを掲載します。</p>';return}
-  if(products.length!==productIds.length)throw new Error("表示可能な商品データが不足しています");
-  document.getElementById("product-list").innerHTML=renderList(products);
-}).catch(error=>{console.error("Product Library load failed",error);document.getElementById("product-list").innerHTML='<p class="product-status">商品情報を読み込めませんでした。時間をおいて再度お試しください。</p>'});
-</script>
+<script type="module" src="/components/product-card.js"></script>
 </body>
 </html>
