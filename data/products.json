@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "updatedAt": "2026-07-15T00:00:00+09:00",
+  "products": [],
+  "schema": {
+    "required": ["id", "name", "category", "url", "status"],
+    "optional": ["brand", "description", "image", "priceNote", "affiliate", "articleIds", "checkedAt"],
+    "statusValues": ["draft", "published", "unavailable"]
+  }
+}

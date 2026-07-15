@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "updatedAt": "2026-07-15T00:00:00+09:00",
+  "articles": [
+    {
+      "id": "sofa-for-couples",
+      "slug": "sofa-for-couples",
+      "title": "ふたり暮らしのソファ選び｜サイズより先に考えたい5つのこと",
+      "description": "新婚・同棲のふたり暮らしに合うソファの選び方を、5つの視点から整理します。",
+      "category": "living",
+      "tags": ["ソファ", "ふたり暮らし", "新生活"],
+      "path": "/articles/sofa-for-couples/",
+      "image": "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=1600&q=88",
+      "publishedAt": "2026-07-15",
+      "updatedAt": "2026-07-15",
+      "status": "published",
+      "author": "MARGIN編集部",
+      "productIds": []
+    }
+  ]
+}
