@@ -5,8 +5,8 @@
     {
       "id": "sofa-for-couples",
       "slug": "sofa-for-couples",
-      "title": "ふたり暮らしのソファ選び｜サイズより先に考えたい5つのこと",
-      "description": "新婚・同棲のふたり暮らしに合うソファの選び方を、5つの視点から整理します。",
+      "title": "ふたり暮らしソファおすすめ6選",
+      "description": "Product Libraryで検証した6商品を、ふたりの過ごし方と部屋の余白から比較します。",
       "category": "living",
       "tags": ["ソファ", "ふたり暮らし", "新生活"],
       "path": "/articles/sofa-for-couples/",
@@ -15,7 +15,14 @@
       "updatedAt": "2026-07-15",
       "status": "published",
       "author": "MARGIN編集部",
-      "productIds": []
+      "productIds": [
+        "tansu-no-gen-3way-sofa-bed-100",
+        "receno-noana-2seat-natural",
+        "cellutane-waraku-kiwami-2p",
+        "lowya-f201-g1003-2-5seat",
+        "kagu350-vintage-2p-g11212",
+        "sekikagu-sweet-2p-leather"
+      ]
     }
   ]
 }
