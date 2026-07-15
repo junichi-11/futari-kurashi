@@ -30,7 +30,7 @@ Product Scoreの各項目は0〜10の整数で採点します。`TotalScore` は
 
 `scripts/validate-products.mjs` が次の条件をコードとして検証します。
 
-- `affiliate_url` が有効なHTTPS URLである
+- `affiliate_url` が楽天アフィリエイトの有効なHTTPS URLであり、`pc` パラメーターの遷移先がSource Registryの `rakuten_url` と一致する
 - `source_id` が完全なSource Registryを参照している
 - `official_url` と `rakuten_url` がHTTPSである
 - 出典確認が30日以内である
@@ -39,6 +39,8 @@ Product Scoreの各項目は0〜10の整数で採点します。`TotalScore` は
 - Product Scoreが正しく、`TotalScore` が60点以上である
 
 全条件を満たす場合だけ `publishable: true` にします。条件を満たす商品を `false` のままにすることも、条件不足の商品を `true` にすることも検証エラーです。アフィリエイトURL未設定の商品はPreviewのみ表示でき、Productionには出ません。
+
+商品カードの外部リンクは `affiliate_url` を最優先し、`target="_blank"` と `rel="nofollow sponsored noopener"` を付けます。価格・送料・在庫・レビューは変動するため、記事の広告表記と販売ページで最新情報を確認する注意書きを維持します。
 
 ## Selection Role運用
 

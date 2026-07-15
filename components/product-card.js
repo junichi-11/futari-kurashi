@@ -64,7 +64,7 @@ class MarginProductList extends HTMLElement {
     const link = element("a", "product-card__link", product.affiliate_url ? "楽天市場で確認する ↗" : "Preview: 出典ページを確認する ↗");
     link.href = product.affiliate_url || (preview ? source?.rakuten_url : "");
     link.target = "_blank";
-    link.rel = product.affiliate_url ? "noopener noreferrer sponsored" : "noopener noreferrer";
+    link.rel = product.affiliate_url ? "nofollow sponsored noopener" : "nofollow noopener";
     card.append(meta, element("h3", "", product.name), element("p", "product-card__summary", product.summary), element("p", "product-card__rating", rating), facts, link);
     return card;
   }

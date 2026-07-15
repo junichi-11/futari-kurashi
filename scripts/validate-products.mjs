@@ -14,6 +14,13 @@ const isHttps = value => {
   try { return new URL(value).protocol === "https:"; } catch { return false; }
 };
 
+const affiliateDestination = value => {
+  try {
+    const url = new URL(value);
+    return url.hostname === "hb.afl.rakuten.co.jp" ? url.searchParams.get("pc") : null;
+  } catch { return null; }
+};
+
 const verifiedWithinDays = (value, days = 30) => {
   const verified = Date.parse(value);
   return Number.isFinite(verified) && Date.now() - verified <= days * 86400000;
@@ -22,6 +29,7 @@ const verifiedWithinDays = (value, days = 30) => {
 export const publishability = (product, source) => {
   const reasons = [];
   if (!product.affiliate_url || !isHttps(product.affiliate_url)) reasons.push("affiliate_url_missing");
+  if (product.affiliate_url && affiliateDestination(product.affiliate_url) !== source?.rakuten_url) reasons.push("affiliate_destination_mismatch");
   if (!source) reasons.push("source_missing");
   if (source && !isHttps(source.rakuten_url)) reasons.push("rakuten_url_invalid");
   if (source && !isHttps(source.official_url)) reasons.push("official_url_invalid");
