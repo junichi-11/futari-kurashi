@@ -11,13 +11,17 @@ const element = (tag, className, text) => {
   return node;
 };
 
-const renderFacts = (label, values) => {
-  const wrapper = element("div");
-  wrapper.append(element("strong", "", label));
-  const list = element("ul");
-  for (const value of values) list.append(element("li", "", value));
-  wrapper.append(list);
-  return wrapper;
+const formatDimensions = dimensions => [
+  `幅${dimensions.width_cm}cm`,
+  `奥行${dimensions.depth_cm}cm`,
+  `高さ${dimensions.height_cm}cm`,
+  dimensions.seat_height_cm ? `座面高${dimensions.seat_height_cm}cm` : null
+].filter(Boolean).join(" × ");
+
+const renderDetail = (label, value) => {
+  const row = element("div", "product-story__detail");
+  row.append(element("dt", "", label), element("dd", "", value));
+  return row;
 };
 
 class MarginProductList extends HTMLElement {
@@ -41,32 +45,47 @@ class MarginProductList extends HTMLElement {
         this.replaceChildren(element("p", "product-status", "商品リンクの準備中です。公開可能になり次第掲載します。"));
         return;
       }
-      this.replaceChildren(...selected.map(product => this.renderCard(product, sources.get(product.source_id), preview)));
+      this.replaceChildren(...selected.map((product, index) => this.renderStory(product, sources.get(product.source_id), preview, index)));
     } catch (error) {
       console.error("Product Library load failed", error);
       this.replaceChildren(element("p", "product-status", "商品情報を読み込めませんでした。時間をおいて再度お試しください。"));
     }
   }
 
-  renderCard(product, source, preview) {
-    const card = element("section", "product-card");
-    card.dataset.productId = product.id;
-    const meta = element("div", "product-card__meta");
-    meta.append(
-      element("span", "", `${product.selection_role} / ${product.brand}`),
-      element("span", "", `${formatPrice(product.price)} · Score ${product.product_score.TotalScore}`)
+  renderStory(product, source, preview, index) {
+    const story = element("section", "product-story");
+    story.dataset.productId = product.id;
+    story.dataset.position = index % 2 === 0 ? "image-left" : "image-right";
+
+    const media = element("figure", "product-story__media");
+    const image = element("img");
+    image.src = product.image_url;
+    image.alt = product.image_alt;
+    image.loading = index === 0 ? "eager" : "lazy";
+    image.decoding = "async";
+    media.append(image);
+
+    const copy = element("div", "product-story__copy");
+    const role = element("p", "product-story__role", `${String(index + 1).padStart(2, "0")} / ${product.selection_role}`);
+    const title = element("h3", "", product.name);
+    const scene = element("p", "product-story__scene", product.editorial_copy);
+    const body = element("p", "product-story__body", product.editorial_body);
+    const details = element("dl", "product-story__details");
+    details.append(
+      renderDetail("Price", `${formatPrice(product.price)}${product.price.from ? "〜" : ""}`),
+      renderDetail("Size", formatDimensions(product.dimensions)),
+      renderDetail("Material", product.materials.join("、")),
+      renderDetail("For", product.suited_for),
+      renderDetail("Note", product.cons.join("。")),
+      renderDetail("Updated", new Intl.DateTimeFormat("ja-JP", { dateStyle: "medium" }).format(new Date(source.last_verified)))
     );
-    const rating = product.rating?.value !== null
-      ? `★ ${product.rating.value} / ${product.rating.scale}（${product.rating.count}件）`
-      : product.rating?.count ? `評価集計前（${product.rating.count}件）` : "レビューなし";
-    const facts = element("div", "product-card__facts");
-    facts.append(renderFacts("Pros", product.pros), renderFacts("Cons", product.cons));
-    const link = element("a", "product-card__link", product.affiliate_url ? "楽天市場で確認する ↗" : "Preview: 出典ページを確認する ↗");
+    const link = element("a", "product-story__link", product.affiliate_url ? "楽天市場で商品を見る ↗" : "Preview: 出典ページを見る ↗");
     link.href = product.affiliate_url || (preview ? source?.rakuten_url : "");
     link.target = "_blank";
     link.rel = product.affiliate_url ? "nofollow sponsored noopener" : "nofollow noopener";
-    card.append(meta, element("h3", "", product.name), element("p", "product-card__summary", product.summary), element("p", "product-card__rating", rating), facts, link);
-    return card;
+    copy.append(role, title, scene, body, details, link);
+    story.append(media, copy);
+    return story;
   }
 }
 

@@ -6,6 +6,7 @@
 - [ ] 広告、提供、アフィリエイトの表示が明瞭である
 - [ ] 記事HTMLと `data/articles.json` のメタデータが一致している
 - [ ] 公開商品のURL、仕様、在庫、画像利用条件、Source Registryの `last_verified` を確認した
+- [ ] `image_url` が対応商品の楽天提供画像であり、ローカルへ保存・再配布していない
 - [ ] `node scripts/validate-products.mjs` が成功した
 - [ ] Productionでは `publishable: true` の商品だけが表示され、Preview（`?preview=1`）は確認用途に限定されている
 - [ ] 全アフィリエイトURLの `pc` 遷移先が、対応するSource Registryの `rakuten_url` と一致している

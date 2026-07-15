@@ -21,6 +21,10 @@ const affiliateDestination = value => {
   } catch { return null; }
 };
 
+const isRakutenImage = value => {
+  try { return new URL(value).hostname === "shop.r10s.jp"; } catch { return false; }
+};
+
 const verifiedWithinDays = (value, days = 30) => {
   const verified = Date.parse(value);
   return Number.isFinite(verified) && Date.now() - verified <= days * 86400000;
@@ -58,6 +62,10 @@ for (const product of library.products ?? []) {
   if (!categoryNames.includes(product.category)) errors.push(`${product.id}: invalid category`);
   if (!library.categories?.[product.category]?.includes(product.id)) errors.push(`${product.id}: missing from categories.${product.category}`);
   const source = sources.get(product.source_id);
+  if (!isRakutenImage(product.image_url)) errors.push(`${product.id}: image_url must use the Rakuten image host`);
+  if (product.image_source_url !== source?.rakuten_url) errors.push(`${product.id}: image_source_url must match source rakuten_url`);
+  if (!product.image_alt || !product.editorial_copy || !product.suited_for) errors.push(`${product.id}: editorial presentation is incomplete`);
+  if (!product.editorial_body || product.editorial_body.length < 120 || product.editorial_body.length > 200) errors.push(`${product.id}: editorial_body must be 120-200 characters`);
   for (const key of scoreKeys) {
     const value = product.product_score?.[key];
     if (!Number.isInteger(value) || value < 0 || value > 10) errors.push(`${product.id}: ${key} must be an integer from 0 to 10`);
