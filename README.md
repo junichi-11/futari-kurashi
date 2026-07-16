@@ -11,6 +11,7 @@
 - `docs/` — 編集方針とリリース手順
 - `components/` — JSONから表示を生成する共通コンポーネント
 - `scripts/` — Product Libraryの検証コード
+- `mos/` — MARGIN Operating Systemの運営・編集・商品・制作ルール
 - `robots.txt` / `sitemap.xml` — クローラー向け設定
 - `_headers` / `_redirects` — 静的ホスティング向け配信設定
 
@@ -70,3 +71,16 @@ node scripts/validate-products.mjs
 ローカルでは通常URLと `http://localhost:8000/articles/sofa-for-couples/?preview=1` の両方で6商品のカードを確認できます。商品情報の更新後は、楽天アフィリエイトURLの遷移先と出典を再確認し、Validationを再実行してください。
 
 公開URL: <https://futari-kurashi.vercel.app>
+
+## MOSとNotion同期
+
+MOSはGitHubで履歴管理し、Notionには識別可能な管理対象セクションだけを同期します。初期状態はdry-run専用で、Notionページ全体の置換や管理範囲外ブロックの削除は行いません。
+
+```sh
+npm run notion:validate
+npm run test:notion
+npm run notion:check
+npm run notion:dry-run
+```
+
+セットアップとapply前の確認は `docs/Notion-Sync-Setup.md` を参照してください。Tokenと実ページIDはコミットしません。

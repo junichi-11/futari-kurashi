@@ -1,0 +1,12 @@
+{
+  "name": "margin-editorial",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "notion:validate": "node scripts/notion-sync.mjs validate",
+    "notion:check": "node scripts/notion-sync.mjs check",
+    "notion:dry-run": "node scripts/notion-sync.mjs dry-run",
+    "notion:sync": "node scripts/notion-sync.mjs sync",
+    "test:notion": "node --test tests/notion-sync.test.mjs"
+  }
+}
