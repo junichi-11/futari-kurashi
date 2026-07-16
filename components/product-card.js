@@ -120,6 +120,8 @@ class MarginProductList extends HTMLElement {
     image.alt = product.image_alt;
     image.loading = index === 0 ? "eager" : "lazy";
     image.decoding = "async";
+    image.style.objectFit = product.image_display?.fit ?? "contain";
+    image.style.objectPosition = product.image_display?.position ?? "center";
     media.append(image);
 
     const copy = element("div", "product-story__copy");
@@ -161,8 +163,8 @@ class MarginArticleExtras extends HTMLElement {
       this.hydrateShell(article);
       const mode = this.getAttribute("mode") ?? "all";
       if (mode === "comparison") this.replaceChildren(this.renderComparison(article, selected));
-      else if (mode === "footer") this.replaceChildren(this.renderBeforeYouChoose(article), this.renderClosing(article), this.renderRelated(article, articleData.articles));
-      else this.replaceChildren(this.renderComparison(article, selected), this.renderBeforeYouChoose(article), this.renderClosing(article), this.renderRelated(article, articleData.articles));
+      else if (mode === "footer") this.replaceChildren(this.renderBeforeYouChoose(article), this.renderClosing(article), this.renderEditorsNote(article), this.renderRelated(article, articleData.articles));
+      else this.replaceChildren(this.renderComparison(article, selected), this.renderBeforeYouChoose(article), this.renderClosing(article), this.renderEditorsNote(article), this.renderRelated(article, articleData.articles));
     } catch (error) {
       console.error("Article extras load failed", error);
       this.replaceChildren(element("p", "product-status", "記事情報を読み込めませんでした。"));
@@ -234,6 +236,14 @@ class MarginArticleExtras extends HTMLElement {
   renderClosing(article) {
     const section = element("section", "closing-copy");
     section.append(element("p", "eyebrow", article.closing.eyebrow), element("h2", "", article.closing.title), element("p", "", article.closing.body));
+    return section;
+  }
+
+  renderEditorsNote(article) {
+    const section = element("aside", "editors-note");
+    const copy = element("div", "editors-note__copy");
+    copy.append(element("p", "eyebrow", article.editorsNote.eyebrow), element("h2", "", article.editorsNote.title), element("p", "", article.editorsNote.body));
+    section.append(copy, element("p", "editors-note__signature", article.editorsNote.signature));
     return section;
   }
 

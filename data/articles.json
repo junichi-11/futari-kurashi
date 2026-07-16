@@ -20,6 +20,8 @@
       "updatedAt": "2026-07-16",
       "status": "published",
       "author": "MARGIN編集部",
+      "readingTime": "12 min read",
+      "featuredLabel": "Editor's Choice",
       "productIds": [
         "receno-agra-3seat",
         "armonia-nube-couch",
@@ -79,6 +81,12 @@
         "eyebrow": "A place for two",
         "title": "ソファを選ぶことは、休日の居場所を決めること。",
         "body": "完璧な一脚は、ひとつに決まりません。静かな朝を長くしたいふたりと、夜更けまで映画を観たいふたりでは、心地よい深さも幅も変わります。選ぶのは家具でありながら、その先にある時間です。次の休日を思い浮かべたとき、自然に座っている場所を選べたなら、それがふたりにとっての答えなのだと思います。"
+      },
+      "editorsNote": {
+        "eyebrow": "Editor's Note",
+        "title": "選ぶためではなく、暮らしを想像するために。",
+        "body": "十二脚を同じ尺度へ押し込めず、朝の光、映画の夜、部屋に残る動線から見直しました。商品情報は変わりますが、ふたりが過ごしたい時間を先に考えるという基準は変わりません。この記事が、買うことを急がず、次の休日を思い描くための小さな余白になれば幸いです。",
+        "signature": "MARGIN Editorial Team"
       },
       "relatedArticleIds": [],
       "journalPath": "/#journal"

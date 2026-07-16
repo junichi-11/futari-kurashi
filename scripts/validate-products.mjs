@@ -66,6 +66,7 @@ for (const product of library.products ?? []) {
   if (!library.categories?.[product.category]?.includes(product.id)) errors.push(`${product.id}: missing from categories.${product.category}`);
   const source = sources.get(product.source_id);
   if (!isRakutenImage(product.image_url)) errors.push(`${product.id}: image_url must use the Rakuten image host`);
+  if (!['cover', 'contain'].includes(product.image_display?.fit) || !product.image_display?.position) errors.push(`${product.id}: image_display must define fit and position`);
   if (product.image_source_url !== source?.rakuten_url) errors.push(`${product.id}: image_source_url must match source rakuten_url`);
   if (!product.image_alt || !product.editorial_copy || !product.suited_for) errors.push(`${product.id}: editorial presentation is incomplete`);
   if (!product.editorial_body || product.editorial_body.length < 120 || product.editorial_body.length > 200) errors.push(`${product.id}: editorial_body must be 120-200 characters`);
@@ -104,6 +105,7 @@ for (const article of articleData.articles) {
   }
   if (!Array.isArray(article.beforeYouChoose) || article.beforeYouChoose.length === 0 || article.beforeYouChoose.some(item => !item.label || !item.text)) errors.push(`${article.id}: beforeYouChoose is incomplete`);
   if (!article.closing?.title || !article.closing?.body) errors.push(`${article.id}: closing copy is incomplete`);
+  if (!article.editorsNote?.title || !article.editorsNote?.body || !article.editorsNote?.signature) errors.push(`${article.id}: editorsNote is incomplete`);
   if (!Array.isArray(article.relatedArticleIds) || article.relatedArticleIds.some(id => !articleIds.has(id) || id === article.id)) errors.push(`${article.id}: relatedArticleIds contain an invalid article`);
 }
 
