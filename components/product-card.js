@@ -135,13 +135,25 @@ class MarginProductList extends HTMLElement {
 
     const media = element("figure", "product-story__media");
     const image = element("img");
-    image.src = product.image_url;
+    const canUseVisualization = product.active_image_source === "editorial_visualization"
+      && product.visualization_review_status === "approved"
+      && product.visualization_identity_check === "pass"
+      && product.editorial_visualization_url;
+    image.src = canUseVisualization ? product.editorial_visualization_url : (product.source_image_url || product.image_url);
     image.alt = product.image_alt;
     image.loading = index === 0 ? "eager" : "lazy";
     image.decoding = "async";
     image.style.objectFit = product.image_display?.fit ?? "contain";
     image.style.objectPosition = product.image_display?.position ?? "center";
     media.append(image);
+    if (canUseVisualization) {
+      const disclosure = element("figcaption", "product-story__visualization-disclosure");
+      disclosure.append(
+        element("strong", "", product.visualization_label || "MARGIN編集イメージ"),
+        element("span", "", "商品形状・色・仕様は販売ページでご確認ください。")
+      );
+      media.append(disclosure);
+    }
 
     const copy = element("div", "product-story__copy");
     const role = element("p", "product-story__role", `${String(index + 1).padStart(2, "0")} / ${product.selection_role}`);
@@ -171,7 +183,42 @@ class MarginProductList extends HTMLElement {
     commerce.append(commerceMeta, link, element("p", "product-story__price-note", "価格・在庫・送料は変動します。購入前に楽天の商品ページで最新情報をご確認ください。"));
     copy.append(role, title, scene, body, renderList("こんな人におすすめ", product.recommended_for, "product-story__recommend"), renderList("気になる点", product.purchase_notes, "product-story__concerns"), editorComment, renderEvaluation(product), details, commerce);
     story.append(media, copy);
+    if (preview && product.visualization_candidates?.length) story.append(this.renderVisualizationReview(product, source));
     return story;
+  }
+
+  renderVisualizationReview(product, source) {
+    const review = element("aside", "visualization-review");
+    review.setAttribute("aria-label", `${product.name} Product Visualization Pilot`);
+    const head = element("header", "visualization-review__head");
+    head.append(
+      element("p", "eyebrow", "Preview only / Product Visualization Pilot"),
+      element("h4", "", "AGRA 編集ビジュアル・レビュー"),
+      element("p", "", "商品画像の入力利用権限が未確認のため、候補画像は生成していません。Productionでは正式な商品画像を維持します。")
+    );
+    const original = element("a", "visualization-review__original", "Original referenceを確認 ↗");
+    original.href = source?.rakuten_url || product.image_source_url;
+    original.target = "_blank";
+    original.rel = "nofollow noopener";
+    head.append(original);
+    const grid = element("div", "visualization-review__grid");
+    for (const candidate of product.visualization_candidates.slice(0, 3)) {
+      const card = element("section", "visualization-review__candidate");
+      card.append(
+        element("span", "visualization-review__id", candidate.id),
+        element("h5", "", candidate.concept),
+        element("p", "", "Not generated — rights confirmation required"),
+        element("dl", "visualization-review__status")
+      );
+      const status = card.querySelector("dl");
+      status.append(
+        renderDetail("Identity", product.visualization_identity_check),
+        renderDetail("Review", product.visualization_review_status)
+      );
+      grid.append(card);
+    }
+    review.append(head, grid, element("p", "visualization-review__label", "MARGIN編集イメージ候補 — 商品形状・色・仕様は販売ページでご確認ください。"));
+    return review;
   }
 }
 

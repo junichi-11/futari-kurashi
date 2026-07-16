@@ -68,6 +68,13 @@ for (const product of library.products ?? []) {
   if (!isRakutenImage(product.image_url)) errors.push(`${product.id}: image_url must use the Rakuten image host`);
   if (!['cover', 'contain'].includes(product.image_display?.fit) || !product.image_display?.position) errors.push(`${product.id}: image_display must define fit and position`);
   if (product.image_source_url !== source?.rakuten_url) errors.push(`${product.id}: image_source_url must match source rakuten_url`);
+  if (product.active_image_source) {
+    if (!['source', 'editorial_visualization'].includes(product.active_image_source)) errors.push(`${product.id}: active_image_source is invalid`);
+    if (product.source_image_url !== product.image_url || product.original_product_image_url !== product.image_url) errors.push(`${product.id}: source and original image URLs must preserve image_url`);
+    if ((product.visualization_candidates?.length ?? 0) > 3) errors.push(`${product.id}: visualization_candidates must contain at most 3 entries`);
+    if (product.active_image_source === 'editorial_visualization' && (!product.editorial_visualization_url || product.visualization_review_status !== 'approved' || product.visualization_identity_check !== 'pass')) errors.push(`${product.id}: editorial visualization requires URL, approval, and identity pass`);
+    if (product.active_image_source === 'source' && product.image_type !== 'source_product_image') errors.push(`${product.id}: source image must use source_product_image type`);
+  }
   if (!product.image_alt || !product.editorial_copy || !product.suited_for) errors.push(`${product.id}: editorial presentation is incomplete`);
   if (!product.editorial_body || product.editorial_body.length < 180 || product.editorial_body.length > 420) errors.push(`${product.id}: editorial_body must be 180-420 characters`);
   if (!Array.isArray(product.recommended_for) || product.recommended_for.length < 3) errors.push(`${product.id}: recommended_for must contain at least 3 entries`);

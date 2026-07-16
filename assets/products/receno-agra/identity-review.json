@@ -1,0 +1,25 @@
+{
+  "product_id": "receno-agra-3seat",
+  "review_status": "not_started",
+  "publication_status": "blocked",
+  "blocker": "Source image rights for generative input and derivative publication are not confirmed.",
+  "candidates": {
+    "A": { "concept": "Gallery White", "status": "not_generated", "checks": null },
+    "B": { "concept": "Quiet Morning", "status": "not_generated", "checks": null },
+    "C": { "concept": "Material Focus", "status": "not_generated", "checks": null }
+  },
+  "required_checks": [
+    "overall_silhouette",
+    "back_cushion_count_and_shape",
+    "seat_cushion_count_and_thickness",
+    "arm_shape",
+    "leg_shape_and_position",
+    "wood_frame_position_and_color",
+    "upholstery_color_and_texture",
+    "height_ratio",
+    "depth_ratio",
+    "product_specific_details"
+  ],
+  "allowed_results": ["MATCH", "MINOR DIFFERENCE", "FAIL"],
+  "approval_rule": "Every check must be MATCH or MINOR DIFFERENCE and a human reviewer must approve the selected candidate."
+}

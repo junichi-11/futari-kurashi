@@ -245,6 +245,36 @@
       "affiliate_url": "https://hb.afl.rakuten.co.jp/ichiba/55c6fbf3.953dbcb9.55c6fbff.8142cf51/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Freceno%2Fagra3-s%2F&link_type=picttext&ut=eyJwYWdlIjoiaXRlbSIsInR5cGUiOiJwaWN0dGV4dCIsInNpemUiOiIyNDB4MjQwIiwibmFtIjoxLCJuYW1wIjoicmlnaHQiLCJjb20iOjEsImNvbXAiOiJkb3duIiwicHJpY2UiOjEsImJvciI6MSwiY29sIjoxLCJiYnRuIjoxLCJwcm9kIjowLCJhbXAiOmZhbHNlfQ%3D%3D",
       "official_url": "https://item.rakuten.co.jp/receno/agra3-s/",
       "image_url": "https://shop.r10s.jp/receno/cabinet/three2/agra3/img/0000056524020.jpg",
+      "image_type": "source_product_image",
+      "source_image_url": "https://shop.r10s.jp/receno/cabinet/three2/agra3/img/0000056524020.jpg",
+      "editorial_visualization_url": null,
+      "active_image_source": "source",
+      "visualization_label": "MARGIN編集イメージ",
+      "visualization_source": null,
+      "visualization_created_at": null,
+      "visualization_review_status": "blocked_rights_confirmation",
+      "visualization_identity_check": "not_run",
+      "original_product_image_url": "https://shop.r10s.jp/receno/cabinet/three2/agra3/img/0000056524020.jpg",
+      "visualization_candidates": [
+        {
+          "id": "A",
+          "concept": "Gallery White",
+          "url": null,
+          "status": "not_generated"
+        },
+        {
+          "id": "B",
+          "concept": "Quiet Morning",
+          "url": null,
+          "status": "not_generated"
+        },
+        {
+          "id": "C",
+          "concept": "Material Focus",
+          "url": null,
+          "status": "not_generated"
+        }
+      ],
       "image_display": {
         "fit": "contain",
         "position": "center center"

@@ -100,6 +100,16 @@ documents:
     last_reviewed: 2026-07-16
     owner: MARGIN Editorial
     tags: [editorial, ui]
+  - id: product-visualization-guideline
+    title: Product Visualization Guideline
+    source_path: mos/editorial/product-visualization-guideline.md
+    notion_page_id_env: NOTION_PAGE_PRODUCT_VISUALIZATION
+    sync_mode: create_child_page
+    order: 25
+    enabled: true
+    last_reviewed: 2026-07-16
+    owner: MARGIN Editorial
+    tags: [editorial, image, ai, rights]
   - id: product-library
     title: Product Library
     source_path: mos/product/product-library.md
