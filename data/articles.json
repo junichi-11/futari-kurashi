@@ -22,6 +22,7 @@
       "author": "MARGIN編集部",
       "readingTime": "12 min read",
       "featuredLabel": "Editor's Choice",
+      "heroEditorsNote": "家具は毎日見るものだから、価格や評判だけでなく、何年好きでいられるかを大切にしました。十二脚を同じ物差しで競わせず、朝の光、ふたりの姿勢、部屋に残る余白まで想像しながら選んでいます。答えを急がず、次の休日を思い浮かべながら読んでください。",
       "productIds": [
         "receno-agra-3seat",
         "armonia-nube-couch",
@@ -89,6 +90,11 @@
         "signature": "MARGIN Editorial Team"
       },
       "relatedArticleIds": [],
+      "comingSoon": [
+        { "title": "食卓の距離を決める、ダイニングテーブル。", "subtitle": "ふたりの食事と仕事を受け止める一台を考えます。" },
+        { "title": "夜の輪郭を整える、照明。", "subtitle": "明るさではなく、過ごしたい時間から選ぶ灯り。" },
+        { "title": "一日の終わりを預ける、ベッド。", "subtitle": "眠りと部屋の余白を両立するための次号です。" }
+      ],
       "journalPath": "/#journal"
     }
   ]

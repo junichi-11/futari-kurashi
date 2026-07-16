@@ -71,6 +71,25 @@ const comparisonValue = (article, product, axis) => {
   return article.comparison.values[product.id][axis.id];
 };
 
+const comparisonMark = (product, axis) => {
+  const evaluationAxis = {
+    compact: "Space", morning: "Comfort", movie: "Together", recline: "Comfort",
+    guests: "Together", care: "Care", delivery: "Delivery"
+  }[axis.id];
+  if (!evaluationAxis) return "—";
+  const level = product.editorial_evaluation[evaluationAxis]?.level ?? 3;
+  return level >= 4 ? "◎" : level === 3 ? "○" : "△";
+};
+
+const renderList = (title, items, className) => {
+  const section = element("section", `product-story__aside ${className}`);
+  section.append(element("p", "product-story__aside-title", title));
+  const list = element("ul");
+  for (const item of items) list.append(element("li", "", item));
+  section.append(list);
+  return section;
+};
+
 class MarginProductList extends HTMLElement {
   async connectedCallback() {
     this.setAttribute("aria-live", "polite");
@@ -134,15 +153,23 @@ class MarginProductList extends HTMLElement {
       renderDetail("Price", `${formatPrice(product.price)}${product.price.from ? "〜" : ""}`),
       renderDetail("Size", formatDimensions(product.dimensions)),
       renderDetail("Material", product.materials.join("、")),
-      renderDetail("For", product.suited_for),
-      renderDetail("Note", product.cons.join("。")),
       renderDetail("Updated", new Intl.DateTimeFormat("ja-JP", { dateStyle: "medium" }).format(new Date(source.last_verified)))
     );
-    const link = element("a", "product-story__link", product.affiliate_url ? "楽天市場で商品を見る ↗" : "Preview: 出典ページを見る ↗");
+    const editorComment = element("blockquote", "product-story__comment");
+    editorComment.append(element("p", "eyebrow", "From the editors"), element("p", "", product.editor_comment));
+    const commerce = element("div", "product-story__commerce");
+    const commerceMeta = element("dl", "product-story__commerce-meta");
+    commerceMeta.append(
+      renderDetail("Current price", `${formatPrice(product.price)}${product.price.from ? "〜" : ""}`),
+      renderDetail("Shipping", product.shipping.display),
+      renderDetail("Dispatch", product.shipping.dispatch)
+    );
+    const link = element("a", "product-story__link", product.affiliate_url ? "楽天で価格を見る ↗" : "Preview: 出典ページを見る ↗");
     link.href = product.affiliate_url || (preview ? source?.rakuten_url : "");
     link.target = "_blank";
     link.rel = product.affiliate_url ? "nofollow sponsored noopener" : "nofollow noopener";
-    copy.append(role, title, scene, body, renderEvaluation(product), details, link);
+    commerce.append(commerceMeta, link, element("p", "product-story__price-note", "価格・在庫・送料は変動します。購入前に楽天の商品ページで最新情報をご確認ください。"));
+    copy.append(role, title, scene, body, renderList("こんな人におすすめ", product.recommended_for, "product-story__recommend"), renderList("気になる点", product.purchase_notes, "product-story__concerns"), editorComment, renderEvaluation(product), details, commerce);
     story.append(media, copy);
     return story;
   }
@@ -163,7 +190,8 @@ class MarginArticleExtras extends HTMLElement {
       this.hydrateShell(article);
       const mode = this.getAttribute("mode") ?? "all";
       if (mode === "comparison") this.replaceChildren(this.renderComparison(article, selected));
-      else if (mode === "footer") this.replaceChildren(this.renderBeforeYouChoose(article), this.renderClosing(article), this.renderEditorsNote(article), this.renderRelated(article, articleData.articles));
+      else if (mode === "hero-note") this.replaceChildren(this.renderHeroNote(article));
+      else if (mode === "footer") this.replaceChildren(this.renderBeforeYouChoose(article), this.renderClosing(article), this.renderRelated(article, articleData.articles));
       else this.replaceChildren(this.renderComparison(article, selected), this.renderBeforeYouChoose(article), this.renderClosing(article), this.renderEditorsNote(article), this.renderRelated(article, articleData.articles));
     } catch (error) {
       console.error("Article extras load failed", error);
@@ -200,7 +228,12 @@ class MarginArticleExtras extends HTMLElement {
     const tbody = element("tbody");
     for (const axis of article.comparison.axes) {
       const row = element("tr");
-      row.append(element("th", "", axis.label), ...products.map(product => element("td", "", comparisonValue(article, product, axis))));
+      row.append(element("th", "", axis.label), ...products.map(product => {
+        const cell = element("td");
+        if (!axis.productField) cell.append(element("span", "comparison-mark", comparisonMark(product, axis)));
+        cell.append(element("span", "comparison-text", comparisonValue(article, product, axis)));
+        return cell;
+      }));
       tbody.append(row);
     }
     table.append(thead, tbody);
@@ -213,7 +246,13 @@ class MarginArticleExtras extends HTMLElement {
       card.append(element("p", "", product.selection_role), element("h3", "", product.name));
       const details = element("dl");
       for (const axis of article.comparison.axes) {
-        details.append(renderDetail(axis.label, comparisonValue(article, product, axis)));
+        const value = element("span", "comparison-value");
+        if (!axis.productField) value.append(element("b", "comparison-mark", comparisonMark(product, axis)));
+        value.append(element("span", "", comparisonValue(article, product, axis)));
+        const row = element("div", "product-story__detail");
+        row.append(element("dt", "", axis.label), element("dd", ""));
+        row.querySelector("dd").append(value);
+        details.append(row);
       }
       card.append(details);
       mobile.append(card);
@@ -247,6 +286,12 @@ class MarginArticleExtras extends HTMLElement {
     return section;
   }
 
+  renderHeroNote(article) {
+    const note = element("aside", "hero-editors-note");
+    note.append(element("p", "eyebrow", "Editor's Note"), element("p", "", article.heroEditorsNote));
+    return note;
+  }
+
   renderRelated(article, articles) {
     const section = element("section", "related-articles");
     const relatedIds = new Set(article.relatedArticleIds ?? []);
@@ -255,7 +300,14 @@ class MarginArticleExtras extends HTMLElement {
     if (!related.length) {
       const back = element("a", "related-articles__back", "MARGIN Journalを見る ←");
       back.href = article.journalPath ?? "/#journal";
-      section.append(back);
+      const coming = element("div", "coming-soon-grid");
+      for (const item of article.comingSoon ?? []) {
+        const card = element("article", "coming-soon-card");
+        card.setAttribute("aria-disabled", "true");
+        card.append(element("p", "eyebrow", "Coming Soon"), element("h3", "", item.title), element("p", "", item.subtitle));
+        coming.append(card);
+      }
+      section.append(coming, back);
       return section;
     }
     const grid = element("div", "related-articles__grid");

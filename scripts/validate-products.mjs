@@ -69,7 +69,10 @@ for (const product of library.products ?? []) {
   if (!['cover', 'contain'].includes(product.image_display?.fit) || !product.image_display?.position) errors.push(`${product.id}: image_display must define fit and position`);
   if (product.image_source_url !== source?.rakuten_url) errors.push(`${product.id}: image_source_url must match source rakuten_url`);
   if (!product.image_alt || !product.editorial_copy || !product.suited_for) errors.push(`${product.id}: editorial presentation is incomplete`);
-  if (!product.editorial_body || product.editorial_body.length < 120 || product.editorial_body.length > 200) errors.push(`${product.id}: editorial_body must be 120-200 characters`);
+  if (!product.editorial_body || product.editorial_body.length < 180 || product.editorial_body.length > 420) errors.push(`${product.id}: editorial_body must be 180-420 characters`);
+  if (!Array.isArray(product.recommended_for) || product.recommended_for.length < 3) errors.push(`${product.id}: recommended_for must contain at least 3 entries`);
+  if (!Array.isArray(product.purchase_notes) || product.purchase_notes.length < 2 || !product.editor_comment) errors.push(`${product.id}: editorial purchase guidance is incomplete`);
+  if (!product.shipping?.display || !product.shipping?.dispatch) errors.push(`${product.id}: commerce shipping display is incomplete`);
   for (const key of evaluationKeys) {
     const evaluation = product.editorial_evaluation?.[key];
     if (!Number.isInteger(evaluation?.level) || evaluation.level < 1 || evaluation.level > 5 || !evaluation.note) errors.push(`${product.id}: editorial_evaluation.${key} must have a 1-5 level and note`);
@@ -106,6 +109,8 @@ for (const article of articleData.articles) {
   if (!Array.isArray(article.beforeYouChoose) || article.beforeYouChoose.length === 0 || article.beforeYouChoose.some(item => !item.label || !item.text)) errors.push(`${article.id}: beforeYouChoose is incomplete`);
   if (!article.closing?.title || !article.closing?.body) errors.push(`${article.id}: closing copy is incomplete`);
   if (!article.editorsNote?.title || !article.editorsNote?.body || !article.editorsNote?.signature) errors.push(`${article.id}: editorsNote is incomplete`);
+  if (!article.heroEditorsNote || article.heroEditorsNote.length < 100 || article.heroEditorsNote.length > 150) errors.push(`${article.id}: heroEditorsNote must be 100-150 characters`);
+  if (!Array.isArray(article.comingSoon) || article.comingSoon.length < 2 || article.comingSoon.some(item => !item.title || !item.subtitle)) errors.push(`${article.id}: comingSoon is incomplete`);
   if (!Array.isArray(article.relatedArticleIds) || article.relatedArticleIds.some(id => !articleIds.has(id) || id === article.id)) errors.push(`${article.id}: relatedArticleIds contain an invalid article`);
 }
 
