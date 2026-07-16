@@ -10,3 +10,9 @@
 6. 全商品が条件を満たすまで`publishable: false`を維持する。
 
 Previewは公式楽天URLへフォールバックできる。Productionは有効なaffiliate URLを持つpublishable商品だけを表示する。
+
+## Affiliate Intake Console
+
+`/preview/affiliate-intake/?preview=1` は40件のリンクを記事別に収集するPreview専用ツールとする。入力はブラウザのlocalStorageだけに一時保存し、GitHub、Analytics、外部APIへ自動送信しない。HTML貼り付け時は楽天Affiliateのhrefだけを抽出し、HTTPS、ホスト、`pc`の商品URL一致、重複を即時検証する。不一致は自動補正せず人間へ返す。
+
+記事単位のPartial Exportを許可し、JSONは `npm run affiliate:validate -- <file>` と `npm run affiliate:import -- <file> --dry-run` を通す。`--apply` はHuman Approval後のみ実行する。Affiliate URL全文をログやMarkdown Queueへ出力しない。

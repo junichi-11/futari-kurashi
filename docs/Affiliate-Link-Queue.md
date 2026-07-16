@@ -1,6 +1,6 @@
 # Affiliate Link Queue
 
-新規40商品はすべて `affiliate_url: null`、`publishable: false` です。楽天の商品ページで価格・在庫・送料・レビューを再確認し、人間が商品リンクを発行してください。
+Affiliate Intake Consoleで記事単位にリンクを収集し、JSONをvalidate / dry-runしてから人間の承認でapplyします。URL全文はこの一覧へ記録しません。
 
 ## ARTICLE 02 — 食卓に、ふたりの時間が集まる。
 
