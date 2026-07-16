@@ -6,7 +6,7 @@
 
 1. `data/articles.json` に一意な `id`、`slug`、`path` を追加する。
 2. `title`、`subtitle`、`description`、`category`、`heroImage` を設定する。
-3. Product Libraryに存在する商品を `productIds` へ掲載順に登録する。
+3. Product Libraryに存在する商品を `productIds` へ掲載順に登録し、必要なら `productGroups` でランキングではない編集コレクションへ分ける。
 4. 記事固有の `comparison.axes` と、各商品の場面別テキストを `comparison.values` に記録する。Product Libraryから取得する軸は `productField` を指定し、値を重複保存しない。
 5. `beforeYouChoose`、`closing`、`relatedArticleIds` を設定する。
 6. 記事HTMLでは `<margin-product-list>` と、comparison/footerモードの `<margin-article-extras>` に同じ `article-id` を渡す。
@@ -18,12 +18,15 @@
 - `category` / `tags`
 - `heroImage.url` / `heroImage.alt`
 - `productIds`
+- `productGroups.id` / `productGroups.title` / `productGroups.description` / `productGroups.productIds`
 - `comparison.title` / `comparison.description` / `comparison.axes` / `comparison.values`
 - `beforeYouChoose`
 - `closing.eyebrow` / `closing.title` / `closing.body`
 - `relatedArticleIds` / `journalPath`
 
 ダイニングテーブル、照明、ラグ、テレビボード、ベッド、収納の記事でも同じ構造を使い、比較軸と実務メモだけをテーマに合わせて編集します。
+
+HeroはHTMLへ固定せず、`heroImage.url` だけで差し替えます。画像変更時は同じオブジェクトの `alt` も更新し、商品画像とは別に記事全体の情景を伝える写真を選びます。
 
 ## MARGIN Editorial Evaluation
 

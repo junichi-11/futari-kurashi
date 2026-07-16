@@ -87,7 +87,22 @@ class MarginProductList extends HTMLElement {
         this.replaceChildren(element("p", "product-status", "商品リンクの準備中です。公開可能になり次第掲載します。"));
         return;
       }
-      this.replaceChildren(...selected.map((product, index) => this.renderStory(product, sources.get(product.source_id), preview, index)));
+      const groups = article.productGroups?.length
+        ? article.productGroups
+        : [{ id: "selection", title: "Editorial Selection", description: "", productIds: article.productIds }];
+      let storyIndex = 0;
+      const renderedGroups = groups.map(group => {
+        const groupProducts = group.productIds.map(id => products.get(id)).filter(product => selected.includes(product));
+        if (!groupProducts.length) return null;
+        const section = element("section", "product-group");
+        section.dataset.group = group.id;
+        const heading = element("header", "product-group__head");
+        heading.append(element("p", "eyebrow", "MARGIN Selection"), element("h2", "", group.title));
+        if (group.description) heading.append(element("p", "", group.description));
+        section.append(heading, ...groupProducts.map(product => this.renderStory(product, sources.get(product.source_id), preview, storyIndex++)));
+        return section;
+      }).filter(Boolean);
+      this.replaceChildren(...renderedGroups);
     } catch (error) {
       console.error("Product Library load failed", error);
       this.replaceChildren(element("p", "product-status", "商品情報を読み込めませんでした。時間をおいて再度お試しください。"));
@@ -141,7 +156,8 @@ class MarginArticleExtras extends HTMLElement {
       const article = articleData.articles.find(item => item.id === this.getAttribute("article-id"));
       if (!article) throw new Error("Article registry entry not found");
       const products = new Map(library.products.map(product => [product.id, product]));
-      const selected = article.productIds.map(id => products.get(id)).filter(Boolean);
+      const preview = new URLSearchParams(location.search).get("preview") === "1";
+      const selected = article.productIds.map(id => products.get(id)).filter(Boolean).filter(product => product.publishable || preview);
       this.hydrateShell(article);
       const mode = this.getAttribute("mode") ?? "all";
       if (mode === "comparison") this.replaceChildren(this.renderComparison(article, selected));
@@ -173,6 +189,7 @@ class MarginArticleExtras extends HTMLElement {
     const head = element("header", "comparison-section__head");
     head.append(element("p", "eyebrow", "Comparison / Living scenes"), element("h2", "", article.comparison.title), element("p", "", article.comparison.description));
 
+    const tableWrap = element("div", "comparison-table-wrap");
     const table = element("table", "comparison-table");
     const thead = element("thead");
     const headerRow = element("tr");
@@ -185,8 +202,10 @@ class MarginArticleExtras extends HTMLElement {
       tbody.append(row);
     }
     table.append(thead, tbody);
+    tableWrap.append(table);
 
     const mobile = element("div", "comparison-mobile");
+    mobile.setAttribute("aria-label", "商品を横にスワイプして比較");
     for (const product of products) {
       const card = element("section", "comparison-mobile__item");
       card.append(element("p", "", product.selection_role), element("h3", "", product.name));
@@ -197,7 +216,8 @@ class MarginArticleExtras extends HTMLElement {
       card.append(details);
       mobile.append(card);
     }
-    section.append(head, table, mobile);
+    const mobileCue = element("p", "comparison-mobile__cue", "Swipe to compare →");
+    section.append(head, tableWrap, mobileCue, mobile);
     return section;
   }
 

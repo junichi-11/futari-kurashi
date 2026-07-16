@@ -94,6 +94,9 @@ const articleIds = new Set(articleData.articles.map(article => article.id));
 for (const article of articleData.articles) {
   if (!article.title || !article.subtitle || !article.category || !isHttps(article.heroImage?.url)) errors.push(`${article.id}: reusable article metadata is incomplete`);
   if (!Array.isArray(article.productIds) || article.productIds.some(id => !ids.has(id))) errors.push(`${article.id}: productIds contain an unknown product`);
+  const groupedIds = (article.productGroups ?? []).flatMap(group => group.productIds ?? []);
+  if (article.productGroups?.length && (groupedIds.length !== article.productIds.length || new Set(groupedIds).size !== groupedIds.length || article.productIds.some(id => !groupedIds.includes(id)))) errors.push(`${article.id}: productGroups must contain every productId exactly once`);
+  if (article.productGroups?.some(group => !group.id || !group.title || !group.description)) errors.push(`${article.id}: productGroups metadata is incomplete`);
   const axes = article.comparison?.axes ?? [];
   if (axes.length === 0 || new Set(axes.map(axis => axis.id)).size !== axes.length) errors.push(`${article.id}: comparison axes are missing or duplicated`);
   for (const productId of article.productIds ?? []) {
