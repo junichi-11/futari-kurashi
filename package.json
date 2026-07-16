@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "node scripts/validate-products.mjs",
+    "build": "node scripts/validate-products.mjs && node scripts/build-static.mjs",
     "notion:validate": "node scripts/notion-sync.mjs validate",
     "notion:check": "node scripts/notion-sync.mjs check",
     "notion:dry-run": "node scripts/notion-sync.mjs dry-run",
