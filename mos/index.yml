@@ -30,6 +30,26 @@ documents:
     last_reviewed: 2026-07-16
     owner: MARGIN Editorial
     tags: [brand, writing]
+  - id: logo-guideline
+    title: Logo Guideline
+    source_path: mos/brand/logo-guideline.md
+    notion_page_id_env: NOTION_PAGE_LOGO_GUIDELINE
+    sync_mode: create_child_page
+    order: 12
+    enabled: true
+    last_reviewed: 2026-07-16
+    owner: MARGIN Editorial
+    tags: [brand, logo, assets]
+  - id: brand-tokens
+    title: Brand Tokens
+    source_path: mos/brand/brand-tokens.md
+    notion_page_id_env: NOTION_PAGE_BRAND_TOKENS
+    sync_mode: create_child_page
+    order: 13
+    enabled: true
+    last_reviewed: 2026-07-16
+    owner: MARGIN Editorial
+    tags: [brand, design-system]
   - id: editorial-system
     title: Editorial System
     source_path: mos/editorial/editorial-system.md

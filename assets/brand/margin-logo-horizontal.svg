@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 180" role="img" aria-labelledby="title">
+  <title id="title">MARGIN — Smart Shopping Journal</title>
+  <g transform="translate(10 10)"><rect x="44" y="20" width="32" height="104" rx="16" fill="#1A1D21" transform="rotate(-32 60 72)"/><rect x="112" y="14" width="32" height="124" rx="16" fill="#1A1D21"/><circle cx="28" cy="118" r="16" fill="#C8AA8A"/></g>
+  <path d="M180 24V156" stroke="#1A1D21" stroke-width="1" opacity=".55"/>
+  <text x="222" y="91" fill="#1A1D21" font-family="Arial, Helvetica, sans-serif" font-size="54" font-weight="400" letter-spacing="18">MARGIN</text>
+  <text x="224" y="132" fill="#1A1D21" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="400" letter-spacing="7">SMART SHOPPING JOURNAL</text>
+</svg>

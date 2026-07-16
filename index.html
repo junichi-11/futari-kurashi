@@ -3,22 +3,30 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#11120f">
+<meta name="theme-color" content="#1A1D21">
 <title>MARGIN｜ふたり暮らしの家具とインテリアを静かに選ぶ</title>
 <meta name="description" content="ふたりの暮らしに、余白のある選択を。家具とインテリアを生活の場面から静かに選ぶ、MARGINのEditorial。">
 <meta property="og:title" content="MARGIN｜ふたり暮らしの家具とインテリアを静かに選ぶ">
 <meta property="og:description" content="ふたりの暮らしに、余白のある選択を。">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="MARGIN">
-<meta property="og:url" content="https://futari-kurashi.vercel.app/"><meta name="twitter:card" content="summary_large_image"><link rel="canonical" href="https://futari-kurashi.vercel.app/">
+<meta property="og:url" content="https://futari-kurashi.vercel.app/">
+<meta property="og:image" content="https://futari-kurashi.vercel.app/assets/brand/margin-og-default.png">
+<meta property="og:image:width" content="1200"><meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://futari-kurashi.vercel.app/assets/brand/margin-og-default.png"><link rel="canonical" href="https://futari-kurashi.vercel.app/">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"Organization","name":"MARGIN","description":"ふたりの暮らしに、余白のある選択を。","url":"https://futari-kurashi.vercel.app/"}
+{"@context":"https://schema.org","@type":"Organization","name":"MARGIN","description":"ふたりの暮らしに、余白のある選択を。","url":"https://futari-kurashi.vercel.app/","logo":"https://futari-kurashi.vercel.app/assets/brand/margin-symbol-512.png"}
 </script>
 <link rel="preconnect" href="https://images.unsplash.com">
+<link rel="stylesheet" href="/assets/brand/brand-tokens.css">
+<link rel="icon" href="/assets/brand/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/assets/brand/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/assets/brand/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
 <style>
 :root{
-  --ink:#11120f; --paper:#f4f1ea; --warm:#d9cbbb; --muted:#6f716c;
-  --line:rgba(17,18,15,.16); --white:#faf9f5; --accent:#9a6547;
+  --ink:var(--margin-charcoal); --paper:var(--margin-off-white); --warm:#d9cbbb; --muted:#6f716c;
+  --line:var(--margin-border); --white:var(--margin-off-white); --accent:var(--margin-beige);
   --serif:"Yu Mincho","Hiragino Mincho ProN","Hiragino Mincho Pro",Georgia,serif;
   --sans:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic UI","Yu Gothic",sans-serif;
   --max:1440px; --ease:cubic-bezier(.2,.65,.2,1);
@@ -41,7 +49,7 @@ button{font:inherit}
   backdrop-filter:blur(18px) saturate(140%);border-bottom:1px solid rgba(17,18,15,.08)
 }
 .nav{width:min(var(--max),calc(100% - 64px));margin:auto;display:flex;align-items:center;justify-content:space-between}
-.logo{font-family:var(--serif);font-size:17px;letter-spacing:.08em;white-space:nowrap}
+.logo{display:block;width:210px;height:50px;white-space:nowrap}.logo img{object-fit:contain;object-position:left center}.logo-dark{display:none}.site-header.is-scrolled .logo-light{display:none}.site-header.is-scrolled .logo-dark{display:block}
 .nav-links{display:flex;gap:28px;align-items:center;font-size:11px;letter-spacing:.12em}
 .nav-links a{opacity:.82;transition:opacity .25s}.nav-links a:hover{opacity:1}
 .nav-index{font-family:var(--serif);font-style:italic;font-size:12px;opacity:.7}
@@ -63,6 +71,7 @@ button{font:inherit}
   margin:auto;display:flex;flex-direction:column;justify-content:flex-end;padding:0 0 72px;
 }
 .hero-kicker{font-size:10px;letter-spacing:.3em;text-transform:uppercase;margin-bottom:22px;opacity:.76}
+.hero-meta{display:flex;flex-wrap:wrap;gap:12px 28px;margin-top:26px;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.68)}.hero-meta span:first-child::before{content:"";display:inline-block;width:6px;height:6px;margin-right:10px;border-radius:50%;background:var(--margin-beige)}
 .hero-title{
   margin:0;font-family:var(--serif);font-weight:400;font-size:clamp(58px,8vw,132px);
   line-height:.98;letter-spacing:-.055em;max-width:1100px;text-wrap:balance
@@ -101,6 +110,7 @@ button{font:inherit}
 .editorial{padding:180px 0}
 .editorial-head{display:grid;grid-template-columns:1fr 1fr;gap:50px;margin-bottom:95px}
 .editorial-head h2{font-family:var(--serif);font-size:clamp(45px,6vw,86px);line-height:1.07;font-weight:400;letter-spacing:-.055em;margin:0}
+.editorial-symbol{width:38px;height:38px;margin:0 0 22px}.editorial-symbol img{object-fit:contain}
 .editorial-head p{align-self:end;max-width:430px;margin:0 0 8px auto;font-size:13px;color:var(--muted);line-height:2}
 
 .story-grid{display:grid;grid-template-columns:1.45fr .55fr;gap:28px}
@@ -167,7 +177,7 @@ button{font:inherit}
 
 .footer{background:var(--ink);color:#fff;padding:66px 0 34px}
 .footer-top{display:flex;justify-content:space-between;gap:60px;align-items:flex-start;padding-bottom:76px}
-.footer-logo{font-family:var(--serif);font-size:23px;letter-spacing:.06em}
+.footer-logo{display:block;width:250px;max-width:45vw}.footer-logo img{height:auto;object-fit:contain}
 .footer-nav{display:grid;grid-template-columns:repeat(2,auto);gap:10px 35px;font-size:10px;color:rgba(255,255,255,.55)}
 .footer-bottom{display:flex;justify-content:space-between;border-top:1px solid rgba(255,255,255,.13);padding-top:22px;font-size:9px;color:rgba(255,255,255,.35)}
 
@@ -195,7 +205,7 @@ button{font:inherit}
   .statement{padding:100px 0}.statement p{margin-top:15px}
 }
 @media(max-width:600px){
-  .site-header{height:64px}.nav{width:calc(100% - 28px)}.logo{font-size:14px}.nav-index{display:none}
+  .site-header{height:64px}.nav{width:calc(100% - 28px)}.logo{width:168px;height:40px}.nav-index{display:none}
   .hero{height:92svh;min-height:620px}
   .hero-content{width:calc(100% - 28px);padding-bottom:38px}
   .hero-title{font-size:clamp(47px,15vw,68px);letter-spacing:-.06em}
@@ -219,7 +229,7 @@ button{font:inherit}
 <body>
 <header class="site-header" id="header">
   <div class="nav">
-    <a class="logo" href="#top" aria-label="MARGIN home">MARGIN</a>
+    <a class="logo" href="#top" aria-label="MARGIN ホーム"><img class="logo-light" src="/assets/brand/margin-logo-horizontal-reverse-no-tagline.svg" alt="MARGIN"><img class="logo-dark" src="/assets/brand/margin-logo-horizontal-no-tagline.svg" alt=""></a>
     <nav class="nav-links">
       <a href="#journal">JOURNAL</a><a href="#selection">SELECTION</a><a href="/about/">ABOUT</a>
       <span class="nav-index">01 / Home</span>
@@ -236,6 +246,7 @@ button{font:inherit}
     <div class="hero-kicker">A quiet guide for a new life together</div>
     <h1 class="hero-title">ふたりの暮らしに、<br>余白のある選択を。</h1>
     <p class="hero-copy">家具とインテリアを、生活の場面から静かに選ぶ。<br>見た目だけではなく、ふたりで使う時間まで想像します。</p>
+    <div class="hero-meta" aria-label="Featured journal metadata"><span>Editor's Choice</span><span>Living</span><span>12 min read</span><span>Updated 2026.07.16</span></div>
   </div>
   <div class="hero-bottom"><span>SCROLL TO EXPLORE</span><i class="scroll-line"></i></div>
 </section>
@@ -264,7 +275,7 @@ button{font:inherit}
 <section class="editorial" id="journal">
   <div class="wrap">
     <div class="editorial-head reveal">
-      <h2>暮らしから、<br>選び方を考える。</h2>
+      <div><span class="editorial-symbol" aria-hidden="true"><img src="/assets/brand/margin-symbol.svg" alt=""></span><h2>暮らしから、<br>選び方を考える。</h2></div>
       <p>「何を買うか」より前に、「どんな時間を過ごしたいか」を考える。家具と家電を、生活の場面から編集します。</p>
     </div>
     <div class="story-grid">
@@ -343,7 +354,7 @@ button{font:inherit}
 <footer class="footer">
   <div class="wrap">
     <div class="footer-top">
-      <a class="footer-logo" href="#top">MARGIN</a>
+      <a class="footer-logo" href="#top" aria-label="MARGIN ホーム"><img src="/assets/brand/margin-logo-horizontal-reverse.svg" alt="MARGIN — Smart Shopping Journal"></a>
       <nav class="footer-nav"><a href="/about/">About</a><a href="#journal">Journal</a><a href="/about/#privacy">Privacy</a><a href="/about/#affiliate">Affiliate Disclosure</a><a href="mailto:hello@example.com">Contact</a><a href="#top">Back to top</a></nav>
     </div>
     <div class="footer-bottom"><span>ふたりの暮らしに、余白のある選択を。</span><span>© 2026 MARGIN</span></div>
