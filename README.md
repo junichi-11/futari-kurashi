@@ -64,7 +64,7 @@ node scripts/validate-products.mjs
 
 ## PreviewとProduction
 
-- **Production**: 通常の記事URLを使用する。`publishable: true` かつ有効な `affiliate_url` と確認済みの出典を持つ商品だけをカード表示する。Phase 4では初期6商品の楽天アフィリエイトURLと出典を確認済みで、6件すべてを表示する。
+- **Production**: 通常の記事URLを使用する。`publishable: true` かつ有効な `affiliate_url` と確認済みの出典を持つ商品だけをカード表示する。Phase 7.1では12商品の楽天アフィリエイトURLと出典を確認済みで、12件すべてを表示する。
 - **Preview**: 記事URLに `?preview=1` を付ける。非公開商品も確認でき、リンク先は `affiliate_url`、Source Registryの `rakuten_url`、`official_url` の順でフォールバックする。編集・リンク確認専用であり、公開URLとして案内しない。
 
 ローカルでは通常URLと `http://localhost:8000/articles/sofa-for-couples/?preview=1` の両方で6商品のカードを確認できます。商品情報の更新後は、楽天アフィリエイトURLの遷移先と出典を再確認し、Validationを再実行してください。

@@ -31,14 +31,14 @@
         "iwatsuki-iw-72-2p",
         "lifedept-sf07",
         "tansu-vintage-48600003",
-        "tansu-natural-frame-73200002",
+        "tansu-natural-frame-49600367",
         "glo-aurora-fabric"
       ],
       "productGroups": [
         { "id": "editors-choice", "title": "Editor's Choice", "description": "この記事の風景を象徴する、ひとつの選択。", "productIds": ["receno-agra-3seat"] },
         { "id": "premium", "title": "Premium Collection", "description": "置き方と素材の先に、長く使う理由があるもの。", "productIds": ["armonia-nube-couch", "armonia-pangea-island", "relax-form-alfredo-160"] },
         { "id": "everyday", "title": "Everyday Collection", "description": "ふたりの日常へ、無理なく美しく馴染むもの。", "productIds": ["norte-nrt-s-501517", "lowya-vg-mosa", "veroman-45731341914", "iwatsuki-iw-72-2p"] },
-        { "id": "smart-budget", "title": "Smart Budget", "description": "価格だけでなく、暮らしに残る余白まで考えたもの。", "productIds": ["lifedept-sf07", "tansu-vintage-48600003", "tansu-natural-frame-73200002", "glo-aurora-fabric"] }
+        { "id": "smart-budget", "title": "Smart Budget", "description": "価格だけでなく、暮らしに残る余白まで考えたもの。", "productIds": ["lifedept-sf07", "tansu-vintage-48600003", "tansu-natural-frame-49600367", "glo-aurora-fabric"] }
       ],
       "comparison": {
         "title": "12のソファを、暮らしの場面で比べる。",
@@ -60,11 +60,11 @@
           "lowya-vg-mosa": { "compact": "幅143cm", "morning": "低い目線", "movie": "背を調整", "recline": "ベッドにも", "guests": "可変しやすい", "care": "カバー非着脱", "delivery": "玄関先渡し" },
           "iwatsuki-iw-72-2p": { "compact": "幅125cm", "morning": "端正な座り", "movie": "二人で並ぶ", "recline": "腰掛け中心", "guests": "二人掛け", "care": "拭き取りやすい", "delivery": "組立約30分" },
           "relax-form-alfredo-160": { "compact": "中央置きも", "morning": "向きを選ばない", "movie": "デイベッド型", "recline": "横になりやすい", "guests": "多方向から", "care": "レザーテックス", "delivery": "大型便" },
-          "armonia-nube-couch": { "compact": "広いLDK向き", "morning": "脚を伸ばす", "movie": "カウチで長時間", "recline": "横になれる", "guests": "複数人を迎える", "care": "フルカバー", "delivery": "幅257cm" },
+          "armonia-nube-couch": { "compact": "広いLDK向き", "morning": "脚を伸ばす", "movie": "カウチで長時間", "recline": "横になれる", "guests": "複数人を迎える", "care": "フルカバー", "delivery": "幅240cm" },
           "armonia-pangea-island": { "compact": "中央置き", "morning": "光の向きへ", "movie": "姿勢を選べる", "recline": "広い座面", "guests": "360度から", "care": "フルカバー", "delivery": "重量69kg" },
           "lifedept-sf07": { "compact": "低い視線", "morning": "床座の延長", "movie": "三人幅を使う", "recline": "足を投げ出す", "guests": "三人掛け", "care": "布地のケア", "delivery": "梱包を確認" },
           "tansu-vintage-48600003": { "compact": "幅144cm", "morning": "木肘で端正に", "movie": "コイル座面", "recline": "腰掛け中心", "guests": "二人掛け", "care": "拭き取りやすい", "delivery": "重量30kg" },
-          "tansu-natural-frame-73200002": { "compact": "幅123cm", "morning": "木の軽やかさ", "movie": "近くに並ぶ", "recline": "腰掛け中心", "guests": "二人掛け", "care": "床下を掃除", "delivery": "二梱包・組立" },
+          "tansu-natural-frame-49600367": { "compact": "幅144cm", "morning": "木の軽やかさ", "movie": "近くに並ぶ", "recline": "腰掛け中心", "guests": "二人掛け", "care": "床下を掃除", "delivery": "圧縮梱包・組立" },
           "glo-aurora-fabric": { "compact": "幅170cm", "morning": "低い背", "movie": "ゆとりある座面", "recline": "横にも使える", "guests": "三人幅", "care": "布地のケア", "delivery": "大型便" }
         }
       },
