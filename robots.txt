@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://futari-kurashi.vercel.app/sitemap.xml

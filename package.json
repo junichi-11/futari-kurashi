@@ -1,0 +1,18 @@
+{
+  "name": "margin-editorial",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "article:validate": "node scripts/article-factory.mjs validate",
+    "article:build": "node scripts/article-factory.mjs build",
+    "article:report": "node scripts/article-factory.mjs report",
+    "affiliate:validate": "node scripts/import-affiliate-links.mjs validate",
+    "affiliate:import": "node scripts/import-affiliate-links.mjs import",
+    "test:affiliate": "node --test tests/affiliate-links.test.mjs",
+    "notion:validate": "node scripts/notion-sync.mjs validate",
+    "notion:check": "node scripts/notion-sync.mjs check",
+    "notion:dry-run": "node scripts/notion-sync.mjs dry-run",
+    "notion:sync": "node scripts/notion-sync.mjs sync",
+    "test:notion": "node --test tests/notion-sync.test.mjs"
+  }
+}

@@ -1,0 +1,72 @@
+name: MARGIN MOS Notion Sync
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: Read-only dry-run or explicit apply
+        required: true
+        default: dry-run
+        type: choice
+        options: [dry-run, apply]
+      target:
+        description: all or one document id from mos/index.yml
+        required: true
+        default: all
+        type: string
+      confirm_apply:
+        description: Must be true for apply
+        required: true
+        default: false
+        type: boolean
+
+permissions:
+  contents: read
+
+concurrency:
+  group: margin-notion-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    environment: ${{ inputs.mode == 'apply' && 'notion-production' || 'notion-dry-run' }}
+    env:
+      NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+      NOTION_ROOT_PAGE_ID: ${{ secrets.NOTION_ROOT_PAGE_ID }}
+      NOTION_API_VERSION: ${{ vars.NOTION_API_VERSION || '2026-03-11' }}
+      NOTION_SYNC_TARGET: ${{ inputs.target }}
+    steps:
+      - name: Reject unsafe apply
+        if: ${{ inputs.mode == 'apply' && inputs.confirm_apply != true }}
+        run: |
+          echo "Apply requires confirm_apply=true." >&2
+          exit 1
+      - name: Check required secrets
+        shell: bash
+        run: |
+          if [ -z "$NOTION_TOKEN" ] || [ -z "$NOTION_ROOT_PAGE_ID" ]; then
+            echo "NOTION_TOKEN and NOTION_ROOT_PAGE_ID GitHub Secrets are required." >&2
+            exit 1
+          fi
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Validate MOS
+        run: npm run notion:validate
+      - name: Test sync foundation
+        run: npm run test:notion
+      - name: Dry-run
+        if: ${{ inputs.mode == 'dry-run' }}
+        env:
+          NOTION_SYNC_MODE: dry-run
+          NOTION_DRY_RUN: true
+        run: npm run notion:dry-run
+      - name: Apply managed sections
+        if: ${{ inputs.mode == 'apply' && inputs.confirm_apply == true }}
+        env:
+          NOTION_SYNC_MODE: apply
+          NOTION_DRY_RUN: false
+        run: npm run notion:sync

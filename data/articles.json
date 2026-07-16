@@ -1,0 +1,101 @@
+{
+  "version": 3,
+  "updatedAt": "2026-07-16T00:00:00+09:00",
+  "articles": [
+    {
+      "id": "sofa-for-couples",
+      "slug": "sofa-for-couples",
+      "title": "休日の朝が好きになるソファ。",
+      "subtitle": "ふたりの過ごし方から選ぶ、12のソファ",
+      "description": "ふたり暮らしのソファ12商品を、休日の過ごし方と部屋の余白から編集します。",
+      "category": "living",
+      "tags": ["ソファ", "ふたり暮らし", "新生活"],
+      "path": "/articles/sofa-for-couples/",
+      "image": "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=1600&q=88",
+      "heroImage": {
+        "url": "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?auto=format&fit=crop&w=2200&q=88",
+        "alt": "自然光の入るリビングに置かれたソファ"
+      },
+      "publishedAt": "2026-07-15",
+      "updatedAt": "2026-07-16",
+      "status": "published",
+      "author": "MARGIN編集部",
+      "readingTime": "12 min read",
+      "featuredLabel": "Editor's Choice",
+      "heroEditorsNote": "家具は毎日見るものだから、価格や評判だけでなく、何年好きでいられるかを大切にしました。十二脚を同じ物差しで競わせず、朝の光、ふたりの姿勢、部屋に残る余白まで想像しながら選んでいます。答えを急がず、次の休日を思い浮かべながら読んでください。",
+      "productIds": [
+        "receno-agra-3seat",
+        "armonia-nube-couch",
+        "armonia-pangea-island",
+        "relax-form-alfredo-160",
+        "norte-nrt-s-501517",
+        "lowya-vg-mosa",
+        "veroman-45731341914",
+        "iwatsuki-iw-72-2p",
+        "lifedept-sf07",
+        "tansu-vintage-48600003",
+        "tansu-natural-frame-49600367",
+        "glo-aurora-fabric"
+      ],
+      "productGroups": [
+        { "id": "editors-choice", "title": "Editor's Choice", "description": "この記事の風景を象徴する、ひとつの選択。", "productIds": ["receno-agra-3seat"] },
+        { "id": "premium", "title": "Premium Collection", "description": "置き方と素材の先に、長く使う理由があるもの。", "productIds": ["armonia-nube-couch", "armonia-pangea-island", "relax-form-alfredo-160"] },
+        { "id": "everyday", "title": "Everyday Collection", "description": "ふたりの日常へ、無理なく美しく馴染むもの。", "productIds": ["norte-nrt-s-501517", "lowya-vg-mosa", "veroman-45731341914", "iwatsuki-iw-72-2p"] },
+        { "id": "smart-budget", "title": "Smart Budget", "description": "価格だけでなく、暮らしに残る余白まで考えたもの。", "productIds": ["lifedept-sf07", "tansu-vintage-48600003", "tansu-natural-frame-49600367", "glo-aurora-fabric"] }
+      ],
+      "comparison": {
+        "title": "12のソファを、暮らしの場面で比べる。",
+        "description": "優劣ではなく、ふたりの時間と部屋の条件を重ねるための見取り図です。",
+        "axes": [
+          { "id": "compact", "label": "コンパクトなLDK" },
+          { "id": "morning", "label": "休日の朝" },
+          { "id": "movie", "label": "映画・動画" },
+          { "id": "recline", "label": "横になる" },
+          { "id": "guests", "label": "来客" },
+          { "id": "care", "label": "手入れ" },
+          { "id": "delivery", "label": "搬入" },
+          { "id": "price", "label": "価格帯", "productField": "price" }
+        ],
+        "values": {
+          "veroman-45731341914": { "compact": "一脚ずつ置ける", "morning": "ひとり時間に", "movie": "別々の姿勢", "recline": "腰掛け中心", "guests": "席を増やせる", "care": "張地の確認を", "delivery": "幅73cm" },
+          "receno-agra-3seat": { "compact": "広さが必要", "morning": "深くくつろぐ", "movie": "姿勢を崩せる", "recline": "奥行100cm", "guests": "三人掛け", "care": "カバー着脱可", "delivery": "幅180cm" },
+          "norte-nrt-s-501517": { "compact": "動線を確保", "morning": "余白ある座面", "movie": "長時間向き", "recline": "幅180cm", "guests": "三人掛け", "care": "布張り", "delivery": "開梱設置" },
+          "lowya-vg-mosa": { "compact": "幅143cm", "morning": "低い目線", "movie": "背を調整", "recline": "ベッドにも", "guests": "可変しやすい", "care": "カバー非着脱", "delivery": "玄関先渡し" },
+          "iwatsuki-iw-72-2p": { "compact": "幅125cm", "morning": "端正な座り", "movie": "二人で並ぶ", "recline": "腰掛け中心", "guests": "二人掛け", "care": "拭き取りやすい", "delivery": "組立約30分" },
+          "relax-form-alfredo-160": { "compact": "中央置きも", "morning": "向きを選ばない", "movie": "デイベッド型", "recline": "横になりやすい", "guests": "多方向から", "care": "レザーテックス", "delivery": "大型便" },
+          "armonia-nube-couch": { "compact": "広いLDK向き", "morning": "脚を伸ばす", "movie": "カウチで長時間", "recline": "横になれる", "guests": "複数人を迎える", "care": "フルカバー", "delivery": "幅240cm" },
+          "armonia-pangea-island": { "compact": "中央置き", "morning": "光の向きへ", "movie": "姿勢を選べる", "recline": "広い座面", "guests": "360度から", "care": "フルカバー", "delivery": "重量69kg" },
+          "lifedept-sf07": { "compact": "低い視線", "morning": "床座の延長", "movie": "三人幅を使う", "recline": "足を投げ出す", "guests": "三人掛け", "care": "布地のケア", "delivery": "梱包を確認" },
+          "tansu-vintage-48600003": { "compact": "幅144cm", "morning": "木肘で端正に", "movie": "コイル座面", "recline": "腰掛け中心", "guests": "二人掛け", "care": "拭き取りやすい", "delivery": "重量30kg" },
+          "tansu-natural-frame-49600367": { "compact": "幅144cm", "morning": "木の軽やかさ", "movie": "近くに並ぶ", "recline": "腰掛け中心", "guests": "二人掛け", "care": "床下を掃除", "delivery": "圧縮梱包・組立" },
+          "glo-aurora-fabric": { "compact": "幅170cm", "morning": "低い背", "movie": "ゆとりある座面", "recline": "横にも使える", "guests": "三人幅", "care": "布地のケア", "delivery": "大型便" }
+        }
+      },
+      "beforeYouChoose": [
+        { "label": "設置寸法", "text": "本体の外寸を床へ写し、通路とテーブルの余白まで見る。" },
+        { "label": "搬入経路", "text": "玄関、曲がり角、階段、エレベーターを梱包寸法でたどる。" },
+        { "label": "送料", "text": "地域追加料金、開梱設置、階段搬入の条件を注文前に確かめる。" },
+        { "label": "カバー・手入れ", "text": "着脱、洗濯、日常の拭き取りを無理なく続けられるか考える。" },
+        { "label": "価格・在庫", "text": "表示価格と在庫は変わるため、楽天の商品ページで最後に見直す。" }
+      ],
+      "closing": {
+        "eyebrow": "A place for two",
+        "title": "ソファを選ぶことは、休日の居場所を決めること。",
+        "body": "完璧な一脚は、ひとつに決まりません。静かな朝を長くしたいふたりと、夜更けまで映画を観たいふたりでは、心地よい深さも幅も変わります。選ぶのは家具でありながら、その先にある時間です。次の休日を思い浮かべたとき、自然に座っている場所を選べたなら、それがふたりにとっての答えなのだと思います。"
+      },
+      "editorsNote": {
+        "eyebrow": "Editor's Note",
+        "title": "選ぶためではなく、暮らしを想像するために。",
+        "body": "十二脚を同じ尺度へ押し込めず、朝の光、映画の夜、部屋に残る動線から見直しました。商品情報は変わりますが、ふたりが過ごしたい時間を先に考えるという基準は変わりません。この記事が、買うことを急がず、次の休日を思い描くための小さな余白になれば幸いです。",
+        "signature": "MARGIN Editorial Team"
+      },
+      "relatedArticleIds": [],
+      "comingSoon": [
+        { "title": "食卓の距離を決める、ダイニングテーブル。", "subtitle": "ふたりの食事と仕事を受け止める一台を考えます。" },
+        { "title": "夜の輪郭を整える、照明。", "subtitle": "明るさではなく、過ごしたい時間から選ぶ灯り。" },
+        { "title": "一日の終わりを預ける、ベッド。", "subtitle": "眠りと部屋の余白を両立するための次号です。" }
+      ],
+      "journalPath": "/#journal"
+    }
+  ]
+}

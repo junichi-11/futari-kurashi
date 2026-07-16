@@ -1,0 +1,1491 @@
+{
+  "version": 6,
+  "updated_at": "2026-07-16T00:00:00+09:00",
+  "draft_catalog": {
+    "path": "/data/article-products.json",
+    "product_count": 40,
+    "source_count": 40,
+    "affiliate_policy": "affiliate_url remains null until issued by a human",
+    "production_policy": "draft products are preview-only and excluded by the publication gate"
+  },
+  "categories": {
+    "Living": [
+      "veroman-45731341914",
+      "receno-agra-3seat",
+      "norte-nrt-s-501517",
+      "lowya-vg-mosa",
+      "iwatsuki-iw-72-2p",
+      "relax-form-alfredo-160",
+      "armonia-nube-couch",
+      "armonia-pangea-island",
+      "lifedept-sf07",
+      "tansu-vintage-48600003",
+      "tansu-natural-frame-49600367",
+      "glo-aurora-fabric"
+    ],
+    "Dining": [],
+    "Lighting": [],
+    "Storage": [],
+    "Kitchen": [],
+    "Home Appliance": [],
+    "Bedroom": []
+  },
+  "source_registry": [
+    {
+      "id": "src-veroman-45731341914",
+      "official_url": "https://item.rakuten.co.jp/veroman/45731341914/",
+      "rakuten_url": "https://item.rakuten.co.jp/veroman/45731341914/",
+      "manufacturer": "VeroMan",
+      "last_verified": "2026-07-16T00:00:00+09:00",
+      "source_type": "brand_direct"
+    },
+    {
+      "id": "src-receno-agra3",
+      "official_url": "https://item.rakuten.co.jp/receno/agra3-s/",
+      "rakuten_url": "https://item.rakuten.co.jp/receno/agra3-s/",
+      "manufacturer": "株式会社Flavor",
+      "last_verified": "2026-07-16T00:00:00+09:00",
+      "source_type": "brand_direct"
+    },
+    {
+      "id": "src-norte-nrt-s-501517",
+      "official_url": "https://item.rakuten.co.jp/mizuno-kagu/nrt-s-5160p/",
+      "rakuten_url": "https://item.rakuten.co.jp/mizuno-kagu/nrt-s-5160p/",
+      "manufacturer": "NORTE",
+      "last_verified": "2026-07-16T00:00:00+09:00",
+      "source_type": "authorized_retailer"
+    },
+    {
+      "id": "src-lowya-vg-mosa",
+      "official_url": "https://item.rakuten.co.jp/lala-sty/vg-mosa/",
+      "rakuten_url": "https://item.rakuten.co.jp/lala-sty/vg-mosa/",
+      "manufacturer": "株式会社ベガコーポレーション",
+      "last_verified": "2026-07-16T00:00:00+09:00",
+      "source_type": "brand_direct"
+    },
+    {
+      "id": "src-iwatsuki-iw-72-2p",
+      "official_url": "https://item.rakuten.co.jp/kagusaizu/iwf-iw-72-2p/",
+      "rakuten_url": "https://item.rakuten.co.jp/kagusaizu/iwf-iw-72-2p/",
+      "manufacturer": "岩附株式会社",
+      "last_verified": "2026-07-16T00:00:00+09:00",
+      "source_type": "authorized_retailer"
+    },
+    {
+      "id": "src-relax-form-alfredo-160",
+      "official_url": "https://item.rakuten.co.jp/roomware/rf-alfredo-160/",
+      "rakuten_url": "https://item.rakuten.co.jp/roomware/rf-alfredo-160/",
+      "manufacturer": "株式会社関家具",
+      "last_verified": "2026-07-16T00:00:00+09:00",
+      "source_type": "manufacturer_direct"
+    },
+    {
+      "id": "src-armonia-gravedona",
+      "official_url": "https://item.rakuten.co.jp/moromoro/outlet-k-029brbenew/",
+      "rakuten_url": "https://item.rakuten.co.jp/moromoro/outlet-k-029brbenew/",
+      "manufacturer": "株式会社モダンデコ",
+      "last_verified": "2026-07-16T00:00:00+09:00",
+      "source_type": "brand_direct"
+    },
+    {
+      "id": "src-armonia-pangea",
+      "official_url": "https://item.rakuten.co.jp/moromoro/k-127-2/",
+      "rakuten_url": "https://item.rakuten.co.jp/moromoro/k-127-2/",
+      "manufacturer": "株式会社モダンデコ",
+      "last_verified": "2026-07-16T00:00:00+09:00",
+      "source_type": "brand_direct"
+    },
+    {
+      "id": "src-lifedept-sf07",
+      "official_url": "https://item.rakuten.co.jp/lifedept/sf07/",
+      "rakuten_url": "https://item.rakuten.co.jp/lifedept/sf07/",
+      "manufacturer": "LIFEDEPT",
+      "last_verified": "2026-07-16T00:00:00+09:00",
+      "source_type": "brand_direct"
+    },
+    {
+      "id": "src-tansu-48600003",
+      "official_url": "https://item.rakuten.co.jp/tansu/48600003/",
+      "rakuten_url": "https://item.rakuten.co.jp/tansu/48600003/",
+      "manufacturer": "タンスのゲン株式会社",
+      "last_verified": "2026-07-16T00:00:00+09:00",
+      "source_type": "manufacturer_direct"
+    },
+    {
+      "id": "src-tansu-49600367",
+      "official_url": "https://item.rakuten.co.jp/tansu/49600367/",
+      "rakuten_url": "https://item.rakuten.co.jp/tansu/49600367/",
+      "manufacturer": "タンスのゲン株式会社",
+      "last_verified": "2026-07-16T00:00:00+09:00",
+      "source_type": "manufacturer_direct"
+    },
+    {
+      "id": "src-glo-aurora",
+      "official_url": "https://item.rakuten.co.jp/glo-shop/glo-t32-7f-aurora/",
+      "rakuten_url": "https://item.rakuten.co.jp/glo-shop/glo-t32-7f-aurora/",
+      "manufacturer": "glo",
+      "last_verified": "2026-07-16T00:00:00+09:00",
+      "source_type": "authorized_retailer"
+    }
+  ],
+  "products": [
+    {
+      "id": "veroman-45731341914",
+      "name": "韓国モダン 一人掛けソファ",
+      "brand": "VeroMan",
+      "category": "Living",
+      "source_id": "src-veroman-45731341914",
+      "price": {
+        "amount": 98000,
+        "currency": "JPY",
+        "tax_included": true,
+        "verified_price": true
+      },
+      "affiliate_url": "https://hb.afl.rakuten.co.jp/ichiba/55cc0c34.e035933b.55cc0c35.63174531/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fveroman%2F45731341914%2F&link_type=picttext&ut=eyJwYWdlIjoiaXRlbSIsInR5cGUiOiJwaWN0dGV4dCIsInNpemUiOiIyNDB4MjQwIiwibmFtIjoxLCJuYW1wIjoicmlnaHQiLCJjb20iOjEsImNvbXAiOiJkb3duIiwicHJpY2UiOjEsImJvciI6MSwiY29sIjoxLCJiYnRuIjoxLCJwcm9kIjowLCJhbXAiOmZhbHNlfQ%3D%3D",
+      "official_url": "https://item.rakuten.co.jp/veroman/45731341914/",
+      "image_url": "https://shop.r10s.jp/veroman/cabinet/default/home/home5/45731341914_12.jpg",
+      "image_display": {
+        "fit": "contain",
+        "position": "center center"
+      },
+      "image_source_url": "https://item.rakuten.co.jp/veroman/45731341914/",
+      "image_alt": "VeroManのフランネル張り1人掛けソファ",
+      "editorial_copy": "同じ部屋で、別々にくつろぐ自由。",
+      "editorial_body": "ふたり暮らしに、大きなソファが必ずひとつ必要とは限りません。この一人掛けは幅73cmで、窓辺と本棚のそばなど、別々の居場所を同じ部屋につくれます。並ぶ時間と、一人で本を読む時間の両方を尊重できることが選定理由です。フランネルの柔らかな表情と丸みのある形は、直線の多い部屋を和らげます。一方で二人掛けではないため、同じ座面で寄り添いたい人には別の選択が必要。小さなLDKで距離感を自由にしたいふたりへ提案します。",
+      "suited_for": "一人ずつの居場所をつくりたい、コンパクトなリビング",
+      "editorial_evaluation": {
+        "Space": {
+          "level": 5,
+          "note": "一脚ずつ配置できる"
+        },
+        "Together": {
+          "level": 3,
+          "note": "別々の姿勢を尊重"
+        },
+        "Comfort": {
+          "level": 3,
+          "note": "深く腰掛ける一人席"
+        },
+        "Care": {
+          "level": 3,
+          "note": "フランネルの日常ケア"
+        },
+        "Delivery": {
+          "level": 5,
+          "note": "幅73cmの軽やかさ"
+        },
+        "Longevity": {
+          "level": 3,
+          "note": "松材フレーム"
+        }
+      },
+      "rating": {
+        "value": null,
+        "scale": 5,
+        "count": 0
+      },
+      "product_score": {
+        "EditorialFit": 8,
+        "Design": 6,
+        "Function": 8,
+        "Price": 9,
+        "Longevity": 6,
+        "ReviewQuality": 8,
+        "TotalScore": 75
+      },
+      "pros": [
+        "幅73cmで配置の自由度が高い",
+        "フランネル生地と松材フレームを採用",
+        "座面高約45cmで立ち座りしやすい"
+      ],
+      "cons": [
+        "1人掛けのためふたり同時には座れない",
+        "レビュー評価は未集計"
+      ],
+      "summary": "コンパクトな間取りで、ふたりそれぞれの居場所を柔軟につくる1人掛けソファ。",
+      "publishable": true,
+      "selection_role": "Compact Living",
+      "shop": {
+        "name": "VeroMan楽天市場店",
+        "type": "brand_direct"
+      },
+      "dimensions": {
+        "width_cm": 73,
+        "depth_cm": 85,
+        "height_cm": 78,
+        "seat_height_cm": 45
+      },
+      "materials": [
+        "フランネル",
+        "松の木"
+      ],
+      "shipping": {
+        "verified": true,
+        "included": true,
+        "exceptions": "離島・一部地域は追加送料の場合あり",
+        "display": "送料無料（地域条件あり）",
+        "dispatch": "在庫・発送日は楽天の商品ページで確認"
+      },
+      "recommended_for": [
+        "一人ずつの居場所がほしい",
+        "コンパクトなLDK",
+        "家具の向きをよく変える"
+      ],
+      "purchase_notes": [
+        "ふたりで同じ座面に座る用途には向かない",
+        "レビュー評価が未集計のため、張地や硬さは商品情報を丁寧に確認したい"
+      ],
+      "editor_comment": "一緒にいることと、同じ姿勢でいることを分けて考えた選択。"
+    },
+    {
+      "id": "receno-agra-3seat",
+      "name": "ナチュラルソファ 3人掛け（AGRA）",
+      "brand": "Re:CENO",
+      "category": "Living",
+      "source_id": "src-receno-agra3",
+      "price": {
+        "amount": 253000,
+        "currency": "JPY",
+        "tax_included": true,
+        "verified_price": true
+      },
+      "affiliate_url": "https://hb.afl.rakuten.co.jp/ichiba/55c6fbf3.953dbcb9.55c6fbff.8142cf51/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Freceno%2Fagra3-s%2F&link_type=picttext&ut=eyJwYWdlIjoiaXRlbSIsInR5cGUiOiJwaWN0dGV4dCIsInNpemUiOiIyNDB4MjQwIiwibmFtIjoxLCJuYW1wIjoicmlnaHQiLCJjb20iOjEsImNvbXAiOiJkb3duIiwicHJpY2UiOjEsImJvciI6MSwiY29sIjoxLCJiYnRuIjoxLCJwcm9kIjowLCJhbXAiOmZhbHNlfQ%3D%3D",
+      "official_url": "https://item.rakuten.co.jp/receno/agra3-s/",
+      "image_url": "https://shop.r10s.jp/receno/cabinet/three2/agra3/img/0000056524020.jpg",
+      "image_type": "source_product_image",
+      "source_image_url": "https://shop.r10s.jp/receno/cabinet/three2/agra3/img/0000056524020.jpg",
+      "editorial_visualization_url": null,
+      "active_image_source": "source",
+      "visualization_label": "MARGIN編集イメージ",
+      "visualization_source": null,
+      "visualization_created_at": null,
+      "visualization_review_status": "blocked_rights_confirmation",
+      "visualization_identity_check": "not_run",
+      "original_product_image_url": "https://shop.r10s.jp/receno/cabinet/three2/agra3/img/0000056524020.jpg",
+      "visualization_candidates": [
+        {
+          "id": "A",
+          "concept": "Gallery White",
+          "url": null,
+          "status": "not_generated"
+        },
+        {
+          "id": "B",
+          "concept": "Quiet Morning",
+          "url": null,
+          "status": "not_generated"
+        },
+        {
+          "id": "C",
+          "concept": "Material Focus",
+          "url": null,
+          "status": "not_generated"
+        }
+      ],
+      "image_display": {
+        "fit": "contain",
+        "position": "center center"
+      },
+      "image_source_url": "https://item.rakuten.co.jp/receno/agra3-s/",
+      "image_alt": "Re:CENO AGRA 3人掛けソファのナチュラルフレーム",
+      "editorial_copy": "朝の予定を、少しだけ遅らせる。",
+      "editorial_body": "AGRAを選んだ理由は、座る姿勢を整えるのではなく、休日の身体をほどく奥行きにあります。100cmの深さがあるため、ふたりで脚を上げても窮屈になりにくく、本を読む人と横になる人が同じ場所にいられます。無垢材のフレームと交換できるカバーは、年月を重ねる家具としても誠実。一方で、幅180cm以上に奥行きもあるため、数字以上の存在感があります。MARGIN編集部では、LDKの主役をひとつに絞り、ソファ中心の休日をつくりたいふたりに選びました。",
+      "suited_for": "休日の朝をソファで長く過ごしたい、余白のある間取り",
+      "editorial_evaluation": {
+        "Space": {
+          "level": 2,
+          "note": "奥行100cmの存在感"
+        },
+        "Together": {
+          "level": 5,
+          "note": "姿勢を自由に変えられる"
+        },
+        "Comfort": {
+          "level": 5,
+          "note": "フェザーに深く沈む"
+        },
+        "Care": {
+          "level": 4,
+          "note": "背・座面カバーを外せる"
+        },
+        "Delivery": {
+          "level": 2,
+          "note": "搬入寸法を丁寧に"
+        },
+        "Longevity": {
+          "level": 5,
+          "note": "無垢材と交換可能なカバー"
+        }
+      },
+      "rating": {
+        "value": 4.88,
+        "scale": 5,
+        "count": 8
+      },
+      "product_score": {
+        "EditorialFit": 9,
+        "Design": 9,
+        "Function": 8,
+        "Price": 4,
+        "Longevity": 9,
+        "ReviewQuality": 5,
+        "TotalScore": 73.3
+      },
+      "pros": [
+        "奥行100cmであぐらや横座りをしやすい",
+        "クッションにフェザーとシリコンフィルを採用",
+        "背・座面カバーを取り外せる"
+      ],
+      "cons": [
+        "幅180cm・奥行100cmで設置面積が大きい",
+        "商品価格とは別に送料6,600円がかかる"
+      ],
+      "summary": "朝のコーヒーから休日の読書まで、ふたりが姿勢を崩してゆっくり過ごせるワイドソファ。",
+      "publishable": true,
+      "selection_role": "Slow Morning",
+      "shop": {
+        "name": "ReCENOインテリア",
+        "type": "brand_direct"
+      },
+      "dimensions": {
+        "width_cm": 180,
+        "depth_cm": 100,
+        "height_cm": 88,
+        "seat_height_cm": 38
+      },
+      "materials": [
+        "リネンまたはコットン等の選択生地",
+        "ウレタンフォーム",
+        "フェザー",
+        "シリコンフィル",
+        "アッシュ無垢材"
+      ],
+      "shipping": {
+        "verified": true,
+        "included": false,
+        "note": "送料6,600円。沖縄・離島は配送対象外。組立サービスは別途3,300円。",
+        "display": "送料6,600円",
+        "dispatch": "在庫・発送日は楽天の商品ページで確認"
+      },
+      "recommended_for": [
+        "休日を家で長く過ごす",
+        "18畳前後のLDK",
+        "カバーを手入れしながら使いたい"
+      ],
+      "purchase_notes": [
+        "玄関から設置場所までの搬入経路は梱包寸法で確認したい",
+        "フェザーの沈み込みは、硬めの座り心地が好きな人には合わないことがある"
+      ],
+      "editor_comment": "価格よりも、何年この場所を好きでいられるかで考えたい一脚。"
+    },
+    {
+      "id": "norte-nrt-s-501517",
+      "name": "北欧デザイン 3人掛けソファ",
+      "brand": "NORTE",
+      "category": "Living",
+      "source_id": "src-norte-nrt-s-501517",
+      "price": {
+        "amount": 99000,
+        "currency": "JPY",
+        "tax_included": true,
+        "verified_price": true
+      },
+      "affiliate_url": "https://hb.afl.rakuten.co.jp/ichiba/55cc197d.3ca82371.55cc197e.a8c3edb5/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fmizuno-kagu%2Fnrt-s-5160p%2F&link_type=picttext&ut=eyJwYWdlIjoiaXRlbSIsInR5cGUiOiJwaWN0dGV4dCIsInNpemUiOiIyNDB4MjQwIiwibmFtIjoxLCJuYW1wIjoicmlnaHQiLCJjb20iOjEsImNvbXAiOiJkb3duIiwicHJpY2UiOjEsImJvciI6MSwiY29sIjoxLCJiYnRuIjoxLCJwcm9kIjowLCJhbXAiOmZhbHNlfQ%3D%3D",
+      "official_url": "https://item.rakuten.co.jp/mizuno-kagu/nrt-s-5160p/",
+      "image_url": "https://shop.r10s.jp/mizuno-kagu/cabinet/03558903/10264357/501517.jpg",
+      "image_display": {
+        "fit": "contain",
+        "position": "center 54%"
+      },
+      "image_source_url": "https://item.rakuten.co.jp/mizuno-kagu/nrt-s-5160p/",
+      "image_alt": "NORTE NRT-S-501517 3人掛けソファ",
+      "editorial_copy": "一本の映画を、姿勢を変えながら。",
+      "editorial_body": "映画を一本見終えるまで、ふたりが同じ姿勢でいることはほとんどありません。NORTEは180cmの幅とフェザーを含むクッションで、肩を寄せる時間にも、少し離れて脚を組む時間にも対応します。複数の支持材を使った座面は、見た目の柔らかさだけに寄らない構成。開梱設置に対応する点も、大型家具を初めて迎えるふたりには現実的です。奥行き91cmは搬入時の曲がり角で確認が必要ですが、夜の居場所を一脚で整えたい人にはバランスのよい選択です。",
+      "suited_for": "映画や配信作品を、ふたりでゆっくり観る夜",
+      "editorial_evaluation": {
+        "Space": {
+          "level": 2,
+          "note": "幅180cmの余白"
+        },
+        "Together": {
+          "level": 5,
+          "note": "並んでも距離を保てる"
+        },
+        "Comfort": {
+          "level": 5,
+          "note": "複層支持とフェザー"
+        },
+        "Care": {
+          "level": 3,
+          "note": "布張りの定期ケア"
+        },
+        "Delivery": {
+          "level": 4,
+          "note": "開梱設置に対応"
+        },
+        "Longevity": {
+          "level": 4,
+          "note": "無垢材と複数の支持材"
+        }
+      },
+      "rating": {
+        "value": 4.83,
+        "scale": 5,
+        "count": 6
+      },
+      "product_score": {
+        "EditorialFit": 8,
+        "Design": 6,
+        "Function": 9,
+        "Price": 9,
+        "Longevity": 8,
+        "ReviewQuality": 9,
+        "TotalScore": 81.7
+      },
+      "pros": [
+        "幅180cmの3人掛けでふたりに余白がある",
+        "フェザー入り座面と複数の支持材を採用",
+        "開梱設置配送に対応"
+      ],
+      "cons": [
+        "奥行91cmの搬入経路確認が必要",
+        "北海道・沖縄・離島や階段搬入は追加料金の場合がある"
+      ],
+      "summary": "長時間の映画でも姿勢を変えやすく、ふたりの間に余白を確保できる3Pソファ。",
+      "publishable": true,
+      "selection_role": "Movie Night",
+      "shop": {
+        "name": "NORTE",
+        "type": "authorized_retailer"
+      },
+      "dimensions": {
+        "width_cm": 180,
+        "depth_cm": 91,
+        "height_cm": 84,
+        "seat_height_cm": 44
+      },
+      "materials": [
+        "ファブリック",
+        "ウェービングベルト",
+        "ウレタンフォーム",
+        "フェザー",
+        "Sバネ",
+        "アッシュ無垢材",
+        "スチール"
+      ],
+      "shipping": {
+        "verified": true,
+        "included": true,
+        "exceptions": "北海道・沖縄・離島、エレベーターのない3階以上は追加料金",
+        "display": "送料無料（地域条件あり）",
+        "dispatch": "在庫・発送日は楽天の商品ページで確認"
+      },
+      "recommended_for": [
+        "映画や配信をよく観る",
+        "ふたりで違う姿勢を取りたい",
+        "開梱設置まで任せたい"
+      ],
+      "purchase_notes": [
+        "奥行91cmが玄関や廊下の曲がり角を通るか確認したい",
+        "布張りは定期的な掃除機がけと日陰干しを続けたい"
+      ],
+      "editor_comment": "派手さより、長い夜を支える中身で選んだ三人掛け。"
+    },
+    {
+      "id": "lowya-vg-mosa",
+      "name": "MOSA コンパクトソファ",
+      "brand": "LOWYA",
+      "category": "Living",
+      "source_id": "src-lowya-vg-mosa",
+      "price": {
+        "amount": 15990,
+        "currency": "JPY",
+        "tax_included": true,
+        "verified_price": true,
+        "from": true
+      },
+      "affiliate_url": "https://hb.afl.rakuten.co.jp/ichiba/55cc19c4.ad59ff24.55cc19c5.b4cf2970/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Flala-sty%2Fvg-mosa%2F&link_type=picttext&ut=eyJwYWdlIjoiaXRlbSIsInR5cGUiOiJwaWN0dGV4dCIsInNpemUiOiIyNDB4MjQwIiwibmFtIjoxLCJuYW1wIjoicmlnaHQiLCJjb20iOjEsImNvbXAiOiJkb3duIiwicHJpY2UiOjEsImJvciI6MSwiY29sIjoxLCJiYnRuIjoxLCJwcm9kIjowLCJhbXAiOmZhbHNlfQ%3D%3D",
+      "official_url": "https://item.rakuten.co.jp/lala-sty/vg-mosa/",
+      "image_url": "https://shop.r10s.jp/lala-sty/cabinet/item_cart/sofa/01/vg-mosa_02.jpg",
+      "image_display": {
+        "fit": "contain",
+        "position": "center center"
+      },
+      "image_source_url": "https://item.rakuten.co.jp/lala-sty/vg-mosa/",
+      "image_alt": "LOWYA MOSA 2人掛けリクライニングソファ",
+      "editorial_copy": "木の脚が、部屋の呼吸を整える。",
+      "editorial_body": "MOSAの良さは、家具を置いたあとにも床と壁の余白が見えることです。幅143cmと低い座面、細い木脚が輪郭を軽くし、初めてのふたり暮らしでも部屋をソファだけで埋めません。背と肘を倒せば、昼寝や来客時の簡易ベッドへ変えられるのも小さな住まいでは合理的です。ただし、カバーは外して洗えず、深く沈んで長時間過ごすタイプでもありません。食卓やラグにも予算を残しながら、ひとつの家具に複数の役割を持たせたいふたりへ選びました。",
+      "suited_for": "木の家具や淡い色を基調にした、ナチュラルな住まい",
+      "editorial_evaluation": {
+        "Space": {
+          "level": 4,
+          "note": "幅143cmと低い視線"
+        },
+        "Together": {
+          "level": 4,
+          "note": "背と肘を調整できる"
+        },
+        "Comfort": {
+          "level": 4,
+          "note": "横になる形へ変わる"
+        },
+        "Care": {
+          "level": 2,
+          "note": "カバーは外せない"
+        },
+        "Delivery": {
+          "level": 3,
+          "note": "玄関先での受け取り"
+        },
+        "Longevity": {
+          "level": 3,
+          "note": "可変機構をいたわる"
+        }
+      },
+      "rating": {
+        "value": 4.08,
+        "scale": 5,
+        "count": 97
+      },
+      "product_score": {
+        "EditorialFit": 8,
+        "Design": 8,
+        "Function": 7,
+        "Price": 7,
+        "Longevity": 7,
+        "ReviewQuality": 8,
+        "TotalScore": 75
+      },
+      "pros": [
+        "幅143cmで二人掛けとして比較的コンパクト",
+        "背と肘を倒してミニベッドとして使える",
+        "張地とカラーの選択肢が多い"
+      ],
+      "cons": [
+        "カバーを取り外して洗濯できない",
+        "沖縄・一部離島は配送不可の場合がある"
+      ],
+      "summary": "木脚と豊富な張地で、ナチュラルな住空間に合わせやすいリクライニングソファ。",
+      "publishable": true,
+      "selection_role": "Natural Mood",
+      "shop": {
+        "name": "LALA STYLE（ララスタイル）",
+        "type": "brand_direct"
+      },
+      "dimensions": {
+        "width_cm": 143,
+        "depth_cm": 82,
+        "height_cm": 60,
+        "seat_height_cm": 26
+      },
+      "materials": [
+        "天然木",
+        "ポリエステルまたは合成皮革",
+        "ウレタンフォーム",
+        "シリコンフィル",
+        "Sバネ"
+      ],
+      "shipping": {
+        "verified": true,
+        "note": "玄関先渡し。離島・一部地域は追加送料、沖縄・一部離島は配送不可の場合あり。",
+        "display": "玄関先渡し",
+        "dispatch": "在庫・発送日は楽天の商品ページで確認"
+      },
+      "recommended_for": [
+        "初めての同棲",
+        "10〜15畳のLDK",
+        "家具を増やしたくない"
+      ],
+      "purchase_notes": [
+        "長時間の映画鑑賞では、より深い座面を好む人もいる",
+        "カバーを外して洗えないため、汚れ対策を考えておきたい"
+      ],
+      "editor_comment": "限られた面積と予算のなかで、暮らしを狭くしない選択です。"
+    },
+    {
+      "id": "iwatsuki-iw-72-2p",
+      "name": "天然木 北欧ソファ 2人掛け",
+      "brand": "Loire",
+      "category": "Living",
+      "source_id": "src-iwatsuki-iw-72-2p",
+      "price": {
+        "amount": 28800,
+        "currency": "JPY",
+        "tax_included": true,
+        "verified_price": true
+      },
+      "affiliate_url": "https://hb.afl.rakuten.co.jp/ichiba/55cc1578.13815ba3.55cc1579.56394cb6/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fkagusaizu%2Fiwf-iw-72-2p%2F&link_type=hybrid_url&ut=eyJwYWdlIjoiaXRlbSIsInR5cGUiOiJoeWJyaWRfdXJsIiwic2l6ZSI6IjI0MHgyNDAiLCJuYW0iOjEsIm5hbXAiOiJyaWdodCIsImNvbSI6MSwiY29tcCI6ImRvd24iLCJwcmljZSI6MSwiYm9yIjoxLCJjb2wiOjEsImJidG4iOjEsInByb2QiOjAsImFtcCI6ZmFsc2V9",
+      "official_url": "https://item.rakuten.co.jp/kagusaizu/iwf-iw-72-2p/",
+      "image_url": "https://shop.r10s.jp/kagusaizu/cabinet/iw2/iwf-iw-72-2p.jpg",
+      "image_display": {
+        "fit": "contain",
+        "position": "center center"
+      },
+      "image_source_url": "https://item.rakuten.co.jp/kagusaizu/iwf-iw-72-2p/",
+      "image_alt": "岩附 Loire IW-72-2P 2人掛けソファ",
+      "editorial_copy": "余白も予算も、使い切らない。",
+      "editorial_body": "新生活では、ソファだけに予算も面積も使い切らないことが大切です。幅125cmの中にふたり分の座面を収め、天然木の肘と合成皮革で、照明やラグの色を選びやすい端正な輪郭にまとめています。拭き取りやすい張地と床の見える脚元は、日常の掃除にも無理がありません。横になれる広さや深い沈み込みは期待しにくく、在庫が少ない点にも注意が必要。それでも、食卓や寝室まで含めて住まい全体を整えたいふたりには、価格と寸法の配分がよい一脚です。",
+      "suited_for": "限られた広さと予算を、無理なく整えたい新生活",
+      "editorial_evaluation": {
+        "Space": {
+          "level": 5,
+          "note": "幅125cmに二人分"
+        },
+        "Together": {
+          "level": 3,
+          "note": "端正に並ぶ座面"
+        },
+        "Comfort": {
+          "level": 3,
+          "note": "ほどよく硬質な佇まい"
+        },
+        "Care": {
+          "level": 4,
+          "note": "合成皮革を拭き取れる"
+        },
+        "Delivery": {
+          "level": 4,
+          "note": "コンパクト、組立あり"
+        },
+        "Longevity": {
+          "level": 3,
+          "note": "天然木の脚元"
+        }
+      },
+      "rating": {
+        "value": null,
+        "scale": 5,
+        "count": 0
+      },
+      "product_score": {
+        "EditorialFit": 7,
+        "Design": 7,
+        "Function": 7,
+        "Price": 10,
+        "Longevity": 6,
+        "ReviewQuality": 9,
+        "TotalScore": 76.7
+      },
+      "pros": [
+        "幅125cmで座面幅110cmを確保",
+        "合成皮革と天然木のレトロな組み合わせ",
+        "北海道を含む送料無料設定"
+      ],
+      "cons": [
+        "約30分の組み立てが必要",
+        "沖縄・離島には配送できない"
+      ],
+      "summary": "コンパクトさ、座面幅、価格のバランスを比較しやすい新生活向け2人掛け。",
+      "publishable": true,
+      "selection_role": "Best Balance",
+      "shop": {
+        "name": "ロハス・インテリア",
+        "type": "authorized_retailer"
+      },
+      "dimensions": {
+        "width_cm": 125,
+        "depth_cm": 78,
+        "height_cm": 76,
+        "seat_height_cm": 39
+      },
+      "materials": [
+        "合成皮革（バイキャスト加工）",
+        "ウレタンフォーム",
+        "ウェービングテープ",
+        "天然木"
+      ],
+      "shipping": {
+        "verified": true,
+        "included": true,
+        "exceptions": "沖縄・離島は配送不可",
+        "display": "送料無料（地域条件あり）",
+        "dispatch": "在庫・発送日は楽天の商品ページで確認"
+      },
+      "recommended_for": [
+        "新生活の予算を分散したい",
+        "12畳前後のLDK",
+        "拭き取りやすさを優先したい"
+      ],
+      "purchase_notes": [
+        "横になるより、端正に腰掛ける用途が中心",
+        "在庫が残りわずかなため、購入前に販売状況を再確認したい"
+      ],
+      "editor_comment": "安さではなく、住まい全体に余白を残せることを評価しました。"
+    },
+    {
+      "id": "relax-form-alfredo-160",
+      "name": "Alfredo アイランドソファ",
+      "brand": "RELAX FORM",
+      "category": "Living",
+      "source_id": "src-relax-form-alfredo-160",
+      "price": {
+        "amount": 98800,
+        "currency": "JPY",
+        "tax_included": true,
+        "verified_price": true,
+        "from": true
+      },
+      "affiliate_url": "https://hb.afl.rakuten.co.jp/ichiba/55c6fced.b36f3f1a.55c6fcfa.ac496d9b/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Froomware%2Frf-alfredo-160%2F&link_type=picttext&ut=eyJwYWdlIjoiaXRlbSIsInR5cGUiOiJwaWN0dGV4dCIsInNpemUiOiIyNDB4MjQwIiwibmFtIjoxLCJuYW1wIjoicmlnaHQiLCJjb20iOjEsImNvbXAiOiJkb3duIiwicHJpY2UiOjEsImJvciI6MSwiY29sIjoxLCJiYnRuIjoxLCJwcm9kIjowLCJhbXAiOmZhbHNlfQ%3D%3D",
+      "official_url": "https://item.rakuten.co.jp/roomware/rf-alfredo-160/",
+      "image_url": "https://shop.r10s.jp/roomware/cabinet/relaxform/11537939/rf-alfredo-160-195.jpg",
+      "image_display": {
+        "fit": "contain",
+        "position": "center center"
+      },
+      "image_source_url": "https://item.rakuten.co.jp/roomware/rf-alfredo-160/",
+      "image_alt": "RELAX FORM Alfredo 160cm アイランドソファ",
+      "editorial_copy": "向きを決めないソファは、暮らしを決めつけない。",
+      "editorial_body": "Alfredoは、ソファとデイベッドの境界を曖昧にする一脚です。背の低いアイランド型なので、正面から座るだけでなく、横になる、反対側から腰掛けるといった動きが自然に生まれます。レザーテックスの落ち着いた表情は、布地よりも輪郭が端正で、部屋の中央でも生活感を抑えやすいもの。背もたれに身体を預ける一般的なソファとは感覚が異なるため、姿勢の好みは確認したいところです。住み替えても置き方を考え直せる自由を、長期使用の理由として選びました。",
+      "suited_for": "模様替えや住み替えの先まで、長く使える家具を選びたいふたり",
+      "editorial_evaluation": {
+        "Space": {
+          "level": 3,
+          "note": "中央置きで動線を分ける"
+        },
+        "Together": {
+          "level": 5,
+          "note": "多方向から腰掛けられる"
+        },
+        "Comfort": {
+          "level": 5,
+          "note": "デイベッドとして使える"
+        },
+        "Care": {
+          "level": 4,
+          "note": "レザーテックスの扱いやすさ"
+        },
+        "Delivery": {
+          "level": 2,
+          "note": "大型便の条件を確認"
+        },
+        "Longevity": {
+          "level": 5,
+          "note": "高密度ウレタンとSバネ"
+        }
+      },
+      "rating": {
+        "value": 4.28,
+        "scale": 5,
+        "count": 18
+      },
+      "product_score": {
+        "EditorialFit": 8,
+        "Design": 7,
+        "Function": 9,
+        "Price": 5,
+        "Longevity": 9,
+        "ReviewQuality": 4,
+        "TotalScore": 70
+      },
+      "pros": [
+        "幅160cmのデイベッド型で多方向から使える",
+        "高密度ウレタンとSバネを採用",
+        "関家具公式ストアで販売"
+      ],
+      "cons": [
+        "背もたれが低く好みが分かれる",
+        "沖縄・離島等は軒先渡しで組立設置に非対応"
+      ],
+      "summary": "素材、内部構造、公式販売店を確認し、長く使う前提で比較できるアイランドソファ。",
+      "publishable": true,
+      "selection_role": "Long-Term Choice",
+      "shop": {
+        "name": "関家具公式ストア 楽天市場店",
+        "type": "manufacturer_direct"
+      },
+      "dimensions": {
+        "width_cm": 160,
+        "depth_cm": 92,
+        "height_cm": 40
+      },
+      "materials": [
+        "レザーテックス",
+        "高密度ウレタンフォーム",
+        "Sバネ",
+        "ステンレス"
+      ],
+      "shipping": {
+        "verified": true,
+        "included": true,
+        "exceptions": "離島は別途見積もり。沖縄・離島等は軒先渡しで組立設置不可。",
+        "display": "送料無料（地域条件あり）",
+        "dispatch": "在庫・発送日は楽天の商品ページで確認"
+      },
+      "recommended_for": [
+        "横になれる場所がほしい",
+        "部屋の中央へ家具を置きたい",
+        "住み替え後も使い方を変えたい"
+      ],
+      "purchase_notes": [
+        "高い背もたれに首まで預けたい人には向きにくい",
+        "大型便の配送条件と設置サービスを確認したい"
+      ],
+      "editor_comment": "形を固定しないことが、暮らしの変化への強さになります。"
+    },
+    {
+      "id": "armonia-nube-couch",
+      "name": "フルカバーリング カウチソファ",
+      "brand": "ARMONIA",
+      "category": "Living",
+      "source_id": "src-armonia-gravedona",
+      "price": {
+        "amount": 154980,
+        "currency": "JPY",
+        "tax_included": true,
+        "verified_price": true,
+        "from": true
+      },
+      "affiliate_url": "https://hb.afl.rakuten.co.jp/ichiba/55c6f334.16132fde.55c6f338.15c98dbd/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fmoromoro%2Foutlet-k-029brbenew%2F",
+      "official_url": "https://item.rakuten.co.jp/moromoro/outlet-k-029brbenew/",
+      "image_url": "https://shop.r10s.jp/moromoro/cabinet/k-029_6.jpg",
+      "image_display": {
+        "fit": "contain",
+        "position": "center center"
+      },
+      "image_source_url": "https://item.rakuten.co.jp/moromoro/outlet-k-029brbenew/",
+      "image_alt": "ARMONIA Gravedona フルカバーリング カウチソファ",
+      "editorial_copy": "人が集まる週末を、ひとつの風景にする。",
+      "editorial_body": "大きなカウチを選ぶなら、人数ではなく、そこで起きる姿勢の多さを見たいと思いました。脚を伸ばして映画を見る、友人を迎える、片方が横になったまま話す。240cmの幅は小さくありませんが、その面積を複数の居場所として使えるのが魅力です。フルカバーリングは、汚れを恐れて家具を使わなくなることを避けられる仕様。反面、搬入とレイアウト変更には相応の余白が必要です。広いLDKを、眺める部屋ではなく人が集まる部屋にしたいふたりへ選びました。",
+      "suited_for": "広いLDKで、友人を招く週末とふたりの映画時間を両立したい暮らし",
+      "editorial_evaluation": {
+        "Space": {
+          "level": 1,
+          "note": "幅240cmの存在感"
+        },
+        "Together": {
+          "level": 5,
+          "note": "姿勢と距離を選べる"
+        },
+        "Comfort": {
+          "level": 5,
+          "note": "カウチで脚を伸ばせる"
+        },
+        "Care": {
+          "level": 5,
+          "note": "フルカバーリング"
+        },
+        "Delivery": {
+          "level": 1,
+          "note": "大型搬入の確認が必須"
+        },
+        "Longevity": {
+          "level": 5,
+          "note": "カバーを更新できる"
+        }
+      },
+      "rating": {
+        "value": 4.44,
+        "scale": 5,
+        "count": 2979
+      },
+      "product_score": {
+        "EditorialFit": 9,
+        "Design": 9,
+        "Function": 9,
+        "Price": 4,
+        "Longevity": 9,
+        "ReviewQuality": 4,
+        "TotalScore": 73.3
+      },
+      "pros": [
+        "広いカウチで複数の姿勢を受け止める",
+        "フルカバーリング仕様",
+        "ARMONIA公式楽天市場店で販売"
+      ],
+      "cons": [
+        "幅240cmの設置面積が必要",
+        "通常配送は玄関または1階エントランス渡し"
+      ],
+      "summary": "集う時間とくつろぐ時間を一台で受け止める、大型のフルカバーリングカウチ。",
+      "publishable": true,
+      "selection_role": "Hosting Weekend",
+      "shop": {
+        "name": "ARMONIA アルモニア",
+        "type": "brand_direct"
+      },
+      "dimensions": {
+        "width_cm": 240,
+        "depth_cm": 145,
+        "height_cm": 82,
+        "seat_height_cm": 37
+      },
+      "materials": [
+        "ファブリック",
+        "高密度ウレタン",
+        "木材",
+        "ウェービングテープ",
+        "Sバネ"
+      ],
+      "shipping": {
+        "verified": true,
+        "included": true,
+        "exceptions": "北海道札幌市10,000円、札幌市外20,000円、東北7,500円。沖縄・離島は見積もり。通常配送は玄関または1階エントランス渡し。",
+        "display": "送料無料（地域条件あり）",
+        "dispatch": "在庫・発送日は楽天の商品ページで確認"
+      },
+      "recommended_for": [
+        "20畳前後のLDK",
+        "映画や来客の時間が多い",
+        "カバーを交換しながら長く使いたい"
+      ],
+      "purchase_notes": [
+        "幅240cmを置いた後の通路幅まで測っておきたい",
+        "通常配送の受け渡し場所と開梱設置の有無を注文前に確認したい"
+      ],
+      "editor_comment": "大きさそのものではなく、週末の使い方が増えることに価値があるソファ。"
+    },
+    {
+      "id": "armonia-pangea-island",
+      "name": "アイランドソファ",
+      "brand": "ARMONIA",
+      "category": "Living",
+      "source_id": "src-armonia-pangea",
+      "price": {
+        "amount": 159990,
+        "currency": "JPY",
+        "tax_included": true,
+        "verified_price": true
+      },
+      "affiliate_url": "https://hb.afl.rakuten.co.jp/ichiba/55c6f334.16132fde.55c6f338.15c98dbd/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fmoromoro%2Fk-127-2%2F",
+      "official_url": "https://item.rakuten.co.jp/moromoro/k-127-2/",
+      "image_url": "https://shop.r10s.jp/moromoro/cabinet/k-127-2_th3.jpg",
+      "image_display": {
+        "fit": "contain",
+        "position": "center center"
+      },
+      "image_source_url": "https://item.rakuten.co.jp/moromoro/k-127-2/",
+      "image_alt": "ARMONIA アイランドソファ Pangea",
+      "editorial_copy": "壁から離すと、部屋の会話が変わる。",
+      "editorial_body": "壁際に向けて置くという前提を外すと、リビングの使い方は意外なほど変わります。Pangeaは背面まで見せられるアイランド型で、窓へ向く朝と、ダイニングへ向く夜を同じ一脚で受け止めます。169cmという幅も、ふたりで使いながら部屋の中央に余白を残しやすい寸法です。フルカバーリングは長期使用の安心材料ですが、本体重量は軽くありません。模様替えを頻繁にするより、部屋の中心を静かに決めたいふたりに向くと判断しました。",
+      "suited_for": "ソファを部屋の中央に置き、光や会話の向きを自由に変えたいふたり",
+      "editorial_evaluation": {
+        "Space": {
+          "level": 3,
+          "note": "中央置きで空間を分ける"
+        },
+        "Together": {
+          "level": 5,
+          "note": "異なる向きで過ごせる"
+        },
+        "Comfort": {
+          "level": 4,
+          "note": "広い座面に身を預ける"
+        },
+        "Care": {
+          "level": 5,
+          "note": "フルカバーリング"
+        },
+        "Delivery": {
+          "level": 2,
+          "note": "重量69kgを確認"
+        },
+        "Longevity": {
+          "level": 5,
+          "note": "置き方を更新できる"
+        }
+      },
+      "rating": {
+        "value": 4.5,
+        "scale": 5,
+        "count": 2
+      },
+      "product_score": {
+        "EditorialFit": 9,
+        "Design": 9,
+        "Function": 9,
+        "Price": 5,
+        "Longevity": 9,
+        "ReviewQuality": 4,
+        "TotalScore": 75
+      },
+      "pros": [
+        "360度から使えるアイランド設計",
+        "フルカバーリング仕様",
+        "幅169cmで大型カウチより収まりやすい"
+      ],
+      "cons": [
+        "重量69kgで搬入負担が大きい",
+        "価格・送料と在庫の公開前再確認が必要"
+      ],
+      "summary": "壁に沿わせず、ふたりの向きと部屋の使い方を更新できるアイランドソファ。",
+      "publishable": true,
+      "selection_role": "Open Plan",
+      "shop": {
+        "name": "ARMONIA アルモニア",
+        "type": "brand_direct"
+      },
+      "dimensions": {
+        "width_cm": 169,
+        "depth_cm": 98,
+        "height_cm": 84,
+        "seat_height_cm": 42
+      },
+      "materials": [
+        "ファブリック",
+        "ウレタンフォーム",
+        "ウェービングテープ",
+        "Sバネ",
+        "ステンレス"
+      ],
+      "shipping": {
+        "verified": true,
+        "included": true,
+        "exceptions": "北海道札幌市7,000円、札幌市外14,000円、東北5,000円。沖縄・離島は見積もり。通常配送は玄関または1階エントランス渡し。",
+        "display": "送料無料（地域条件あり）",
+        "dispatch": "在庫・発送日は楽天の商品ページで確認"
+      },
+      "recommended_for": [
+        "LDKの中央へ置きたい",
+        "窓とダイニング両方へ向きたい",
+        "背面まで美しい家具を選びたい"
+      ],
+      "purchase_notes": [
+        "重量があるため、設置後に一人で動かすのは難しい",
+        "座面が広い分、ローテーブルとの距離を先に決めたい"
+      ],
+      "editor_comment": "壁から離したときに、いちばん魅力が伝わる一脚です。"
+    },
+    {
+      "id": "lifedept-sf07",
+      "name": "ローソファ 3人掛け",
+      "brand": "LIFEDEPT",
+      "category": "Living",
+      "source_id": "src-lifedept-sf07",
+      "price": {
+        "amount": 39980,
+        "currency": "JPY",
+        "tax_included": true,
+        "verified_price": true
+      },
+      "affiliate_url": "https://hb.afl.rakuten.co.jp/ichiba/55cd49e4.13856660.55cd49e5.8499cc94/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Flifedept%2Fsf07%2F",
+      "official_url": "https://item.rakuten.co.jp/lifedept/sf07/",
+      "image_url": "https://shop.r10s.jp/lifedept/cabinet/itm/sf07/3.jpg",
+      "image_display": {
+        "fit": "contain",
+        "position": "center 58%"
+      },
+      "image_source_url": "https://item.rakuten.co.jp/lifedept/sf07/",
+      "image_alt": "LIFEDEPT ローソファ 3人掛け",
+      "editorial_copy": "床に近い休日は、時間までゆっくり見える。",
+      "editorial_body": "床に近い暮らしが好きなら、背の高いソファより、視線を下げる一脚のほうが部屋を広く感じられます。SF07は三人掛けの座面を確保しながら、ラグへ足を投げ出す動きと自然につながるロータイプ。片方が横になっても、もう片方の居場所を残しやすい点を選びました。手の届きやすい価格ですが、布地の耐久感やクッションの復元性は上位価格帯と同じ尺度では見られません。数年後の買い替えも含め、今の住まいに合う時間を優先するふたり向けです。",
+      "suited_for": "床座の延長でくつろぎ、部屋を低く広く見せたい新生活",
+      "editorial_evaluation": {
+        "Space": {
+          "level": 4,
+          "note": "低い背で視線が抜ける"
+        },
+        "Together": {
+          "level": 4,
+          "note": "三人幅をふたりで使う"
+        },
+        "Comfort": {
+          "level": 4,
+          "note": "床に近いくつろぎ"
+        },
+        "Care": {
+          "level": 3,
+          "note": "張地の日常ケア"
+        },
+        "Delivery": {
+          "level": 3,
+          "note": "梱包寸法を再確認"
+        },
+        "Longevity": {
+          "level": 3,
+          "note": "シンプルな構造"
+        }
+      },
+      "rating": {
+        "value": 4.56,
+        "scale": 5,
+        "count": 48
+      },
+      "product_score": {
+        "EditorialFit": 8,
+        "Design": 7,
+        "Function": 8,
+        "Price": 9,
+        "Longevity": 6,
+        "ReviewQuality": 8,
+        "TotalScore": 76.7
+      },
+      "pros": [
+        "低い背で部屋の視線を遮りにくい",
+        "ふたりでゆったり使える3人掛け",
+        "ブランド直営の楽天市場店"
+      ],
+      "cons": [
+        "立ち座りのしやすさは体格で異なる",
+        "寸法・送料と在庫の公開前再確認が必要"
+      ],
+      "summary": "床座に近い目線と三人分の幅を、日常的な価格帯で取り入れるローソファ。",
+      "publishable": true,
+      "selection_role": "Low Perspective",
+      "shop": {
+        "name": "LIFEDEPT",
+        "type": "brand_direct"
+      },
+      "dimensions": {
+        "width_cm": 183,
+        "depth_cm": 81,
+        "height_cm": 62,
+        "seat_height_cm": 27
+      },
+      "materials": [
+        "ポリエステル",
+        "ウレタン",
+        "ラバーウッド無垢材"
+      ],
+      "shipping": {
+        "verified": true,
+        "included": true,
+        "exceptions": "沖縄・離島は別途送料。佐川急便の玄関渡し。ベージュは確認時点で残りわずか。",
+        "display": "送料無料（地域条件あり）",
+        "dispatch": "在庫・発送日は楽天の商品ページで確認"
+      },
+      "recommended_for": [
+        "床座に近い暮らしが好き",
+        "三人幅を手頃に取り入れたい",
+        "数年単位で家具を見直したい"
+      ],
+      "purchase_notes": [
+        "張地の耐久感とクッションの硬さは到着後の印象差が出やすい",
+        "玄関渡しのため、室内への移動人数を確保しておきたい"
+      ],
+      "editor_comment": "永く持つことだけを正解にせず、今の暮らしとの相性で選びました。"
+    },
+    {
+      "id": "tansu-vintage-48600003",
+      "name": "ヴィンテージソファ 2人掛け",
+      "brand": "タンスのゲン",
+      "category": "Living",
+      "source_id": "src-tansu-48600003",
+      "price": {
+        "amount": 29999,
+        "currency": "JPY",
+        "tax_included": true,
+        "verified_price": true
+      },
+      "affiliate_url": "https://hb.afl.rakuten.co.jp/ichiba/55c47b41.ebeced0e.55c47b4b.cbb85600/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Ftansu%2F48600003%2F",
+      "official_url": "https://item.rakuten.co.jp/tansu/48600003/",
+      "image_url": "https://shop.r10s.jp/tansu/cabinet/sofa3/48600003_11n.jpg",
+      "image_display": {
+        "fit": "contain",
+        "position": "center center"
+      },
+      "image_source_url": "https://item.rakuten.co.jp/tansu/48600003/",
+      "image_alt": "タンスのゲン ヴィンテージソファ 2人掛け",
+      "editorial_copy": "新しい部屋に、少しだけ時間の跡を置く。",
+      "editorial_body": "新品だけで整えた部屋に少しだけ時間の跡を加えるなら、使い込んだような合成皮革と木肘がよく働きます。幅144cmはふたりで座れて、ダイニングとの動線も奪いにくい寸法。ポケットコイルの座面は、見た目だけのヴィンテージ調に終わらない理由です。合成皮革の表情は本革とは異なり、夏場の触感にも好みが分かれます。照明やラグを落ち着いた色でまとめ、夜のリビングに輪郭をつくりたいふたりへ選びました。",
+      "suited_for": "木と深い色を基調に、落ち着いた夜のリビングをつくりたいふたり",
+      "editorial_evaluation": {
+        "Space": {
+          "level": 4,
+          "note": "幅144cmの二人席"
+        },
+        "Together": {
+          "level": 4,
+          "note": "近い距離で並べる"
+        },
+        "Comfort": {
+          "level": 4,
+          "note": "ポケットコイル座面"
+        },
+        "Care": {
+          "level": 4,
+          "note": "合成皮革を拭ける"
+        },
+        "Delivery": {
+          "level": 3,
+          "note": "重量30kg"
+        },
+        "Longevity": {
+          "level": 4,
+          "note": "木肘とコイル構造"
+        }
+      },
+      "rating": {
+        "value": 4.65,
+        "scale": 5,
+        "count": 52
+      },
+      "product_score": {
+        "EditorialFit": 8,
+        "Design": 8,
+        "Function": 7,
+        "Price": 8,
+        "Longevity": 7,
+        "ReviewQuality": 9,
+        "TotalScore": 78.3
+      },
+      "pros": [
+        "幅144cmの扱いやすい二人掛け",
+        "ポケットコイルとシリコンフィルを採用",
+        "レビュー蓄積を確認できる"
+      ],
+      "cons": [
+        "合成皮革の経年変化には手入れが必要",
+        "価格・在庫と送料の公開前再確認が必要"
+      ],
+      "summary": "深い色と木肘で、ふたりの夜に落ち着いた輪郭をつくるヴィンテージソファ。",
+      "publishable": true,
+      "selection_role": "Vintage Accent",
+      "shop": {
+        "name": "タンスのゲン Design the Future",
+        "type": "manufacturer_direct"
+      },
+      "dimensions": {
+        "width_cm": 144,
+        "depth_cm": 77,
+        "height_cm": 72,
+        "seat_height_cm": 41
+      },
+      "materials": [
+        "合成皮革",
+        "ポケットコイル",
+        "シリコンフィル",
+        "ウレタンフォーム",
+        "ラバーウッド"
+      ],
+      "shipping": {
+        "verified": true,
+        "included": true,
+        "exceptions": "本州・九州・四国は送料無料。北海道12,000円、沖縄本島14,000円、離島配送不可。時間指定不可。",
+        "display": "送料無料（地域条件あり）",
+        "dispatch": "在庫・発送日は楽天の商品ページで確認"
+      },
+      "recommended_for": [
+        "ヴィンテージ家具が好き",
+        "二人掛けを省スペースで置きたい",
+        "飲み物の汚れを拭き取りたい"
+      ],
+      "purchase_notes": [
+        "合成皮革の触感と経年変化は本革とは異なる",
+        "地域別送料と時間指定不可の条件を注文前に確認したい"
+      ],
+      "editor_comment": "雰囲気だけでなく、座面構造と手入れの現実性まで見て選んだ一脚。"
+    },
+    {
+      "id": "tansu-natural-frame-49600367",
+      "name": "天然木フレームソファ 2人掛け",
+      "brand": "タンスのゲン",
+      "category": "Living",
+      "source_id": "src-tansu-49600367",
+      "price": {
+        "amount": 14999,
+        "currency": "JPY",
+        "tax_included": true,
+        "verified_price": true
+      },
+      "affiliate_url": "https://hb.afl.rakuten.co.jp/ichiba/55c47b41.ebeced0e.55c47b4b.cbb85600/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Ftansu%2F49600367%2F",
+      "official_url": "https://item.rakuten.co.jp/tansu/49600367/",
+      "image_url": "https://shop.r10s.jp/tansu/cabinet/chair3/chair4/chair5/49600367_ima1f.jpg",
+      "image_display": {
+        "fit": "contain",
+        "position": "center center"
+      },
+      "image_source_url": "https://item.rakuten.co.jp/tansu/49600367/",
+      "image_alt": "タンスのゲン 天然木フレームソファ 2人掛け",
+      "editorial_copy": "木の線が見えるだけで、リビングは軽くなる。",
+      "editorial_body": "天然木のフレームが見えるソファは、同じ幅でも部屋を軽く見せます。床から浮いた座面と細い線によって、幅144cmを置いても壁やラグとの境界が残るのが魅力です。ふたりで近くに座る平日の夜にも、窓辺で一人が本を読む朝にも馴染みます。圧縮梱包は搬入しやすい一方、開封後の復元時間と組み立てを見込む必要があります。初めての住まいで、木の家具を少しずつ揃えていきたいふたりに選びました。",
+      "suited_for": "木の家具を基調に、掃除しやすく軽やかなリビングを整えたい暮らし",
+      "editorial_evaluation": {
+        "Space": {
+          "level": 4,
+          "note": "幅144cm、脚元は軽い"
+        },
+        "Together": {
+          "level": 3,
+          "note": "端正に並ぶ二人席"
+        },
+        "Comfort": {
+          "level": 3,
+          "note": "ほどよく支える座面"
+        },
+        "Care": {
+          "level": 4,
+          "note": "床下を掃除しやすい"
+        },
+        "Delivery": {
+          "level": 4,
+          "note": "圧縮梱包、組み立て式"
+        },
+        "Longevity": {
+          "level": 4,
+          "note": "天然木フレーム"
+        }
+      },
+      "rating": {
+        "value": null,
+        "scale": 5,
+        "count": 0
+      },
+      "product_score": {
+        "EditorialFit": 8,
+        "Design": 8,
+        "Function": 7,
+        "Price": 9,
+        "Longevity": 7,
+        "ReviewQuality": 7,
+        "TotalScore": 76.7
+      },
+      "pros": [
+        "天然木フレームで床面が見える",
+        "ポケットコイル座面",
+        "耐荷重200kgの二人掛け"
+      ],
+      "cons": [
+        "組み立てと圧縮梱包の復元期間が必要",
+        "確認時点で一部カラーは売り切れ"
+      ],
+      "summary": "木の線と床の余白を見せ、限られたLDKを軽やかに整える二人掛け。",
+      "publishable": true,
+      "selection_role": "Wooden Calm",
+      "shop": {
+        "name": "タンスのゲン Design the Future",
+        "type": "manufacturer_direct"
+      },
+      "dimensions": {
+        "width_cm": 144,
+        "depth_cm": 70,
+        "height_cm": 64,
+        "seat_height_cm": 24
+      },
+      "materials": [
+        "ポリエステル100%",
+        "綿",
+        "ウレタン",
+        "ポケットコイル",
+        "ラバーウッド",
+        "スチール"
+      ],
+      "shipping": {
+        "verified": true,
+        "included": true,
+        "note": "送料無料。玄関渡し、圧縮梱包。確認時点で一部カラーは売り切れ、購入可能カラーあり。",
+        "display": "送料無料（地域条件あり）",
+        "dispatch": "在庫・発送日は楽天の商品ページで確認"
+      },
+      "recommended_for": [
+        "北欧調の木製家具が好き",
+        "床掃除のしやすさを重視",
+        "圧縮梱包で搬入したい"
+      ],
+      "purchase_notes": [
+        "開封後すぐにはクッションが完全に復元しない場合がある",
+        "組み立て時間と二人分の作業スペースを確保したい"
+      ],
+      "editor_comment": "木の線と床の余白が、暮らし始めの部屋を整えてくれます。"
+    },
+    {
+      "id": "glo-aurora-fabric",
+      "name": "ヴィンテージ ファブリックソファ",
+      "brand": "glo",
+      "category": "Living",
+      "source_id": "src-glo-aurora",
+      "price": {
+        "amount": 29800,
+        "currency": "JPY",
+        "tax_included": true,
+        "verified_price": true
+      },
+      "affiliate_url": "https://hb.afl.rakuten.co.jp/ichiba/55cd4f33.a71517fd.55cd4f34.e3d8bd68/?pc=https%3A%2F%2Fitem.rakuten.co.jp%2Fglo-shop%2Fglo-t32-7f-aurora%2F",
+      "official_url": "https://item.rakuten.co.jp/glo-shop/glo-t32-7f-aurora/",
+      "image_url": "https://shop.r10s.jp/glo-shop/cabinet/syouhin2/st32-7f_04.jpg",
+      "image_display": {
+        "fit": "contain",
+        "position": "center center"
+      },
+      "image_source_url": "https://item.rakuten.co.jp/glo-shop/glo-t32-7f-aurora/",
+      "image_alt": "glo ヴィンテージ ファブリックソファ Aurora",
+      "editorial_copy": "布の陰影が、夜のリビングを深くする。",
+      "editorial_body": "無地のソファでも、織りの濃淡があると夜の光に小さな表情が生まれます。Auroraは幅170cmで、ふたりが並ぶにも片方が横になるにも余裕があり、背を抑えた姿は部屋の中央でも視線を遮りにくい設計です。シリコンフィルとSバネの組み合わせも、映画の時間を支える材料として確認しました。ファブリックの色は画面と室内照明で印象が変わりやすく、大型便の搬入条件も要確認。濃い色を部屋の静かな基点にしたいふたりへ選びました。",
+      "suited_for": "ファブリックの陰影と低いフォルムで、静かな夜をつくりたいふたり",
+      "editorial_evaluation": {
+        "Space": {
+          "level": 3,
+          "note": "幅170cm、低い背"
+        },
+        "Together": {
+          "level": 4,
+          "note": "余裕を持って並べる"
+        },
+        "Comfort": {
+          "level": 4,
+          "note": "シリコンフィルとSバネ"
+        },
+        "Care": {
+          "level": 3,
+          "note": "布地の日常ケア"
+        },
+        "Delivery": {
+          "level": 3,
+          "note": "大型商品の搬入確認"
+        },
+        "Longevity": {
+          "level": 4,
+          "note": "飽きにくい低い輪郭"
+        }
+      },
+      "rating": {
+        "value": 4.63,
+        "scale": 5,
+        "count": 8
+      },
+      "product_score": {
+        "EditorialFit": 8,
+        "Design": 8,
+        "Function": 7,
+        "Price": 6,
+        "Longevity": 7,
+        "ReviewQuality": 4,
+        "TotalScore": 66.7
+      },
+      "pros": [
+        "幅170cmでふたりにゆとりがある",
+        "シリコンフィルとSバネを採用",
+        "低い背で視線を遮りにくい"
+      ],
+      "cons": [
+        "レビュー母数がまだ少ない",
+        "価格・在庫と地域別送料の公開前再確認が必要"
+      ],
+      "summary": "布の陰影と低い輪郭で、夜のリビングに静かな奥行きをつくるソファ。",
+      "publishable": true,
+      "selection_role": "Textured Lounge",
+      "shop": {
+        "name": "グランドリビングオーダー",
+        "type": "authorized_retailer"
+      },
+      "dimensions": {
+        "width_cm": 170,
+        "depth_cm": 76,
+        "height_cm": 64
+      },
+      "materials": [
+        "ファブリック",
+        "シリコンフィル",
+        "ウレタンフォーム",
+        "ウェービングテープ",
+        "Sバネ"
+      ],
+      "shipping": {
+        "verified": true,
+        "included": true,
+        "exceptions": "北海道・東北は追加送料、沖縄・離島は見積もり。大型商品のため搬入経路確認が必要。",
+        "display": "送料無料（地域条件あり）",
+        "dispatch": "在庫・発送日は楽天の商品ページで確認"
+      },
+      "recommended_for": [
+        "夜のリビングを落ち着かせたい",
+        "横にもなれる幅がほしい",
+        "部屋の中央へ低い家具を置きたい"
+      ],
+      "purchase_notes": [
+        "張地の色と織りは画面だけで判断しにくい",
+        "北海道・東北などの追加送料と搬入条件を確認したい"
+      ],
+      "editor_comment": "夜の照明まで含めて、布の表情を選びたいソファです。"
+    }
+  ]
+}

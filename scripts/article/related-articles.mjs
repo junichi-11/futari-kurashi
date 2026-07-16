@@ -1,0 +1,1 @@
+export const relatedArticles = (brief, registry, preview) => registry.filter(item => item.id !== brief.articleId && ((brief.relatedArticleIds ?? []).includes(item.id) || item.category?.toUpperCase() === brief.category)).filter(item => preview || item.status === "published");

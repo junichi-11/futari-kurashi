@@ -1,0 +1,72 @@
+# MARGIN Product Library
+
+Product Libraryは、商品情報・編集評価・出典・公開状態を一元管理するための正本です。記事には商品データを複製せず、`data/articles.json` の `productIds` から参照します。
+
+## Product登録手順
+
+1. 商品が `Living`、`Dining`、`Lighting`、`Storage`、`Kitchen`、`Home Appliance`、`Bedroom` のどれに属するか決める。
+2. 変更しないkebab-caseの `id` を作り、`data/products.json` の `products` に登録する。
+3. 同じIDを `categories` の該当配列へ追加する。
+4. 公式情報と楽天市場の商品ページを確認し、`source_registry` に出典を登録して `source_id` で商品と結ぶ。
+5. 価格、評価、寸法、素材、送料、長所、短所、要約を記録する。
+6. 楽天商品ページが提供する商品画像URLを `image_url` に、対応する商品ページを `image_source_url` に登録し、代替テキストを付ける。画像はローカルへ保存・再配布しない。先頭画像に販促文字が多い場合は、商品ページ内の2〜4枚目を含めて確認する。
+7. `editorial_copy`、120〜200字の `editorial_body`、`suited_for` を、仕様から逸脱しない編集表現で記録する。
+8. 6項目のProduct Scoreをレビューし、算術平均を100点換算した値を `TotalScore` に入れる。
+9. Selection Roleを設定し、記事の `productIds` に商品IDを追加する。
+10. `node scripts/validate-products.mjs` を実行してからPreviewで表示を確認する。
+
+## レビュー方法
+
+Product Scoreの各項目は0〜10の整数で採点します。`TotalScore` は6項目の算術平均×10で、小数第1位に丸めます。点数はランキング順位ではなく、採用判断の一要素です。
+
+- `EditorialFit`: MARGINの読者と記事テーマへの適合度
+- `Design`: 小さな住空間へのなじみやすさと造形
+- `Function`: 寸法、手入れ、可変性など実用面
+- `Price`: 仕様と価格の納得感。安さだけでは評価しない
+- `Longevity`: 構造、素材、保証、補修性など長期使用の見込み
+- `ReviewQuality`: 件数、新しさ、具体性、評価の偏りを含むレビューの信頼度
+
+レビュー担当者は公式・メーカー情報を優先し、価格・送料・評価は楽天市場の現行ページと照合します。確認日時はSource Registryの `last_verified` にISO 8601形式で残します。
+
+## 商品画像の選定
+
+- 商品と商品ページの対応を確認し、楽天が提供する画像URLを直接参照する。
+- 商品の形、素材、色、部屋でのスケールが最も伝わる画像を選ぶ。1枚目を自動採用しない。
+- `SALE`、送料無料、レビュー点数、ランキング、クーポンなどの販促文字が大きい画像は避ける。
+- 2〜4枚目などに文字の少ない商品単体写真や生活シーンがあれば優先する。
+- 切り抜きや再加工、ローカル保存、再配布は行わない。差し替え時も `image_source_url` を維持する。
+- 画像が消失・変更される可能性があるため、公開前と定期レビューで表示と商品対応を再確認する。
+
+## publishable判定
+
+`scripts/validate-products.mjs` が次の条件をコードとして検証します。
+
+- `affiliate_url` が楽天アフィリエイトの有効なHTTPS URLであり、`pc` パラメーターの遷移先がSource Registryの `rakuten_url` と一致する
+- `source_id` が完全なSource Registryを参照している
+- `official_url` と `rakuten_url` がHTTPSである
+- 出典確認が30日以内である
+- 価格と送料が確認済みである
+- pros、cons、summaryが揃っている
+- `image_url` が楽天画像ホストを参照し、`image_source_url` が対応するSource Registryの `rakuten_url` と一致する
+- 画像代替テキスト、編集コピー、120〜200字の編集本文、向いている暮らしが揃っている
+- Product Scoreが正しく、`TotalScore` が60点以上である
+
+全条件を満たす場合だけ `publishable: true` にします。条件を満たす商品を `false` のままにすることも、条件不足の商品を `true` にすることも検証エラーです。アフィリエイトURL未設定の商品はPreviewのみ表示でき、Productionには出ません。
+
+商品カードの外部リンクは `affiliate_url` を最優先し、`target="_blank"` と `rel="nofollow sponsored noopener"` を付けます。価格・送料・在庫・レビューは変動するため、記事の広告表記と販売ページで最新情報を確認する注意書きを維持します。
+
+## Selection Role運用
+
+Selection Roleは「誰の、どの場面に合うか」を短く示す編集ラベルです。順位や受賞表現ではありません。
+
+- 同じ記事内では役割を重複させない。
+- 商品名やカテゴリではなく、読者が得る価値を表す。
+- 採用理由をsummary、pros、consで説明できる役割だけを付ける。
+- 商品を差し替える場合も、先に記事が必要とする役割を確認する。
+- 複数記事で同じ商品を参照する場合、記事ごとの役割が異なるなら将来の記事参照データ側へ役割を移すことを検討する。
+
+## Editorial Product Story
+
+`components/product-card.js` の `<margin-product-list>` が、記事ID、記事の商品ID配列、Product Library、Source Registryから縦長の商品セクションを生成します。商品画像、Selection Role、商品名、編集コピー、本文、価格、寸法、素材、向いている暮らし、注意点、更新日、リンクをHTMLへ直接重複記載しません。商品データ更新後はJSONだけで表示へ反映されます。
+
+各商品の `editorial_evaluation` はMARGIN独自の6軸を、1〜5の `level` と短い `note` で保持します。表示では数値を前面に出さず、細い線と編集コメントで傾向を示します。総合順位には変換しません。記事テンプレートの詳しい運用は `docs/Editorial-Template.md` を参照してください。

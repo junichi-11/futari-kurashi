@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-labelledby="title">
+  <title id="title">MARGIN</title>
+  <rect width="160" height="160" rx="32" fill="#1A1D21"/>
+  <rect x="44" y="20" width="32" height="104" rx="16" fill="#FAF9F6" transform="rotate(-32 60 72)"/>
+  <rect x="112" y="14" width="32" height="124" rx="16" fill="#FAF9F6"/>
+  <circle cx="28" cy="118" r="16" fill="#C8AA8A"/>
+</svg>
