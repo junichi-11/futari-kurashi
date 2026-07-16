@@ -5,4 +5,3 @@ logs/notion-sync/*.json
 logs/notion-sync/*.log
 !.env.example
 !logs/notion-sync/.gitkeep
-public/
