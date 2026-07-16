@@ -223,6 +223,35 @@ button{font:inherit}
   .closing{min-height:80svh;background-attachment:scroll}.closing h2{font-size:48px}
   .footer-top,.footer-bottom{flex-direction:column;gap:24px}.footer-top{padding-bottom:45px}
 }
+
+/* Phase 8.7 — Museum-like interface */
+:root{--ink:#111111;--paper:#fff;--muted:#686868;--line:rgba(17,17,17,.12);--white:#fff;--accent:#C8AA8A}
+html{background:#fff}body{background:#fff;color:#111;overflow-x:hidden}
+.site-header{position:fixed;height:68px;background:rgba(255,255,255,.96);color:#111;border-bottom:1px solid var(--line);backdrop-filter:none}
+.site-header.is-scrolled{background:rgba(255,255,255,.96);color:#111;border-bottom:1px solid var(--line);backdrop-filter:none}
+.site-header .logo-light{display:none}.site-header .logo-dark,.site-header.is-scrolled .logo-dark{display:block}
+.nav{width:min(1380px,calc(100% - 80px))}.nav-links{gap:34px;font-size:9px;letter-spacing:.18em}.nav-index{display:none}
+.exhibition-hero{min-height:940px;height:auto;padding:150px max(40px,calc((100vw - 1380px)/2)) 86px;display:grid;grid-template-columns:repeat(12,1fr);grid-template-rows:auto 1fr;gap:64px 28px;background:#fff;color:#111;overflow:visible}
+.exhibition-hero .hero-content{grid-column:1/7;grid-row:1/3;width:auto;height:auto;margin:0;padding:45px 0 0;display:block;align-self:start}
+.exhibition-hero .hero-kicker{margin:0 0 58px;color:#686868;font-size:9px;letter-spacing:.28em}
+.exhibition-hero .hero-title{max-width:700px;margin:0;color:#111;font-size:clamp(58px,6.7vw,105px);font-weight:400;line-height:1.24;letter-spacing:-.055em}
+.exhibition-hero .hero-copy{max-width:430px;margin:52px 0 0;color:#686868;font-size:12px;line-height:2.15}
+.hero-link{display:inline-block;margin-top:38px;padding-bottom:6px;border-bottom:1px solid rgba(17,17,17,.35);font-size:9px;letter-spacing:.18em;text-transform:uppercase;transition:transform .4s var(--ease),border-color .4s var(--ease)}
+.hero-link:hover{transform:translateX(2px);border-color:#111}
+.exhibition-hero .hero-media{grid-column:7/13;grid-row:1/3;position:relative;inset:auto;align-self:end;height:auto;margin:54px 0 0 7%;background:#f5f5f3}
+.exhibition-hero .hero-media:after{display:none}.exhibition-hero .hero-media img{width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;object-position:center;filter:saturate(.7) contrast(1.01);transform:none;animation:heroFade 1.4s ease both}
+.exhibition-hero figcaption{display:flex;justify-content:space-between;gap:25px;padding-top:13px;color:#686868;font-size:8px;letter-spacing:.15em;text-transform:uppercase}
+@keyframes heroFade{from{opacity:0}to{opacity:1}}
+.exhibition-hero .hero-bottom{right:auto;left:max(40px,calc((100vw - 1380px)/2));bottom:40px;color:#686868;writing-mode:horizontal-tb}.exhibition-hero .scroll-line{width:52px;height:1px;background:rgba(17,17,17,.2)}.exhibition-hero .scroll-line:before{inset:0 auto 0 -50%;width:35%;height:1px;background:#111;animation:scrollHorizontal 2.4s ease-in-out infinite}@keyframes scrollHorizontal{to{transform:translateX(420%)}}
+.issue-statement{padding:150px 0 170px;background:#fff}.issue-statement .wrap{display:grid;grid-template-columns:220px minmax(0,650px) 1fr;gap:60px;align-items:start;padding:46px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}.issue-statement p{margin:0;color:#686868;font-size:13px;line-height:2.2}.issue-statement a{justify-self:end;align-self:end;padding-bottom:5px;border-bottom:1px solid rgba(17,17,17,.35);font-size:9px;letter-spacing:.16em;text-transform:uppercase}
+.editorial{padding:120px 0 190px;background:#fff}.editorial-head{grid-template-columns:1fr 1fr;margin-bottom:72px;padding-top:18px;border-top:1px solid var(--line)}.editorial-head h2{font:400 clamp(52px,6vw,84px)/1.1 var(--serif)}.editorial-head p{font-size:11px;max-width:360px}
+.story-grid{grid-template-columns:minmax(0,1fr) 260px;gap:70px;align-items:end}.story-main{height:auto;background:transparent;overflow:visible}.story-main img{position:static;aspect-ratio:16/10;filter:saturate(.72) contrast(1.01)}.story-caption{position:static;padding:24px 0 0;color:#111;background:none}.story-caption h3{margin:14px 0 10px;font-size:clamp(34px,4vw,58px)}.story-caption p{color:#686868}.story-num{color:#686868;font-size:9px;letter-spacing:.17em;text-transform:uppercase}.story-link{color:#111;border-color:rgba(17,17,17,.35);opacity:1}.story-side{height:auto;min-height:260px;margin:0;padding:0 0 22px;background:transparent;border-top:1px solid var(--line);overflow:visible}.story-side .story-caption{padding-top:24px}.story-side .story-caption h3{font-size:27px}.story-main:hover{box-shadow:none}.story-main:hover img{transform:scale(1.012)}
+.sticky{background:#fff;color:#111;padding:150px 0}.sticky-grid{grid-template-columns:.65fr 1.35fr}.sticky-copy h2{font-size:clamp(46px,5.5vw,72px)}.sticky-copy p,.chapter p{color:#686868}.chapter{border-color:var(--line)}.chapter:last-child{border-color:var(--line)}.chapter-no{color:#C8AA8A}
+.products{padding:160px 0;background:#fff}.products-head{padding-top:22px;border-top:1px solid var(--line)}.product-grid{gap:70px 28px}.product-card:nth-child(n){grid-column:span 6;min-height:0;background:transparent;overflow:visible}.product-card img{position:static;height:auto;aspect-ratio:4/3;filter:saturate(.7);transition:transform .7s var(--ease)}.product-card:after{display:none}.product-info{position:static;padding:22px 0 0;color:#111}.product-meta{color:#686868}.product-info h3{font-size:clamp(25px,2.8vw,37px)}
+.statement{padding:170px 0 220px;background:#fff}.closing{min-height:auto;padding:180px 24px 230px;background:#fff;color:#111;border-top:1px solid var(--line)}.closing p{color:#686868}.footer{margin-top:0;border-top:1px solid var(--line)}
+.reveal{transform:translateY(16px)}
+@media(max-width:900px){.nav{width:calc(100% - 40px)}.exhibition-hero{min-height:auto;padding:130px 20px 75px;grid-template-columns:repeat(8,1fr);gap:50px 20px}.exhibition-hero .hero-content{grid-column:1/5}.exhibition-hero .hero-title{font-size:clamp(50px,8vw,72px)}.exhibition-hero .hero-media{grid-column:5/9;margin-left:0}.exhibition-hero .hero-bottom{display:none}.issue-statement .wrap{grid-template-columns:150px 1fr}.issue-statement a{grid-column:2;justify-self:start}.story-grid{grid-template-columns:1fr 220px;gap:40px}.sticky-grid{grid-template-columns:1fr}.product-card:nth-child(n){grid-column:span 6}}
+@media(max-width:600px){.site-header{height:60px}.nav{width:calc(100% - 28px)}.nav-links{gap:18px}.nav-links a:first-child{display:block}.nav-links a:not(:first-child){display:none}.exhibition-hero{display:flex;min-height:auto;padding:108px 14px 60px;gap:0}.exhibition-hero .hero-content{padding:0 10px}.exhibition-hero .hero-kicker{margin-bottom:34px}.exhibition-hero .hero-title{font-size:clamp(43px,13vw,58px);line-height:1.28;letter-spacing:-.055em}.exhibition-hero .hero-copy{margin-top:28px;font-size:11px}.hero-link{margin-top:25px}.exhibition-hero .hero-media{margin:58px 0 0;width:100%}.exhibition-hero .hero-media img{aspect-ratio:4/5}.exhibition-hero figcaption{padding:11px 4px 0;flex-direction:column;gap:4px}.issue-statement{padding:90px 0 115px}.issue-statement .wrap{display:block;width:calc(100% - 28px);padding:30px 0}.issue-statement p{margin:30px 0;font-size:12px}.issue-statement a{display:inline-block}.editorial{padding:85px 0 125px}.editorial-head{display:block;margin-bottom:45px}.editorial-head p{margin:24px 0 0}.story-grid{grid-template-columns:1fr;gap:75px}.story-main img{aspect-ratio:4/5}.story-side{min-height:210px}.sticky,.products{padding:110px 0}.product-grid{gap:80px}.product-card:nth-child(n){grid-column:span 12}.statement{padding:120px 0 170px}.closing{padding:130px 24px 170px}.footer{padding-top:58px}}
 </style>
 </head>
 <body>
@@ -230,61 +259,47 @@ button{font:inherit}
   <div class="nav">
     <a class="logo" href="#top" aria-label="MARGIN ホーム"><img class="logo-light" src="/assets/brand/margin-logo-horizontal-reverse-no-tagline.svg" alt="MARGIN"><img class="logo-dark" src="/assets/brand/margin-logo-horizontal-no-tagline.svg" alt=""></a>
     <nav class="nav-links">
-      <a href="#journal">JOURNAL</a><a href="#selection">SELECTION</a><a href="/about/">ABOUT</a>
-      <span class="nav-index">01 / Home</span>
+      <a href="#journal">JOURNAL</a><a href="/about/">ABOUT</a><a href="mailto:hello@example.com">CONTACT</a>
     </nav>
   </div>
 </header>
 
 <main id="top">
-<section class="hero">
-  <div class="hero-media">
-    <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=2400&q=90" alt="自然光が差し込む落ち着いたリビング">
-  </div>
+<section class="hero exhibition-hero">
   <div class="hero-content">
-    <div class="hero-kicker">A quiet guide for a new life together</div>
-    <h1 class="hero-title">ふたりの暮らしに、<br>余白のある選択を。</h1>
-    <p class="hero-copy">家具とインテリアを、生活の場面から静かに選ぶ。<br>見た目だけではなく、ふたりで使う時間まで想像します。</p>
-    <div class="hero-meta" aria-label="Featured journal metadata"><span>Editor's Choice</span><span>Living</span><span>12 min read</span><span>Updated 2026.07.16</span></div>
+    <div class="hero-kicker">MARGIN JOURNAL / ISSUE 01</div>
+    <h1 class="hero-title">選ぶことから、<br>暮らしは少しずつ<br>整っていく。</h1>
+    <p class="hero-copy">ふたりの時間と、部屋に残る余白から。<br>家具の向こうにある風景を編集します。</p>
+    <a class="hero-link" href="#journal">Latest Story →</a>
   </div>
-  <div class="hero-bottom"><span>SCROLL TO EXPLORE</span><i class="scroll-line"></i></div>
+  <figure class="hero-media">
+    <img data-hero-image src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=2400&q=90" alt="自然光と影が静かに差し込むリビング">
+    <figcaption><span>Living / Editor's Choice</span><span>12 min read · Updated 2026.07.16</span></figcaption>
+  </figure>
+  <div class="hero-bottom"><span>SCROLL</span><i class="scroll-line"></i></div>
 </section>
 
-<section class="intro">
-  <div class="wrap intro-grid reveal">
-    <div class="section-label">01 — Our point of view</div>
-    <div>
-      <h2>家具を選ぶことは、<br>これからの時間を選ぶこと。</h2>
-      <div class="intro-text">
-        <p>部屋に置けるか。ふたりで使いやすいか。毎日の手入れが続けられるか。商品写真の美しさだけでは見えない部分まで、静かに整理します。</p>
-        <p>人気順でも、価格順でもなく、暮らしの風景から考える。新生活の買い物を、少しだけ迷いにくくするためのメディアです。</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="full-bleed reveal">
-  <img src="https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=2400&q=90" alt="余白のあるダイニング空間">
-  <div class="full-copy">
-    <small>Room No.01 / Living & Dining</small>
-    <h2>ふたりで過ごす場所には、<br>ふたり分の余白がいる。</h2>
+<section class="intro issue-statement">
+  <div class="wrap reveal">
+    <div class="section-label">Issue Statement</div>
+    <p>人気や価格だけでは決められない家具を、ふたりが過ごす朝、夜、休日の場面から見つめます。買うことを急がず、長く好きでいられる理由と、選ぶ前に知っておきたいことを、静かに言葉にします。</p>
+    <a href="/about/">About MARGIN →</a>
   </div>
 </section>
 
 <section class="editorial" id="journal">
   <div class="wrap">
     <div class="editorial-head reveal">
-      <h2>暮らしから、<br>選び方を考える。</h2>
-      <p>「何を買うか」より前に、「どんな時間を過ごしたいか」を考える。家具と家電を、生活の場面から編集します。</p>
+      <h2>Journal</h2>
+      <p>展示目録をめくるように、暮らしの場面から選び方を考える。</p>
     </div>
     <div class="story-grid">
       <a class="story-main reveal" href="/articles/sofa-for-couples/" aria-label="休日の朝が好きになるソファを読む">
         <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1800&q=88" alt="落ち着いたソファのあるリビング">
-        <div class="story-caption"><span class="story-num">01</span><h3>休日の朝が<br>好きになるソファ。</h3><p>Living / Sofa guide</p><span class="story-link">Read Story →</span></div>
+        <div class="story-caption"><span class="story-num">Featured / 01</span><h3>休日の朝が<br>好きになるソファ。</h3><p>Living · 2026.07.16</p><span class="story-link">Read Story →</span></div>
       </a>
       <article class="story-side reveal">
-        <img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1200&q=88" alt="コンパクトなダイニング">
-        <div class="story-caption"><span class="story-num">02</span><h3>食事と仕事が<br>同居するテーブル。</h3><p>Dining / Table guide</p></div>
+        <div class="story-caption"><span class="story-num">Next Exhibition / 02</span><h3>食事と仕事が<br>同居するテーブル。</h3><p>Dining · Coming soon</p></div>
       </article>
     </div>
   </div>
