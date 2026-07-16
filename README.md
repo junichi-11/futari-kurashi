@@ -84,3 +84,15 @@ npm run notion:dry-run
 ```
 
 セットアップとapply前の確認は `docs/Notion-Sync-Setup.md` を参照してください。Tokenと実ページIDはコミットしません。
+
+## Editorial Article Factory
+
+Phase 9以降の記事は `data/article-briefs/` とProduct Libraryのdraft catalogを正本にします。
+
+```sh
+npm run article:validate
+npm run article:build
+npm run article:report
+```
+
+`article:build`はPreview専用記事、Source Registry、Affiliate Link Queue、Editorial Review Indexを更新します。新規商品のAffiliate URLは人間が発行するまで`null`、`publishable`は`false`です。Publication Gateを通過しないDraft記事はProductionへ表示しません。

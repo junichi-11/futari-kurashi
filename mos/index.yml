@@ -1,5 +1,45 @@
 version: 1
 documents:
+  - id: article-factory
+    title: Article Factory
+    source_path: mos/production/article-factory.md
+    notion_page_id_env: NOTION_PAGE_ARTICLE_FACTORY
+    sync_mode: create_child_page
+    order: 61
+    enabled: true
+    last_reviewed: 2026-07-16
+    owner: MARGIN Editorial
+    tags: [production, article, automation]
+  - id: product-research-sop
+    title: Product Research SOP
+    source_path: mos/production/product-research-sop.md
+    notion_page_id_env: NOTION_PAGE_PRODUCT_RESEARCH_SOP
+    sync_mode: create_child_page
+    order: 62
+    enabled: true
+    last_reviewed: 2026-07-16
+    owner: MARGIN Editorial
+    tags: [production, product, research]
+  - id: affiliate-link-workflow
+    title: Affiliate Link Workflow
+    source_path: mos/production/affiliate-link-workflow.md
+    notion_page_id_env: NOTION_PAGE_AFFILIATE_WORKFLOW
+    sync_mode: create_child_page
+    order: 63
+    enabled: true
+    last_reviewed: 2026-07-16
+    owner: MARGIN Editorial
+    tags: [production, affiliate, compliance]
+  - id: editorial-pipeline
+    title: Editorial Pipeline
+    source_path: mos/production/editorial-pipeline.md
+    notion_page_id_env: NOTION_PAGE_EDITORIAL_PIPELINE
+    sync_mode: create_child_page
+    order: 64
+    enabled: true
+    last_reviewed: 2026-07-16
+    owner: MARGIN Editorial
+    tags: [production, workflow, publication]
   - id: mos-readme
     title: MARGIN Operating System
     source_path: mos/README.md

@@ -299,7 +299,7 @@ html{background:#fff}body{background:#fff;color:#111;overflow-x:hidden}
         <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1800&q=88" alt="落ち着いたソファのあるリビング">
         <div class="story-caption"><span class="story-num">Featured / 01</span><h3>休日の朝が<br>好きになるソファ。</h3><p>Living · 2026.07.16</p><span class="story-link">Read Story →</span></div>
       </a>
-      <article class="story-side reveal">
+      <article class="story-side reveal" data-coming-soon>
         <div class="story-caption"><span class="story-num">Next Exhibition / 02</span><h3>食事と仕事が<br>同居するテーブル。</h3><p>Dining · Coming soon</p></div>
       </article>
     </div>
@@ -384,6 +384,21 @@ const io=new IntersectionObserver(entries=>entries.forEach(e=>{
   if(e.isIntersecting){e.target.classList.add('is-visible');io.unobserve(e.target)}
 }),{threshold:.13,rootMargin:'0px 0px -6% 0px'});
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+if(new URLSearchParams(location.search).get('preview')==='1'){
+  const drafts=[
+    ['02','Dining','食卓に、ふたりの時間が集まる。','dining-table-for-couples'],
+    ['03','Bedroom','眠る場所から、暮らしを整える。','bed-mattress-for-couples'],
+    ['04','Lighting','夜の時間は、光で変わる。','lighting-for-couples'],
+    ['05','Textile','床に一枚、暮らしの輪郭を。','rug-for-couples']
+  ];
+  const grid=document.querySelector('.story-grid');
+  document.querySelector('[data-coming-soon]')?.remove();
+  drafts.forEach(([issue,category,title,slug])=>{
+    const card=document.createElement('a');card.className='story-side reveal is-visible';card.href=`/articles/${slug}/?preview=1`;card.setAttribute('aria-label',`${title}のDraft Previewを読む`);
+    card.innerHTML=`<div class="story-caption"><span class="story-num">Draft Preview / ${issue}</span><h3>${title}</h3><p>${category} · Editorial review</p><span class="story-link">Read Story →</span></div>`;
+    grid.append(card);
+  });
+}
 </script>
 </body>
 </html>

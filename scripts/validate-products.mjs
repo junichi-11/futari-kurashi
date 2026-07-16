@@ -3,9 +3,21 @@ import process from "node:process";
 
 const libraryPath = new URL("../data/products.json", import.meta.url);
 const articlesPath = new URL("../data/articles.json", import.meta.url);
+const draftCatalogPath = new URL("../data/article-products.json", import.meta.url);
+const draftSourcesPath = new URL("../data/article-sources.json", import.meta.url);
 const library = JSON.parse(await readFile(libraryPath, "utf8"));
 const articleData = JSON.parse(await readFile(articlesPath, "utf8"));
+const draftCatalog = JSON.parse(await readFile(draftCatalogPath, "utf8"));
+const draftSources = JSON.parse(await readFile(draftSourcesPath, "utf8"));
 const errors = [];
+if (draftCatalog.products.length !== 40) errors.push("draft catalog must contain 40 products");
+if (draftSources.sources.length !== 40) errors.push("draft source registry must contain 40 sources");
+const draftSourceIds = new Set(draftSources.sources.map(source => source.id));
+for (const product of draftCatalog.products) {
+  if (product.affiliate_url !== null || product.publishable !== false) errors.push(`${product.id}: draft affiliate/publication defaults are invalid`);
+  if (!draftSourceIds.has(product.source_id)) errors.push(`${product.id}: draft source reference is missing`);
+  if (!/^https:\/\/item\.rakuten\.co\.jp\//.test(product.official_url)) errors.push(`${product.id}: draft official_url must be a Rakuten item page`);
+}
 const scoreKeys = ["EditorialFit", "Design", "Function", "Price", "Longevity", "ReviewQuality"];
 const evaluationKeys = ["Space", "Together", "Comfort", "Care", "Delivery", "Longevity"];
 const categoryNames = ["Living", "Dining", "Lighting", "Storage", "Kitchen", "Home Appliance", "Bedroom"];
@@ -126,4 +138,4 @@ if (errors.length) {
   for (const error of errors) console.error(`- ${error}`);
   process.exit(1);
 }
-console.log(`Product Library valid: ${library.products.length} products, ${sources.size} sources, ${categoryNames.length} categories, ${articleData.articles.length} editorial template`);
+console.log(`Product Library valid: ${library.products.length} published products + ${draftCatalog.products.length} draft products, ${sources.size} published sources + ${draftSources.sources.length} draft sources, ${categoryNames.length} categories, ${articleData.articles.length} editorial template`);

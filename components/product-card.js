@@ -238,8 +238,8 @@ class MarginArticleExtras extends HTMLElement {
       const mode = this.getAttribute("mode") ?? "all";
       if (mode === "comparison") this.replaceChildren(this.renderComparison(article, selected));
       else if (mode === "hero-note") this.replaceChildren(this.renderHeroNote(article));
-      else if (mode === "footer") this.replaceChildren(this.renderBeforeYouChoose(article), this.renderClosing(article), this.renderRelated(article, articleData.articles));
-      else this.replaceChildren(this.renderComparison(article, selected), this.renderBeforeYouChoose(article), this.renderClosing(article), this.renderEditorsNote(article), this.renderRelated(article, articleData.articles));
+      else if (mode === "footer") this.replaceChildren(this.renderBeforeYouChoose(article), this.renderClosing(article), this.renderRelated(article, articleData.articles, preview));
+      else this.replaceChildren(this.renderComparison(article, selected), this.renderBeforeYouChoose(article), this.renderClosing(article), this.renderEditorsNote(article), this.renderRelated(article, articleData.articles, preview));
     } catch (error) {
       console.error("Article extras load failed", error);
       this.replaceChildren(element("p", "product-status", "記事情報を読み込めませんでした。"));
@@ -339,10 +339,24 @@ class MarginArticleExtras extends HTMLElement {
     return note;
   }
 
-  renderRelated(article, articles) {
+  renderRelated(article, articles, preview = false) {
     const section = element("section", "related-articles");
     const relatedIds = new Set(article.relatedArticleIds ?? []);
     const related = articles.filter(item => relatedIds.has(item.id) && item.status === "published");
+    const draftRelated = article.id === "sofa-for-couples" ? [
+      { category: "TEXTILE · DRAFT PREVIEW", title: "床に一枚、暮らしの輪郭を。", subtitle: "ふたり暮らしに選ぶ、ラグ10選", path: "/articles/rug-for-couples/?preview=1" },
+      { category: "LIGHTING · DRAFT PREVIEW", title: "夜の時間は、光で変わる。", subtitle: "ふたり暮らしに選ぶ、照明10選", path: "/articles/lighting-for-couples/?preview=1" },
+      { category: "DINING · DRAFT PREVIEW", title: "食卓に、ふたりの時間が集まる。", subtitle: "ふたり暮らしに選ぶ、ダイニングテーブル10選", path: "/articles/dining-table-for-couples/?preview=1" }
+    ] : [];
+    if (preview && draftRelated.length) {
+      section.append(element("p", "eyebrow", "Continue reading"), element("h2", "", "Related Journal"));
+      const grid = element("div", "related-articles__grid");
+      for (const item of draftRelated) {
+        const link = element("a", "related-article"); link.href = item.path;
+        link.append(element("span", "", item.category), element("h3", "", item.title), element("p", "", item.subtitle)); grid.append(link);
+      }
+      section.append(grid); return section;
+    }
     section.append(element("p", "eyebrow", "Continue reading"), element("h2", "", related.length ? "Related Journal" : "Journalへ戻る"));
     if (!related.length) {
       const back = element("a", "related-articles__back", "MARGIN Journalを見る ←");

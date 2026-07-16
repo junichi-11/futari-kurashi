@@ -3,6 +3,9 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "article:validate": "node scripts/article-factory.mjs validate",
+    "article:build": "node scripts/article-factory.mjs build",
+    "article:report": "node scripts/article-factory.mjs report",
     "notion:validate": "node scripts/notion-sync.mjs validate",
     "notion:check": "node scripts/notion-sync.mjs check",
     "notion:dry-run": "node scripts/notion-sync.mjs dry-run",

@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "lastUpdated": "2026-07-16",
+  "articles": [
+    {"articleId":"sofa-for-couples","title":"休日の朝が好きになるソファ。","phase":"release_review","brief":"complete","research":"complete","productSelection":"complete","affiliateLinks":"12/12","articleBuild":"complete","editorialReview":"approved","visualReview":"reviewing","seoReview":"complete","publication":"published","lastUpdated":"2026-07-16","blocker":null,"nextAction":"公開直前に価格・在庫・送料を再確認"},
+    {"articleId":"dining-table-for-couples","title":"食卓に、ふたりの時間が集まる。","phase":"affiliate_link_waiting","brief":"complete","research":"candidate_selection_complete","productSelection":"10/10","affiliateLinks":"0/10","articleBuild":"preview_complete","editorialReview":"pending","visualReview":"placeholder","seoReview":"draft","publication":"preview_only","lastUpdated":"2026-07-16","blocker":"Affiliate URL、可変商品情報、Hero、人間レビュー","nextAction":"10件の楽天Affiliate URLを発行"},
+    {"articleId":"bed-mattress-for-couples","title":"眠る場所から、暮らしを整える。","phase":"affiliate_link_waiting","brief":"complete","research":"candidate_selection_complete","productSelection":"10/10","affiliateLinks":"0/10","articleBuild":"preview_complete","editorialReview":"pending","visualReview":"placeholder","seoReview":"draft","publication":"preview_only","lastUpdated":"2026-07-16","blocker":"Affiliate URL、可変商品情報、Hero、人間レビュー","nextAction":"10件の楽天Affiliate URLを発行"},
+    {"articleId":"lighting-for-couples","title":"夜の時間は、光で変わる。","phase":"affiliate_link_waiting","brief":"complete","research":"candidate_selection_complete","productSelection":"10/10","affiliateLinks":"0/10","articleBuild":"preview_complete","editorialReview":"pending","visualReview":"placeholder","seoReview":"draft","publication":"preview_only","lastUpdated":"2026-07-16","blocker":"Affiliate URL、可変商品情報、Hero、人間レビュー","nextAction":"10件の楽天Affiliate URLを発行"},
+    {"articleId":"rug-for-couples","title":"床に一枚、暮らしの輪郭を。","phase":"affiliate_link_waiting","brief":"complete","research":"candidate_selection_complete","productSelection":"10/10","affiliateLinks":"0/10","articleBuild":"preview_complete","editorialReview":"pending","visualReview":"placeholder","seoReview":"draft","publication":"preview_only","lastUpdated":"2026-07-16","blocker":"Affiliate URL、可変商品情報、Hero、人間レビュー","nextAction":"10件の楽天Affiliate URLを発行"}
+  ]
+}
