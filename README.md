@@ -73,3 +73,30 @@ AI does not have verified search-volume, ranking, competitor-count, or keyword
 difficulty data. A human editor must review all output before publication.
 Product dimensions, materials, shipping, stock, and other specifications must
 be verified on the relevant Rakuten product page.
+
+## ChatGPT Plus editorial workflow
+
+The Article Builder can create a self-contained prompt and import the JSON
+returned by ChatGPT Plus without using an API key or making an external request.
+
+1. Search for products in Product Manager.
+2. Add useful products to candidates.
+3. Select the products to use in an article.
+4. Enter the article brief in Article Builder.
+5. Generate and copy the ChatGPT prompt.
+6. Paste the prompt into ChatGPT Plus.
+7. Paste the returned JSON into Article Builder.
+8. Review the Quality Gate and approve the import.
+9. Save the article draft.
+10. Export the finished HTML.
+
+Prompt text, the latest five prompt-history entries, imported article data, and
+Quality Gate status are stored with the article draft in localStorage. The
+importer removes Markdown code fences, rejects unselected products and unsafe
+URLs, strips dangerous embedded tags, and never overwrites the current draft
+before explicit approval.
+
+For a future API-based workflow, replace the manual ChatGPT copy/import step
+with a server call that returns the same version `1.0` JSON schema. The existing
+Prompt Builder, importer, Quality Gate, template generator, and AI Research
+Engine can remain as fallbacks.
