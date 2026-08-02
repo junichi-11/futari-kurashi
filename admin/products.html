@@ -56,6 +56,9 @@
       letter-spacing: .2em;
       text-transform: uppercase;
     }
+    .admin-nav { display: flex; align-items: center; gap: 22px; }
+    .admin-nav a { color: var(--muted); font-size: 10px; letter-spacing: .16em; text-decoration: none; }
+    .admin-nav a[aria-current="page"] { color: var(--ink); }
 
     main { padding: 96px 0 128px; }
     .intro { display: grid; grid-template-columns: .72fr 1.28fr; gap: 80px; align-items: end; }
@@ -158,7 +161,9 @@
     .saved-toolbar { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 14px; margin-top: 24px; }
     .saved-note { margin: 0; color: var(--muted); font-size: 11px; }
     .saved-list { display: grid; gap: 1px; margin-top: 28px; background: var(--line); border: 1px solid var(--line); }
-    .saved-item { display: grid; grid-template-columns: 104px minmax(0, 1fr) auto; gap: 22px; align-items: center; padding: 18px; background: var(--surface); }
+    .saved-item { display: grid; grid-template-columns: auto 104px minmax(0, 1fr) auto; gap: 18px; align-items: center; padding: 18px; background: var(--surface); }
+    .candidate-check { width: 18px; height: 18px; margin: 0; accent-color: var(--ink); cursor: pointer; }
+    .selection-actions { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: 12px; }
     .saved-image { width: 104px; aspect-ratio: 4 / 3; object-fit: contain; background: #ebe7df; mix-blend-mode: multiply; }
     .saved-name { margin: 0; font-family: var(--serif); font-size: 14px; line-height: 1.65; }
     .saved-detail { margin: 5px 0 0; color: var(--muted); font-size: 10px; }
@@ -195,7 +200,10 @@
       .card-actions { grid-template-columns: 1fr; }
       .saved-toolbar { align-items: stretch; flex-direction: column; }
       .saved-toolbar .button { width: 100%; }
-      .saved-item { grid-template-columns: 76px minmax(0, 1fr); gap: 14px; }
+      .masthead { align-items: flex-start; flex-direction: column; justify-content: center; gap: 8px; }
+      .admin-nav { gap: 18px; }
+      .environment { display: none; }
+      .saved-item { grid-template-columns: auto 76px minmax(0, 1fr); gap: 12px; }
       .saved-image { width: 76px; }
       .saved-actions { grid-column: 1 / -1; }
       .saved-actions .button { flex: 1; padding-inline: 10px; }
@@ -210,7 +218,11 @@
 <body>
   <header class="shell masthead">
     <div class="brand">MARGIN</div>
-    <div class="environment">Product Manager / v1</div>
+    <nav class="admin-nav" aria-label="Admin navigation">
+      <a href="/admin/products.html" aria-current="page">PRODUCTS</a>
+      <a href="/admin/articles.html">ARTICLES</a>
+      <span class="environment">Manager / v1</span>
+    </nav>
   </header>
 
   <main class="shell">
@@ -253,7 +265,11 @@
       </div>
       <div class="saved-toolbar">
         <p class="saved-note">&#12487;&#12540;&#12479;&#12399;&#12371;&#12398;&#12502;&#12521;&#12454;&#12470;&#12398;localStorage&#12395;&#20445;&#23384;&#12373;&#12428;&#12414;&#12377;&#12290;</p>
-        <button id="export-button" class="button button-secondary" type="button">JSON&#12434;&#26360;&#12365;&#20986;&#12377;</button>
+        <div class="selection-actions">
+          <span id="selection-count" class="section-meta">0 selected</span>
+          <button id="create-article-button" class="button" type="button" disabled>&#36984;&#25246;&#12375;&#12383;&#21830;&#21697;&#12391;&#35352;&#20107;&#12434;&#20316;&#12427;</button>
+          <button id="export-button" class="button button-secondary" type="button">JSON&#12434;&#26360;&#12365;&#20986;&#12377;</button>
+        </div>
       </div>
       <p id="saved-feedback" class="feedback" role="status" aria-live="polite"></p>
       <div id="saved-empty" class="state">&#20445;&#23384;&#12373;&#12428;&#12383;&#21830;&#21697;&#12399;&#12414;&#12384;&#12354;&#12426;&#12414;&#12379;&#12435;&#12290;</div>
@@ -287,6 +303,8 @@
         savedCount: document.querySelector("#saved-count"),
         savedFeedback: document.querySelector("#saved-feedback"),
         exportButton: document.querySelector("#export-button"),
+        selectionCount: document.querySelector("#selection-count"),
+        createArticleButton: document.querySelector("#create-article-button"),
         dialog: document.querySelector("#title-dialog"),
         dialogTitle: document.querySelector("#dialog-title"),
         dialogClose: document.querySelector("#dialog-close"),
@@ -294,6 +312,7 @@
       };
 
       let candidates = loadCandidates();
+      const selectedCodes = new Set();
       let activeController = null;
       let toastTimer = null;
 
@@ -467,9 +486,19 @@
         elements.savedList.hidden = candidates.length === 0;
         elements.exportButton.disabled = candidates.length === 0;
         elements.savedCount.textContent = `${candidates.length} product${candidates.length === 1 ? "" : "s"}`;
+        updateSelectionActions();
 
         candidates.forEach((item) => {
           const row = createElement("article", "saved-item");
+          const checkbox = createElement("input", "candidate-check");
+          checkbox.type = "checkbox";
+          checkbox.checked = selectedCodes.has(item.itemCode);
+          checkbox.setAttribute("aria-label", `\u8a18\u4e8b\u7528\u306b\u9078\u629e: ${item.name}`);
+          checkbox.addEventListener("change", () => {
+            if (checkbox.checked) selectedCodes.add(item.itemCode);
+            else selectedCodes.delete(item.itemCode);
+            updateSelectionActions();
+          });
           const image = createElement("img", "saved-image");
           image.src = item.imageUrl;
           image.alt = "";
@@ -487,9 +516,23 @@
           remove.type = "button";
           remove.addEventListener("click", () => removeCandidate(item.itemCode));
           actions.append(copy, remove);
-          row.append(image, text, actions);
+          row.append(checkbox, image, text, actions);
           elements.savedList.append(row);
         });
+      }
+
+      function updateSelectionActions() {
+        [...selectedCodes].forEach((code) => {
+          if (!candidates.some((item) => item.itemCode === code)) selectedCodes.delete(code);
+        });
+        elements.selectionCount.textContent = `${selectedCodes.size} selected`;
+        elements.createArticleButton.disabled = selectedCodes.size === 0;
+      }
+
+      function createArticleFromSelection() {
+        if (!selectedCodes.size) return;
+        const query = [...selectedCodes].map(encodeURIComponent).join(",");
+        window.location.href = `/admin/articles.html?items=${query}`;
       }
 
       async function search(keyword) {
@@ -553,6 +596,7 @@
         search(elements.input.value.trim());
       });
       elements.exportButton.addEventListener("click", exportCandidates);
+      elements.createArticleButton.addEventListener("click", createArticleFromSelection);
       elements.dialogClose.addEventListener("click", () => elements.dialog.close());
       elements.dialog.addEventListener("click", (event) => {
         if (event.target === elements.dialog) elements.dialog.close();
