@@ -1,0 +1,565 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <meta name="theme-color" content="#f7f5f0">
+  <title>MARGIN Product Manager</title>
+  <style>
+    :root {
+      --paper: #f7f5f0;
+      --surface: #fcfbf8;
+      --ink: #171714;
+      --muted: #71716b;
+      --greige: #d8d0c4;
+      --line: rgba(23, 23, 20, .14);
+      --accent: #8b5e45;
+      --serif: "Yu Mincho", "Hiragino Mincho ProN", Georgia, serif;
+      --sans: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Yu Gothic UI", "Yu Gothic", sans-serif;
+      --ease: cubic-bezier(.2, .65, .2, 1);
+    }
+
+    * { box-sizing: border-box; }
+    html { color-scheme: light; background: var(--paper); }
+    body {
+      margin: 0;
+      min-width: 320px;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--sans);
+      line-height: 1.65;
+      letter-spacing: .025em;
+    }
+    button, input { font: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    a { color: inherit; }
+    img { display: block; max-width: 100%; }
+    [hidden] { display: none !important; }
+
+    .shell { width: min(1240px, calc(100% - 64px)); margin: 0 auto; }
+    .masthead {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 80px;
+      border-bottom: 1px solid var(--line);
+    }
+    .brand {
+      font-family: var(--serif);
+      font-size: 17px;
+      letter-spacing: .14em;
+    }
+    .environment {
+      color: var(--muted);
+      font-size: 10px;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+    }
+
+    main { padding: 96px 0 128px; }
+    .intro { display: grid; grid-template-columns: .72fr 1.28fr; gap: 80px; align-items: end; }
+    .eyebrow {
+      margin: 0 0 18px;
+      color: var(--accent);
+      font-size: 10px;
+      letter-spacing: .24em;
+      text-transform: uppercase;
+    }
+    h1, h2 { margin: 0; font-family: var(--serif); font-weight: 400; }
+    h1 { max-width: 700px; font-size: clamp(44px, 6vw, 82px); line-height: 1.04; letter-spacing: -.045em; }
+    .intro-copy { max-width: 530px; margin: 0 0 8px; color: var(--muted); font-size: 13px; line-height: 2; }
+
+    .search-panel { margin-top: 72px; padding: 38px; background: var(--surface); border: 1px solid var(--line); }
+    .search-form { display: grid; grid-template-columns: 1fr auto; gap: 12px; }
+    .search-input {
+      width: 100%;
+      min-height: 58px;
+      padding: 0 18px;
+      border: 1px solid var(--line);
+      border-radius: 0;
+      outline: none;
+      background: transparent;
+      color: var(--ink);
+      font-size: 16px;
+      transition: border-color .25s ease, background .25s ease;
+    }
+    .search-input:focus { border-color: var(--ink); background: #fff; }
+    .button {
+      min-height: 48px;
+      border: 1px solid var(--ink);
+      border-radius: 0;
+      padding: 0 20px;
+      background: var(--ink);
+      color: #fff;
+      cursor: pointer;
+      font-size: 11px;
+      letter-spacing: .12em;
+      transition: transform .3s var(--ease), background .3s ease, color .3s ease;
+    }
+    .button:hover { transform: translateY(-1px); }
+    .button:disabled { cursor: not-allowed; opacity: .38; transform: none; }
+    .button-secondary { background: transparent; color: var(--ink); }
+    .button-quiet { min-height: 40px; border-color: var(--line); background: transparent; color: var(--ink); }
+    .search-button { min-width: 132px; min-height: 58px; }
+    .search-note { margin: 14px 0 0; color: var(--muted); font-size: 11px; }
+
+    .section { margin-top: 112px; }
+    .section-head { display: flex; justify-content: space-between; gap: 24px; align-items: end; padding-bottom: 20px; border-bottom: 1px solid var(--line); }
+    .section-head h2 { font-size: clamp(28px, 3vw, 42px); letter-spacing: -.025em; }
+    .section-meta { color: var(--muted); font-size: 11px; letter-spacing: .08em; }
+
+    .state {
+      min-height: 160px;
+      display: grid;
+      place-items: center;
+      padding: 36px 20px;
+      color: var(--muted);
+      text-align: center;
+      font-size: 13px;
+      border-bottom: 1px solid var(--line);
+    }
+    .state-error { color: #7d3f31; }
+    .loading-mark { width: 34px; height: 1px; margin: 0 auto 18px; background: var(--greige); overflow: hidden; }
+    .loading-mark::after { content: ""; display: block; width: 45%; height: 100%; background: var(--ink); animation: loading 1.2s ease-in-out infinite; }
+    @keyframes loading { from { transform: translateX(-120%); } to { transform: translateX(260%); } }
+
+    .product-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 56px 24px; margin-top: 36px; }
+    .product-card { min-width: 0; }
+    .product-media { aspect-ratio: 4 / 3; overflow: hidden; background: #ebe7df; }
+    .product-media img { width: 100%; height: 100%; object-fit: contain; mix-blend-mode: multiply; transition: transform .45s var(--ease); }
+    .product-card:hover .product-media img { transform: scale(1.018); }
+    .product-body { padding-top: 20px; }
+    .shop { margin: 0 0 8px; color: var(--muted); font-size: 10px; letter-spacing: .08em; }
+    .product-title-button {
+      width: 100%;
+      min-height: 3.4em;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      color: var(--ink);
+      cursor: pointer;
+      text-align: left;
+      font-family: var(--serif);
+      font-size: 16px;
+      line-height: 1.7;
+      display: -webkit-box;
+      overflow: hidden;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+    }
+    .product-title-button:hover { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; }
+    .product-facts { display: flex; flex-wrap: wrap; gap: 7px 16px; margin: 16px 0 0; color: var(--muted); font-size: 11px; }
+    .price { color: var(--ink); font-size: 15px; font-variant-numeric: tabular-nums; }
+    .card-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 20px; }
+    .affiliate-link { display: grid; place-items: center; text-decoration: none; }
+    .affiliate-link[aria-disabled="true"] { pointer-events: none; opacity: .38; }
+
+    .saved-toolbar { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 14px; margin-top: 24px; }
+    .saved-note { margin: 0; color: var(--muted); font-size: 11px; }
+    .saved-list { display: grid; gap: 1px; margin-top: 28px; background: var(--line); border: 1px solid var(--line); }
+    .saved-item { display: grid; grid-template-columns: 104px minmax(0, 1fr) auto; gap: 22px; align-items: center; padding: 18px; background: var(--surface); }
+    .saved-image { width: 104px; aspect-ratio: 4 / 3; object-fit: contain; background: #ebe7df; mix-blend-mode: multiply; }
+    .saved-name { margin: 0; font-family: var(--serif); font-size: 14px; line-height: 1.65; }
+    .saved-detail { margin: 5px 0 0; color: var(--muted); font-size: 10px; }
+    .saved-actions { display: flex; gap: 7px; }
+    .feedback { min-height: 1.5em; margin: 16px 0 0; color: var(--accent); font-size: 11px; }
+
+    dialog { width: min(620px, calc(100% - 40px)); border: 0; padding: 0; background: var(--surface); color: var(--ink); box-shadow: 0 30px 90px rgba(15, 15, 12, .2); }
+    dialog::backdrop { background: rgba(20, 20, 17, .46); backdrop-filter: blur(4px); }
+    .dialog-inner { padding: 38px; }
+    .dialog-label { margin: 0 0 14px; color: var(--accent); font-size: 9px; letter-spacing: .2em; text-transform: uppercase; }
+    .dialog-title { margin: 0; font-family: var(--serif); font-size: 20px; font-weight: 400; line-height: 1.8; }
+    .dialog-close { margin-top: 30px; }
+
+    .toast { position: fixed; right: 24px; bottom: 24px; z-index: 20; max-width: min(360px, calc(100% - 48px)); padding: 14px 18px; background: var(--ink); color: #fff; font-size: 11px; opacity: 0; transform: translateY(10px); pointer-events: none; transition: opacity .25s ease, transform .25s ease; }
+    .toast.is-visible { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 900px) {
+      .intro { grid-template-columns: 1fr; gap: 30px; }
+      .intro-copy { margin: 0; }
+      .product-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 620px) {
+      .shell { width: min(100% - 36px, 1240px); }
+      .masthead { min-height: 68px; }
+      main { padding: 64px 0 88px; }
+      h1 { font-size: 44px; }
+      .search-panel { margin-top: 48px; padding: 20px; }
+      .search-form { grid-template-columns: 1fr; }
+      .search-button { width: 100%; }
+      .section { margin-top: 80px; }
+      .section-head { align-items: start; flex-direction: column; gap: 8px; }
+      .product-grid { grid-template-columns: 1fr; gap: 48px; }
+      .card-actions { grid-template-columns: 1fr; }
+      .saved-toolbar { align-items: stretch; flex-direction: column; }
+      .saved-toolbar .button { width: 100%; }
+      .saved-item { grid-template-columns: 76px minmax(0, 1fr); gap: 14px; }
+      .saved-image { width: 76px; }
+      .saved-actions { grid-column: 1 / -1; }
+      .saved-actions .button { flex: 1; padding-inline: 10px; }
+      .dialog-inner { padding: 28px 24px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="shell masthead">
+    <div class="brand">MARGIN</div>
+    <div class="environment">Product Manager / v1</div>
+  </header>
+
+  <main class="shell">
+    <section class="intro" aria-labelledby="page-title">
+      <div>
+        <p class="eyebrow">Editorial selection desk</p>
+        <h1 id="page-title">Product<br>Manager</h1>
+      </div>
+      <p class="intro-copy">&#27005;&#22825;&#24066;&#22580;&#12363;&#12425;&#12289;MARGIN&#12398;&#35352;&#20107;&#12395;&#25522;&#36617;&#12377;&#12427;&#20505;&#35036;&#12434;&#25506;&#12377;&#12383;&#12417;&#12398;&#36939;&#21942;&#12484;&#12540;&#12523;&#12391;&#12377;&#12290;&#20505;&#35036;&#12399;&#12371;&#12398;&#31471;&#26411;&#12398;&#12502;&#12521;&#12454;&#12470;&#12395;&#20445;&#23384;&#12373;&#12428;&#12414;&#12377;&#12290;</p>
+    </section>
+
+    <section class="search-panel" aria-label="&#21830;&#21697;&#26908;&#32034;">
+      <form id="search-form" class="search-form" role="search">
+        <label for="search-input" hidden>&#26908;&#32034;&#12461;&#12540;&#12527;&#12540;&#12489;</label>
+        <input id="search-input" class="search-input" type="search" name="q" minlength="2" autocomplete="off" placeholder="&#20363;&#65306;&#12477;&#12501;&#12449; &#22825;&#28982;&#26408;" required>
+        <button id="search-button" class="button search-button" type="submit">&#26908;&#32034;&#12377;&#12427;</button>
+      </form>
+      <p class="search-note">2&#25991;&#23383;&#20197;&#19978;&#12391;&#26908;&#32034;&#12290;&#26908;&#32034;&#32080;&#26524;&#12399;&#26368;&#22823;12&#20214;&#12391;&#12377;&#12290;</p>
+    </section>
+
+    <section class="section" aria-labelledby="results-title">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Rakuten search</p>
+          <h2 id="results-title">&#26908;&#32034;&#32080;&#26524;</h2>
+        </div>
+        <div id="result-meta" class="section-meta">&#26410;&#26908;&#32034;</div>
+      </div>
+      <div id="result-state" class="state" role="status" aria-live="polite">&#12461;&#12540;&#12527;&#12540;&#12489;&#12434;&#20837;&#21147;&#12375;&#12390;&#21830;&#21697;&#12434;&#25506;&#12375;&#12390;&#12367;&#12384;&#12373;&#12356;&#12290;</div>
+      <div id="result-grid" class="product-grid" aria-live="polite"></div>
+    </section>
+
+    <section class="section" aria-labelledby="saved-title">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Local shortlist</p>
+          <h2 id="saved-title">&#20445;&#23384;&#12375;&#12383;&#20505;&#35036;</h2>
+        </div>
+        <div id="saved-count" class="section-meta">0 products</div>
+      </div>
+      <div class="saved-toolbar">
+        <p class="saved-note">&#12487;&#12540;&#12479;&#12399;&#12371;&#12398;&#12502;&#12521;&#12454;&#12470;&#12398;localStorage&#12395;&#20445;&#23384;&#12373;&#12428;&#12414;&#12377;&#12290;</p>
+        <button id="export-button" class="button button-secondary" type="button">JSON&#12434;&#26360;&#12365;&#20986;&#12377;</button>
+      </div>
+      <p id="saved-feedback" class="feedback" role="status" aria-live="polite"></p>
+      <div id="saved-empty" class="state">&#20445;&#23384;&#12373;&#12428;&#12383;&#21830;&#21697;&#12399;&#12414;&#12384;&#12354;&#12426;&#12414;&#12379;&#12435;&#12290;</div>
+      <div id="saved-list" class="saved-list"></div>
+    </section>
+  </main>
+
+  <dialog id="title-dialog" aria-labelledby="dialog-title">
+    <div class="dialog-inner">
+      <p class="dialog-label">Full product name</p>
+      <h2 id="dialog-title" class="dialog-title"></h2>
+      <button id="dialog-close" class="button button-secondary dialog-close" type="button">&#38281;&#12376;&#12427;</button>
+    </div>
+  </dialog>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    (() => {
+      "use strict";
+
+      const STORAGE_KEY = "margin.productCandidates.v1";
+      const elements = {
+        form: document.querySelector("#search-form"),
+        input: document.querySelector("#search-input"),
+        searchButton: document.querySelector("#search-button"),
+        resultState: document.querySelector("#result-state"),
+        resultGrid: document.querySelector("#result-grid"),
+        resultMeta: document.querySelector("#result-meta"),
+        savedList: document.querySelector("#saved-list"),
+        savedEmpty: document.querySelector("#saved-empty"),
+        savedCount: document.querySelector("#saved-count"),
+        savedFeedback: document.querySelector("#saved-feedback"),
+        exportButton: document.querySelector("#export-button"),
+        dialog: document.querySelector("#title-dialog"),
+        dialogTitle: document.querySelector("#dialog-title"),
+        dialogClose: document.querySelector("#dialog-close"),
+        toast: document.querySelector("#toast"),
+      };
+
+      let candidates = loadCandidates();
+      let activeController = null;
+      let toastTimer = null;
+
+      function loadCandidates() {
+        try {
+          const value = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+          return Array.isArray(value) ? value.filter((item) => item && item.itemCode) : [];
+        } catch {
+          return [];
+        }
+      }
+
+      function persistCandidates() {
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(candidates));
+          return true;
+        } catch {
+          showToast("\u4fdd\u5b58\u3067\u304d\u307e\u305b\u3093\u3067\u3057\u305f\u3002\u30d6\u30e9\u30a6\u30b6\u306e\u8a2d\u5b9a\u3092\u78ba\u8a8d\u3057\u3066\u304f\u3060\u3055\u3044\u3002");
+          return false;
+        }
+      }
+
+      function createElement(tag, className, text) {
+        const element = document.createElement(tag);
+        if (className) element.className = className;
+        if (text !== undefined) element.textContent = text;
+        return element;
+      }
+
+      function formatPrice(value) {
+        const price = Number(value);
+        return Number.isFinite(price) ? `${new Intl.NumberFormat("ja-JP").format(price)}\u5186` : "\u4fa1\u683c\u672a\u53d6\u5f97";
+      }
+
+      function reviewText(item) {
+        const average = Number(item.reviewAverage);
+        const count = Number(item.reviewCount);
+        if (!average || !count) return "\u30ec\u30d3\u30e5\u30fc\u672a\u96c6\u8a08";
+        return `\u8a55\u4fa1 ${average.toFixed(2)} / ${new Intl.NumberFormat("ja-JP").format(count)}\u4ef6`;
+      }
+
+      function showToast(message) {
+        elements.toast.textContent = message;
+        elements.toast.classList.add("is-visible");
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => elements.toast.classList.remove("is-visible"), 2400);
+      }
+
+      function showFullTitle(name) {
+        elements.dialogTitle.textContent = name;
+        if (typeof elements.dialog.showModal === "function") elements.dialog.showModal();
+      }
+
+      function setSearchState(type, message) {
+        elements.resultState.hidden = false;
+        elements.resultState.className = `state${type === "error" ? " state-error" : ""}`;
+        elements.resultState.replaceChildren();
+        if (type === "loading") {
+          const wrapper = createElement("div");
+          wrapper.append(createElement("div", "loading-mark"), createElement("div", "", message));
+          elements.resultState.append(wrapper);
+        } else {
+          elements.resultState.textContent = message;
+        }
+      }
+
+      function createProductCard(item) {
+        const card = createElement("article", "product-card");
+        const media = createElement("div", "product-media");
+        const image = createElement("img");
+        image.src = item.imageUrl || "";
+        image.alt = item.name || "";
+        image.loading = "lazy";
+        image.decoding = "async";
+        media.append(image);
+
+        const body = createElement("div", "product-body");
+        body.append(createElement("p", "shop", item.shopName || "\u30b7\u30e7\u30c3\u30d7\u540d\u672a\u53d6\u5f97"));
+        const titleButton = createElement("button", "product-title-button", item.name || "\u5546\u54c1\u540d\u672a\u53d6\u5f97");
+        titleButton.type = "button";
+        titleButton.title = "\u30af\u30ea\u30c3\u30af\u3057\u3066\u5546\u54c1\u540d\u5168\u6587\u3092\u8868\u793a";
+        titleButton.addEventListener("click", () => showFullTitle(item.name || ""));
+        body.append(titleButton);
+
+        const facts = createElement("div", "product-facts");
+        facts.append(
+          createElement("span", "price", formatPrice(item.price)),
+          createElement("span", "", reviewText(item)),
+          createElement("span", "", Number(item.postageFlag) === 1 ? "\u9001\u6599\u7121\u6599" : "\u9001\u6599\u6761\u4ef6\u3042\u308a"),
+        );
+        body.append(facts);
+
+        const actions = createElement("div", "card-actions");
+        const affiliate = createElement("a", "button button-secondary affiliate-link", "\u697d\u5929\u3067\u898b\u308b");
+        if (item.affiliateUrl) {
+          affiliate.href = item.affiliateUrl;
+          affiliate.target = "_blank";
+          affiliate.rel = "nofollow sponsored noopener";
+        } else {
+          affiliate.setAttribute("aria-disabled", "true");
+          affiliate.title = "affiliateUrl\u304c\u3042\u308a\u307e\u305b\u3093";
+        }
+        const addButton = createElement("button", "button", "\u5019\u88dc\u306b\u8ffd\u52a0");
+        addButton.type = "button";
+        const exists = candidates.some((candidate) => candidate.itemCode === item.itemCode);
+        addButton.disabled = exists;
+        if (exists) addButton.textContent = "\u8ffd\u52a0\u6e08\u307f";
+        addButton.addEventListener("click", () => {
+          addCandidate(item);
+          addButton.disabled = true;
+          addButton.textContent = "\u8ffd\u52a0\u6e08\u307f";
+        });
+        actions.append(affiliate, addButton);
+        body.append(actions);
+        card.append(media, body);
+        return card;
+      }
+
+      function addCandidate(item) {
+        if (candidates.some((candidate) => candidate.itemCode === item.itemCode)) return;
+        const candidate = {
+          itemCode: String(item.itemCode || ""),
+          name: String(item.name || ""),
+          price: Number(item.price) || 0,
+          imageUrl: String(item.imageUrl || ""),
+          affiliateUrl: String(item.affiliateUrl || ""),
+          shopName: String(item.shopName || ""),
+          reviewAverage: Number(item.reviewAverage) || 0,
+          reviewCount: Number(item.reviewCount) || 0,
+          catchcopy: String(item.catchcopy || ""),
+        };
+        candidates = [...candidates, candidate];
+        if (persistCandidates()) {
+          renderCandidates();
+          showToast("\u5019\u88dc\u306b\u8ffd\u52a0\u3057\u307e\u3057\u305f\u3002");
+        }
+      }
+
+      function removeCandidate(itemCode) {
+        candidates = candidates.filter((item) => item.itemCode !== itemCode);
+        if (persistCandidates()) {
+          renderCandidates();
+          showToast("\u5019\u88dc\u304b\u3089\u524a\u9664\u3057\u307e\u3057\u305f\u3002");
+        }
+      }
+
+      async function copyAffiliateUrl(url) {
+        if (!url) {
+          showToast("affiliateUrl\u304c\u3042\u308a\u307e\u305b\u3093\u3002");
+          return;
+        }
+        try {
+          await navigator.clipboard.writeText(url);
+          showToast("affiliateUrl\u3092\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f\u3002");
+        } catch {
+          const field = document.createElement("textarea");
+          field.value = url;
+          field.style.position = "fixed";
+          field.style.opacity = "0";
+          document.body.append(field);
+          field.select();
+          const copied = document.execCommand("copy");
+          field.remove();
+          showToast(copied ? "affiliateUrl\u3092\u30b3\u30d4\u30fc\u3057\u307e\u3057\u305f\u3002" : "\u30b3\u30d4\u30fc\u3067\u304d\u307e\u305b\u3093\u3067\u3057\u305f\u3002");
+        }
+      }
+
+      function renderCandidates() {
+        elements.savedList.replaceChildren();
+        elements.savedEmpty.hidden = candidates.length > 0;
+        elements.savedList.hidden = candidates.length === 0;
+        elements.exportButton.disabled = candidates.length === 0;
+        elements.savedCount.textContent = `${candidates.length} product${candidates.length === 1 ? "" : "s"}`;
+
+        candidates.forEach((item) => {
+          const row = createElement("article", "saved-item");
+          const image = createElement("img", "saved-image");
+          image.src = item.imageUrl;
+          image.alt = "";
+          image.loading = "lazy";
+          const text = createElement("div");
+          text.append(
+            createElement("p", "saved-name", item.name),
+            createElement("p", "saved-detail", `${item.shopName} / ${formatPrice(item.price)}`),
+          );
+          const actions = createElement("div", "saved-actions");
+          const copy = createElement("button", "button button-quiet", "URL\u3092\u30b3\u30d4\u30fc");
+          copy.type = "button";
+          copy.addEventListener("click", () => copyAffiliateUrl(item.affiliateUrl));
+          const remove = createElement("button", "button button-quiet", "\u524a\u9664");
+          remove.type = "button";
+          remove.addEventListener("click", () => removeCandidate(item.itemCode));
+          actions.append(copy, remove);
+          row.append(image, text, actions);
+          elements.savedList.append(row);
+        });
+      }
+
+      async function search(keyword) {
+        if (Array.from(keyword).length < 2) {
+          setSearchState("error", "\u691c\u7d22\u30ad\u30fc\u30ef\u30fc\u30c9\u306f2\u6587\u5b57\u4ee5\u4e0a\u3067\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044\u3002");
+          elements.input.focus();
+          return;
+        }
+
+        if (activeController) activeController.abort();
+        activeController = new AbortController();
+        elements.searchButton.disabled = true;
+        elements.searchButton.textContent = "\u691c\u7d22\u4e2d";
+        elements.resultGrid.replaceChildren();
+        elements.resultMeta.textContent = keyword;
+        setSearchState("loading", "\u697d\u5929\u5e02\u5834\u304b\u3089\u5019\u88dc\u3092\u63a2\u3057\u3066\u3044\u307e\u3059\u3002");
+
+        try {
+          const response = await fetch(`/api/rakuten/search?q=${encodeURIComponent(keyword)}`, {
+            headers: { Accept: "application/json" },
+            signal: activeController.signal,
+          });
+          let payload;
+          try { payload = await response.json(); } catch { payload = null; }
+          if (!response.ok) throw new Error(payload?.error || `API error (${response.status})`);
+          const items = Array.isArray(payload?.items) ? payload.items : [];
+          elements.resultMeta.textContent = `${payload.keyword || keyword} / ${items.length} products`;
+          if (items.length === 0) {
+            setSearchState("empty", "\u6761\u4ef6\u306b\u5408\u3046\u5546\u54c1\u304c\u898b\u3064\u304b\u308a\u307e\u305b\u3093\u3067\u3057\u305f\u3002\u5225\u306e\u30ad\u30fc\u30ef\u30fc\u30c9\u3092\u8a66\u3057\u3066\u304f\u3060\u3055\u3044\u3002");
+            return;
+          }
+          elements.resultState.hidden = true;
+          items.forEach((item) => elements.resultGrid.append(createProductCard(item)));
+        } catch (error) {
+          if (error.name !== "AbortError") {
+            setSearchState("error", `\u691c\u7d22\u3067\u304d\u307e\u305b\u3093\u3067\u3057\u305f\u3002${error.message ? ` ${error.message}` : ""}`);
+            elements.resultMeta.textContent = "API error";
+          }
+        } finally {
+          elements.searchButton.disabled = false;
+          elements.searchButton.textContent = "\u691c\u7d22\u3059\u308b";
+        }
+      }
+
+      function exportCandidates() {
+        if (!candidates.length) return;
+        const blob = new Blob([JSON.stringify(candidates, null, 2)], { type: "application/json;charset=utf-8" });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = `margin-product-candidates-${new Date().toISOString().slice(0, 10)}.json`;
+        document.body.append(link);
+        link.click();
+        link.remove();
+        URL.revokeObjectURL(url);
+        elements.savedFeedback.textContent = `${candidates.length}\u4ef6\u306e\u5019\u88dc\u3092JSON\u3068\u3057\u3066\u66f8\u304d\u51fa\u3057\u307e\u3057\u305f\u3002`;
+      }
+
+      elements.form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        search(elements.input.value.trim());
+      });
+      elements.exportButton.addEventListener("click", exportCandidates);
+      elements.dialogClose.addEventListener("click", () => elements.dialog.close());
+      elements.dialog.addEventListener("click", (event) => {
+        if (event.target === elements.dialog) elements.dialog.close();
+      });
+
+      renderCandidates();
+    })();
+  </script>
+</body>
+</html>
