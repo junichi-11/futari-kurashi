@@ -42,6 +42,21 @@ const normalizeItem = (entry) => {
   };
 };
 
+const responseHeadersForLog = (headers) => {
+  const sensitiveHeaders = new Set([
+    "accesskey",
+    "authorization",
+    "cookie",
+    "set-cookie",
+  ]);
+
+  return Object.fromEntries(
+    [...headers.entries()].filter(
+      ([name]) => !sensitiveHeaders.has(name.toLowerCase()),
+    ),
+  );
+};
+
 export async function onRequest(context) {
   const { request } = context;
   const env = context.env ?? {};
@@ -102,6 +117,7 @@ export async function onRequest(context) {
   apiUrl.search = new URLSearchParams({
     applicationId: RAKUTEN_APPLICATION_ID,
     affiliateId: RAKUTEN_AFFILIATE_ID,
+    accessKey: RAKUTEN_ACCESS_KEY,
     keyword,
     format: "json",
     formatVersion: "2",
@@ -114,9 +130,7 @@ export async function onRequest(context) {
 
   let apiResponse;
   try {
-    apiResponse = await fetch(apiUrl, {
-      headers: { accessKey: RAKUTEN_ACCESS_KEY },
-    });
+    apiResponse = await fetch(apiUrl);
   } catch {
     return jsonResponse(
       { error: "楽天市場商品検索APIへ接続できませんでした。" },
@@ -124,6 +138,17 @@ export async function onRequest(context) {
       "no-store",
     );
   }
+
+  const apiResponseBody = await apiResponse.text();
+
+  // The request URL is intentionally excluded because it contains credentials.
+  // Rakuten's response body is logged verbatim; sensitive response headers are
+  // excluded defensively. No Cloudflare Secret value is written to logs.
+  console.info("Rakuten API response", {
+    status: apiResponse.status,
+    headers: responseHeadersForLog(apiResponse.headers),
+    body: apiResponseBody,
+  });
 
   if (apiResponse.status === 429) {
     return jsonResponse(
@@ -143,7 +168,7 @@ export async function onRequest(context) {
 
   let data;
   try {
-    data = await apiResponse.json();
+    data = JSON.parse(apiResponseBody);
   } catch {
     return jsonResponse(
       { error: "楽天市場商品検索APIの応答を解析できませんでした。" },
