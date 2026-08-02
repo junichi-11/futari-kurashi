@@ -60,6 +60,8 @@ const responseHeadersForLog = (headers) => {
 export async function onRequest(context) {
   const { request } = context;
   const env = context.env ?? {};
+  const requestUrl = new URL(request.url);
+  const diagnosticMode = requestUrl.searchParams.get("diagnostic") === "1";
 
   if (request.method !== "GET") {
     return jsonResponse(
@@ -69,7 +71,7 @@ export async function onRequest(context) {
     );
   }
 
-  const keyword = new URL(request.url).searchParams.get("q")?.trim() ?? "";
+  const keyword = requestUrl.searchParams.get("q")?.trim() ?? "";
 
   if (Array.from(keyword).length < 2) {
     return jsonResponse(
@@ -159,6 +161,17 @@ export async function onRequest(context) {
   }
 
   if (!apiResponse.ok) {
+    if (diagnosticMode) {
+      return jsonResponse(
+        {
+          upstreamStatus: apiResponse.status,
+          upstreamBody: apiResponseBody,
+          upstreamHeaders: responseHeadersForLog(apiResponse.headers),
+        },
+        502,
+        "no-store",
+      );
+    }
     return jsonResponse(
       { error: "楽天市場商品検索APIでエラーが発生しました。" },
       502,
