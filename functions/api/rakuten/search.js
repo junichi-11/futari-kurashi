@@ -42,7 +42,18 @@ const normalizeItem = (entry) => {
   };
 };
 
-export async function onRequestGet({ request, env }) {
+export async function onRequest(context) {
+  const { request } = context;
+  const env = context.env ?? {};
+
+  if (request.method !== "GET") {
+    return jsonResponse(
+      { error: "Method Not Allowed" },
+      405,
+      "no-store",
+    );
+  }
+
   const keyword = new URL(request.url).searchParams.get("q")?.trim() ?? "";
 
   if (Array.from(keyword).length < 2) {
@@ -53,18 +64,34 @@ export async function onRequestGet({ request, env }) {
     );
   }
 
-  const { RAKUTEN_APPLICATION_ID, RAKUTEN_ACCESS_KEY, RAKUTEN_AFFILIATE_ID } =
-    env;
+  const RAKUTEN_APPLICATION_ID = env.RAKUTEN_APPLICATION_ID;
+  const RAKUTEN_ACCESS_KEY = env.RAKUTEN_ACCESS_KEY;
+  const RAKUTEN_AFFILIATE_ID = env.RAKUTEN_AFFILIATE_ID;
+  const bindingStatus = {
+    RAKUTEN_APPLICATION_ID:
+      typeof RAKUTEN_APPLICATION_ID === "string" &&
+      RAKUTEN_APPLICATION_ID.trim().length > 0,
+    RAKUTEN_ACCESS_KEY:
+      typeof RAKUTEN_ACCESS_KEY === "string" &&
+      RAKUTEN_ACCESS_KEY.trim().length > 0,
+    RAKUTEN_AFFILIATE_ID:
+      typeof RAKUTEN_AFFILIATE_ID === "string" &&
+      RAKUTEN_AFFILIATE_ID.trim().length > 0,
+  };
+  const missingBindings = Object.entries(bindingStatus)
+    .filter(([, configured]) => !configured)
+    .map(([name]) => name);
 
-  if (
-    !RAKUTEN_APPLICATION_ID ||
-    !RAKUTEN_ACCESS_KEY ||
-    !RAKUTEN_AFFILIATE_ID
-  ) {
+  // Secret values must never be logged. This status-only log is safe to use in
+  // Cloudflare Pages Functions logs when diagnosing environment bindings.
+  console.info("Rakuten API binding status", bindingStatus);
+
+  if (missingBindings.length > 0) {
     return jsonResponse(
       {
         error:
           "CloudflareのVariables and Secretsに楽天API認証情報を登録してください。",
+        missingBindings,
       },
       500,
       "no-store",
