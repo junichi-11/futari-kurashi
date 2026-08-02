@@ -46,3 +46,30 @@ only for diagnostics.
 Never commit `RAKUTEN_ACCESS_KEY` or any other credential to source code,
 README files, or `.env` files. Store all credentials in Vercel Environment
 Variables.
+
+## MARGIN AI Research Engine
+
+The Article Builder uses the admin-only `POST /api/ai/research` endpoint to
+propose search intent, editorial direction, titles, article structure, and
+Rakuten search queries. Template generation remains available when AI research
+is unavailable. AI research results are planning assistance and are saved only
+in the browser's localStorage with the article draft.
+
+### Vercel Environment Variables
+
+In **Vercel -> futari-kurashi -> Settings -> Environment Variables**, add the
+following to the **Production** environment, then redeploy:
+
+- `OPENAI_API_KEY` (required)
+- `OPENAI_MODEL` (optional; the function uses a cost-conscious default)
+
+Do not save the API key in GitHub, HTML, client-side JavaScript, logs, or API
+responses. This endpoint is intended for the MARGIN administration screen;
+full administrator authentication is not included in v1. The endpoint accepts
+POST only, applies input limits and basic per-instance rate limiting, and sends
+`Cache-Control: no-store`.
+
+AI does not have verified search-volume, ranking, competitor-count, or keyword
+difficulty data. A human editor must review all output before publication.
+Product dimensions, materials, shipping, stock, and other specifications must
+be verified on the relevant Rakuten product page.

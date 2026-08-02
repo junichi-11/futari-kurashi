@@ -603,6 +603,11 @@
       });
 
       renderCandidates();
+      const initialQuery = new URLSearchParams(window.location.search).get("q")?.trim();
+      if (initialQuery) {
+        elements.input.value = initialQuery;
+        search(initialQuery);
+      }
     })();
   </script>
 </body>
