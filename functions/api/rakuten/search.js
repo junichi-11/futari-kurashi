@@ -1,8 +1,4 @@
-const RAKUTEN_SEARCH_ENDPOINT =
-  "https://openapi.rakuten.co.jp/ichibams/api/IchibaItem/Search/20260701";
-const RAKUTEN_REGISTERED_APP_URL = "https://futari-kurashi.pages.dev/";
-
-const jsonResponse = (body, status, cacheControl) =>
+const jsonResponse = (body, status, cacheControl = "no-store") =>
   new Response(JSON.stringify(body), {
     status,
     headers: {
@@ -11,197 +7,73 @@ const jsonResponse = (body, status, cacheControl) =>
     },
   });
 
-const numberOrZero = (value) => {
-  const number = Number(value);
-  return Number.isFinite(number) ? number : 0;
-};
-
-const firstImageUrl = (item) => {
-  const images =
-    item.mediumImageUrls ?? item.itemImageUrls ?? item.smallImageUrls ?? [];
-  const first = Array.isArray(images) ? images[0] : null;
-  return typeof first === "string" ? first : first?.imageUrl ?? "";
-};
-
-const normalizeItem = (entry) => {
-  const item = entry?.Item ?? entry ?? {};
-
-  return {
-    itemCode: item.itemCode ?? "",
-    name: item.itemName ?? item.name ?? "",
-    catchcopy: item.catchcopy ?? "",
-    price: numberOrZero(item.itemPrice ?? item.price),
-    imageUrl: firstImageUrl(item),
-    itemUrl: item.itemUrl ?? "",
-    affiliateUrl: item.affiliateUrl ?? "",
-    shopName: item.shopName ?? "",
-    shopUrl: item.shopUrl ?? "",
-    reviewAverage: numberOrZero(item.reviewAverage),
-    reviewCount: numberOrZero(item.reviewCount),
-    availability: numberOrZero(item.availability),
-    postageFlag: numberOrZero(item.postageFlag),
-  };
-};
-
-const responseHeadersForLog = (headers) => {
-  const sensitiveHeaders = new Set([
-    "accesskey",
-    "authorization",
-    "cookie",
-    "set-cookie",
-  ]);
-
-  return Object.fromEntries(
-    [...headers.entries()].filter(
-      ([name]) => !sensitiveHeaders.has(name.toLowerCase()),
-    ),
-  );
+const normalizeOrigin = (value) => {
+  try {
+    const url = new URL(value);
+    if (url.protocol !== "https:") return null;
+    return url.origin;
+  } catch {
+    return null;
+  }
 };
 
 export async function onRequest(context) {
   const { request } = context;
-  const env = context.env ?? {};
-  const requestUrl = new URL(request.url);
 
   if (request.method !== "GET") {
-    return jsonResponse(
-      { error: "Method Not Allowed" },
-      405,
-      "no-store",
-    );
+    return jsonResponse({ error: "Method Not Allowed" }, 405);
   }
 
+  const requestUrl = new URL(request.url);
   const keyword = requestUrl.searchParams.get("q")?.trim() ?? "";
 
   if (Array.from(keyword).length < 2) {
     return jsonResponse(
-      { error: "検索キーワードは2文字以上で指定してください。" },
+      { error: "The search keyword must contain at least 2 characters." },
       400,
-      "no-store",
     );
   }
 
-  const RAKUTEN_APPLICATION_ID = env.RAKUTEN_APPLICATION_ID;
-  const RAKUTEN_ACCESS_KEY = env.RAKUTEN_ACCESS_KEY;
-  const RAKUTEN_AFFILIATE_ID = env.RAKUTEN_AFFILIATE_ID;
-  const bindingStatus = {
-    RAKUTEN_APPLICATION_ID:
-      typeof RAKUTEN_APPLICATION_ID === "string" &&
-      RAKUTEN_APPLICATION_ID.trim().length > 0,
-    RAKUTEN_ACCESS_KEY:
-      typeof RAKUTEN_ACCESS_KEY === "string" &&
-      RAKUTEN_ACCESS_KEY.trim().length > 0,
-    RAKUTEN_AFFILIATE_ID:
-      typeof RAKUTEN_AFFILIATE_ID === "string" &&
-      RAKUTEN_AFFILIATE_ID.trim().length > 0,
-  };
-  const missingBindings = Object.entries(bindingStatus)
-    .filter(([, configured]) => !configured)
-    .map(([name]) => name);
-
-  // Secret values must never be logged. This status-only log is safe to use in
-  // Cloudflare Pages Functions logs when diagnosing environment bindings.
-  console.info("Rakuten API binding status", bindingStatus);
-
-  if (missingBindings.length > 0) {
+  const vercelOrigin = normalizeOrigin(context.env?.RAKUTEN_VERCEL_ORIGIN);
+  if (!vercelOrigin) {
     return jsonResponse(
-      {
-        error:
-          "CloudflareのVariables and Secretsに楽天API認証情報を登録してください。",
-        missingBindings,
-      },
+      { error: "Set RAKUTEN_VERCEL_ORIGIN in Cloudflare Pages Variables." },
       500,
-      "no-store",
     );
   }
 
-  const apiUrl = new URL(RAKUTEN_SEARCH_ENDPOINT);
-  apiUrl.search = new URLSearchParams({
-    applicationId: RAKUTEN_APPLICATION_ID,
-    affiliateId: RAKUTEN_AFFILIATE_ID,
-    accessKey: RAKUTEN_ACCESS_KEY,
-    keyword,
-    format: "json",
-    formatVersion: "2",
-    hits: "12",
-    page: "1",
-    sort: "standard",
-    imageFlag: "1",
-    availability: "1",
-  }).toString();
+  const upstreamUrl = new URL("/api/rakuten/search", vercelOrigin);
+  upstreamUrl.searchParams.set("q", keyword);
 
-  let apiResponse;
+  let upstreamResponse;
   try {
-    const apiRequest = new Request(apiUrl, {
-      headers: {
-        Origin: new URL(RAKUTEN_REGISTERED_APP_URL).origin,
-        Referer: RAKUTEN_REGISTERED_APP_URL,
-      },
-      referrer: RAKUTEN_REGISTERED_APP_URL,
-      referrerPolicy: "unsafe-url",
+    upstreamResponse = await fetch(upstreamUrl, {
+      headers: { Accept: "application/json" },
+      redirect: "manual",
     });
-    apiResponse = await fetch(apiRequest);
-  } catch {
+  } catch (error) {
+    console.error("Vercel Rakuten proxy request failed", {
+      name: error instanceof Error ? error.name : "UnknownError",
+    });
     return jsonResponse(
-      { error: "楽天市場商品検索APIへ接続できませんでした。" },
+      { error: "Unable to connect to the Rakuten search service." },
       502,
-      "no-store",
     );
   }
 
-  const apiResponseBody = await apiResponse.text();
+  const body = await upstreamResponse.text();
+  const contentType =
+    upstreamResponse.headers.get("content-type") ??
+    "application/json; charset=utf-8";
+  const cacheControl =
+    upstreamResponse.headers.get("cache-control") ??
+    (upstreamResponse.ok ? "public, max-age=60" : "no-store");
 
-  // The request URL is intentionally excluded because it contains credentials.
-  // Rakuten's response body is logged verbatim; sensitive response headers are
-  // excluded defensively. No Cloudflare Secret value is written to logs.
-  console.info("Rakuten API response", {
-    status: apiResponse.status,
-    headers: responseHeadersForLog(apiResponse.headers),
-    body: apiResponseBody,
-  });
-
-  if (apiResponse.status === 429) {
-    return jsonResponse(
-      { error: "楽天市場商品検索APIの利用上限に達しました。" },
-      429,
-      "no-store",
-    );
-  }
-
-  if (!apiResponse.ok) {
-    return jsonResponse(
-      { error: "楽天市場商品検索APIでエラーが発生しました。" },
-      502,
-      "no-store",
-    );
-  }
-
-  let data;
-  try {
-    data = JSON.parse(apiResponseBody);
-  } catch {
-    return jsonResponse(
-      { error: "楽天市場商品検索APIの応答を解析できませんでした。" },
-      502,
-      "no-store",
-    );
-  }
-
-  const sourceItems = data.items ?? data.Items ?? [];
-  const items = Array.isArray(sourceItems)
-    ? sourceItems.slice(0, 12).map(normalizeItem)
-    : [];
-
-  return jsonResponse(
-    {
-      keyword,
-      count: numberOrZero(data.count),
-      page: numberOrZero(data.page) || 1,
-      pageCount: numberOrZero(data.pageCount),
-      hits: numberOrZero(data.hits) || items.length,
-      items,
+  return new Response(body, {
+    status: upstreamResponse.status,
+    headers: {
+      "content-type": contentType,
+      "cache-control": cacheControl,
     },
-    200,
-    "public, max-age=60",
-  );
+  });
 }
