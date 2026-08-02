@@ -61,7 +61,6 @@ export async function onRequest(context) {
   const { request } = context;
   const env = context.env ?? {};
   const requestUrl = new URL(request.url);
-  const diagnosticMode = requestUrl.searchParams.get("diagnostic") === "1";
 
   if (request.method !== "GET") {
     return jsonResponse(
@@ -132,7 +131,11 @@ export async function onRequest(context) {
 
   let apiResponse;
   try {
-    apiResponse = await fetch(apiUrl);
+    apiResponse = await fetch(apiUrl, {
+      headers: {
+        Referer: `${requestUrl.origin}/`,
+      },
+    });
   } catch {
     return jsonResponse(
       { error: "楽天市場商品検索APIへ接続できませんでした。" },
@@ -161,17 +164,6 @@ export async function onRequest(context) {
   }
 
   if (!apiResponse.ok) {
-    if (diagnosticMode) {
-      return jsonResponse(
-        {
-          upstreamStatus: apiResponse.status,
-          upstreamBody: apiResponseBody,
-          upstreamHeaders: responseHeadersForLog(apiResponse.headers),
-        },
-        502,
-        "no-store",
-      );
-    }
     return jsonResponse(
       { error: "楽天市場商品検索APIでエラーが発生しました。" },
       502,
