@@ -1,5 +1,6 @@
 import { readFile, writeFile } from "node:fs/promises";
-import { renderArticlePage, renderArticlesIndexPage, renderSitemapXml, renderFeedXml } from "../lib/discovery-renderers.mjs";
+import { renderArticlesIndexPage, renderSitemapXml, renderFeedXml } from "../lib/discovery-renderers.mjs";
+import { renderArticlePageV2 } from "../lib/article-template-v2.mjs";
 
 const origin = "https://futari-kurashi.pages.dev";
 const slug = "newlywed-one-room-two-seater-sofa";
@@ -21,7 +22,7 @@ record.comparisonTable.rows = record.products.map(product => {
 await writeFile(articlePath, JSON.stringify(record, null, 2) + "\n", "utf8");
 const index = { version: "1.0", updatedAt: record.updatedAt, articles: [{ articleId: record.articleId, slug, url: `/articles/${slug}/`, displayTitle: record.article.displayTitle, seoTitle: record.article.seoTitle, metaDescription: record.article.metaDescription, publishedAt: record.publishedAt, updatedAt: record.updatedAt, articleType: "比較・おすすめ記事", target: "新婚・2人暮らし", roomType: "ワンルーム", editorialThemes: ["余白", "誠実さ", "コストバランス"], mainKeyword: record.seo.mainKeyword, productCount: record.products.length, thumbnail: record.products[0]?.imageUrl || "", status: "Published" }] };
 await writeFile("articles/index.json", JSON.stringify(index, null, 2) + "\n", "utf8");
-await writeFile(`articles/${slug}/index.html`, renderArticlePage({ ...record, articleType: index.articles[0].articleType, target: index.articles[0].target, roomType: index.articles[0].roomType, editorialThemes: index.articles[0].editorialThemes }, origin, record.publishedAt, record.updatedAt), "utf8");
+await writeFile(`articles/${slug}/index.html`, renderArticlePageV2({ ...record, articleType: index.articles[0].articleType, target: index.articles[0].target, roomType: index.articles[0].roomType, editorialThemes: index.articles[0].editorialThemes }, origin, record.publishedAt, record.updatedAt), "utf8");
 await writeFile("articles/index.html", renderArticlesIndexPage(origin), "utf8");
 await writeFile("sitemap.xml", renderSitemapXml(index, origin), "utf8");
 await writeFile("feed.xml", renderFeedXml(index, origin), "utf8");
