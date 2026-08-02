@@ -1,5 +1,6 @@
 const RAKUTEN_SEARCH_ENDPOINT =
   "https://openapi.rakuten.co.jp/ichibams/api/IchibaItem/Search/20260701";
+const RAKUTEN_REGISTERED_APP_URL = "https://futari-kurashi.vercel.app/";
 
 const jsonResponse = (body, status, cacheControl) =>
   new Response(JSON.stringify(body), {
@@ -133,7 +134,7 @@ export async function onRequest(context) {
   try {
     apiResponse = await fetch(apiUrl, {
       headers: {
-        Referer: `${requestUrl.origin}/`,
+        Referer: RAKUTEN_REGISTERED_APP_URL,
       },
     });
   } catch {
