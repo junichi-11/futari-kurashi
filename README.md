@@ -74,6 +74,27 @@ difficulty data. A human editor must review all output before publication.
 Product dimensions, materials, shipping, stock, and other specifications must
 be verified on the relevant Rakuten product page.
 
+### AI Editorial Planner
+
+After selecting products in Product Manager, open Article Builder and choose
+**AI企画を5案つくる**. The planner evaluates the selected product names, shops,
+prices, review counts and averages, editorial roles, descriptions, and inferred
+category. It returns five distinct editorial directions with titles, SEO
+metadata, keywords, audience, room type, editorial themes, article type, slug,
+and an editor-facing planning note.
+
+Selecting a plan fills the existing Article Builder fields in one action. The
+planner first attempts to use the existing `/api/ai/research` service. When the
+OpenAI service or environment variable is unavailable, it automatically uses
+the local `ruleBasedEditorialPlans(input)` generator, so product selection and
+article creation can continue without an API key. The provider-facing request
+and rule-based generator are kept separate to allow a future AI implementation
+to replace the provider without changing the Article Builder data structure.
+
+Planner suggestions are starting points, not verified product claims. Review
+product facts and editorial suitability before generating or publishing an
+article.
+
 ## ChatGPT Plus editorial workflow
 
 The Article Builder can create a self-contained prompt and import the JSON
