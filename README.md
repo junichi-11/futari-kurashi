@@ -1,5 +1,11 @@
 # futari-kurashi
 
+## MARGIN Article Discovery & Navigation v1
+
+公開記事の導線は `articles/index.json` を単一の一覧データとして利用します。トップページの JOURNAL は公開日の新しい順に最大3件、`/articles/` は公開済み記事をすべて表示します。記事詳細は同じデータから編集テーマ・キーワード・記事タイプ・読者・部屋条件を照合し、関連記事を最大3件表示します。
+
+Publish Systemで新しい記事を公開すると、記事HTML・記事JSONと同じ原子的コミットで `articles/index.json`、`articles/index.html`、`sitemap.xml`、`feed.xml` が更新されます。トップページは `articles/index.json` を読み込むため、記事情報を手作業で追記する必要はありません。読み込みに失敗してもトップページ本体と `/articles/` への通常リンクは維持されます。
+
 ## Rakuten Ichiba Item Search API
 
 The Rakuten API runs in a Vercel Serverless Function. The public

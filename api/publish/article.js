@@ -1,4 +1,5 @@
 import { createHash, timingSafeEqual } from "node:crypto";
+import { renderArticlePage, renderArticlesIndexPage, renderSitemapXml, renderFeedXml } from "../../lib/discovery-renderers.mjs";
 
 export const config = { maxDuration: 180 };
 
@@ -122,7 +123,7 @@ export default async function handler(req, res) {
     const entry = { articleId: validation.articleId, slug: validation.slug, url: `/articles/${validation.slug}/`, displayTitle: cleanText(normalized.article.displayTitle), seoTitle: cleanText(normalized.article.seoTitle), metaDescription: cleanText(normalized.article.metaDescription), publishedAt, updatedAt, articleType: cleanText(normalized.articleType), target: cleanText(normalized.target), roomType: cleanText(normalized.roomType), editorialThemes: Array.isArray(normalized.editorialThemes) ? normalized.editorialThemes.map(cleanText) : [], mainKeyword: cleanText(normalized.seo?.mainKeyword), productCount: validation.products.length, thumbnail: cleanText(validation.products[0]?.imageUrl), status: "Published" };
     const articles = existingIndex.articles.filter((article) => article.articleId !== validation.articleId && article.slug !== validation.slug); articles.push(entry); articles.sort((a, b) => Date.parse(b.publishedAt) - Date.parse(a.publishedAt));
     const index = { version: "1.0", updatedAt, articles }, publishedUrl = `${siteOrigin}/articles/${validation.slug}/`;
-    const files = { [`articles/${validation.slug}/index.html`]: renderArticle({ ...normalized, publishedAt, updatedAt }, siteOrigin, publishedAt, updatedAt), [`articles/${validation.slug}/article.json`]: JSON.stringify(articleRecord, null, 2) + "\n", "articles/index.json": JSON.stringify(index, null, 2) + "\n", "articles/index.html": renderIndexHtml(siteOrigin), "sitemap.xml": renderSitemap(index, siteOrigin), "feed.xml": renderFeed(index, siteOrigin) };
+    const files = { [`articles/${validation.slug}/index.html`]: renderArticlePage({ ...normalized, publishedAt, updatedAt }, siteOrigin, publishedAt, updatedAt), [`articles/${validation.slug}/article.json`]: JSON.stringify(articleRecord, null, 2) + "\n", "articles/index.json": JSON.stringify(index, null, 2) + "\n", "articles/index.html": renderArticlesIndexPage(siteOrigin), "sitemap.xml": renderSitemapXml(index, siteOrigin), "feed.xml": renderFeedXml(index, siteOrigin) };
     const action = existingArticle ? "Update" : "Publish", message = `${action} article: ${cleanText(normalized.article.displayTitle)}\n\nArticle ID: ${validation.articleId}\nSlug: ${validation.slug}\nPublished URL: ${publishedUrl}\nProduct count: ${validation.products.length}`;
     let commitSha; try { commitSha = await commitFiles(files, message, env); } catch (error) { if (error.status === 422 || error.status === 409) commitSha = await commitFiles(files, message, env); else throw error; }
     articleRecord.source.githubCommitSha = commitSha;

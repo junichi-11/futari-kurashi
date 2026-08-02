@@ -107,6 +107,17 @@ button{font:inherit}
 .story-num{font-family:var(--serif);font-style:italic;font-size:14px;opacity:.7}
 .story-caption h3{font-family:var(--serif);font-size:clamp(28px,3.5vw,50px);font-weight:400;line-height:1.25;letter-spacing:-.035em;margin:11px 0 8px}
 .story-caption p{font-size:11px;margin:0;opacity:.75}
+.journal-status{grid-column:1/-1;padding:36px 0;border-top:1px solid var(--line);color:var(--muted);font-size:12px}
+.journal-card{display:block;position:relative;min-width:0;border-top:1px solid var(--line);padding-top:18px;transition:transform .42s var(--ease)}
+.journal-card:hover{transform:translateY(-2px)}
+.journal-card-media{aspect-ratio:4/3;overflow:hidden;background:#e4dfd6}
+.journal-card-media img{transition:transform .45s var(--ease),filter .45s var(--ease);filter:saturate(.82)}
+.journal-card:hover img{transform:scale(1.025);filter:saturate(.88) contrast(1.02)}
+.journal-card-meta{display:flex;flex-wrap:wrap;gap:9px;margin:18px 0 10px;color:var(--accent);font-size:9px;letter-spacing:.14em;text-transform:uppercase}
+.journal-card h3{margin:0;font-family:var(--serif);font-size:clamp(25px,2.8vw,40px);font-weight:400;line-height:1.32;letter-spacing:-.025em}
+.journal-card-description{display:-webkit-box;margin:15px 0 20px;overflow:hidden;color:var(--muted);font-size:11px;line-height:1.9;-webkit-box-orient:vertical;-webkit-line-clamp:3}
+.journal-read{font-size:9px;letter-spacing:.16em;text-transform:uppercase}
+.journal-all{display:flex;justify-content:flex-end;margin-top:42px;padding-top:22px;border-top:1px solid var(--line);font-family:var(--serif);font-size:14px}
 
 .sticky{background:var(--ink);color:var(--white);padding:160px 0}
 .sticky-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:100px}
@@ -253,7 +264,7 @@ button{font:inherit}
       <h2>暮らしから、<br>選び方を考える。</h2>
       <p>「何を買うか」より前に、「どんな時間を過ごしたいか」を考える。家具と家電を、生活の場面から編集します。</p>
     </div>
-    <div class="story-grid">
+    <div id="journal-articles" class="story-grid" aria-live="polite">
       <article class="story-main reveal">
         <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1800&q=88" alt="落ち着いたソファのあるリビング">
         <div class="story-caption"><span class="story-num">01</span><h3>ソファは、座る人数より<br>過ごし方で選ぶ。</h3><p>Living / Sofa guide</p></div>
@@ -263,6 +274,7 @@ button{font:inherit}
         <div class="story-caption"><span class="story-num">02</span><h3>食事と仕事が<br>同居するテーブル。</h3><p>Dining / Table guide</p></div>
       </article>
     </div>
+    <div class="journal-all"><a href="/articles/">すべての記事を見る&nbsp; →</a></div>
   </div>
 </section>
 
@@ -344,6 +356,13 @@ const io=new IntersectionObserver(entries=>entries.forEach(e=>{
   if(e.isIntersecting){e.target.classList.add('is-visible');io.unobserve(e.target)}
 }),{threshold:.13,rootMargin:'0px 0px -6% 0px'});
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+const journalRoot=document.getElementById('journal-articles');
+const journalEscape=value=>String(value??'').replace(/[&<>"']/g,char=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[char]));
+fetch('/articles/index.json').then(response=>{if(!response.ok)throw new Error('journal');return response.json()}).then(data=>{
+  const articles=Array.isArray(data.articles)?data.articles.filter(article=>article.status==='Published').sort((a,b)=>Date.parse(b.publishedAt)-Date.parse(a.publishedAt)).slice(0,3):[];
+  if(!articles.length){journalRoot.innerHTML='<p class="journal-status">記事は準備中です。<br><a href="/articles/">JOURNALを見る →</a></p>';return}
+  journalRoot.innerHTML=articles.map(article=>`<a class="journal-card reveal is-visible" href="${journalEscape(article.url)}"><div class="journal-card-media">${article.thumbnail?`<img src="${journalEscape(article.thumbnail)}" alt="" loading="lazy">`:''}</div><p class="journal-card-meta"><span>${journalEscape(String(article.publishedAt||'').slice(0,10))}</span><span>${journalEscape(article.articleType||'Editorial')}</span></p><h3>${journalEscape(article.displayTitle)}</h3><p class="journal-card-description">${journalEscape(article.metaDescription)}</p><span class="journal-read">読む ↗</span></a>`).join('');
+}).catch(()=>{journalRoot.innerHTML='<p class="journal-status">記事一覧を読み込めませんでした。<br><a href="/articles/">JOURNALへ進む →</a></p>'});
 </script>
 </body>
 </html>
