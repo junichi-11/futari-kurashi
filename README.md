@@ -6,6 +6,14 @@
 
 Publish Systemで新しい記事を公開すると、記事HTML・記事JSONと同じ原子的コミットで `articles/index.json`、`articles/index.html`、`sitemap.xml`、`feed.xml` が更新されます。トップページは `articles/index.json` を読み込むため、記事情報を手作業で追記する必要はありません。読み込みに失敗してもトップページ本体と `/articles/` への通常リンクは維持されます。
 
+## MARGIN Article Generation Prompt v2
+
+Article BuilderのChatGPT連携はPrompt Version 2.0を標準とします。リードは180〜280文字、H2本文は120〜300文字、商品summaryは90〜180文字、editorCommentは80〜160文字、FAQ回答は100〜220文字、結論は220〜380文字を目安にします。詩的表現はタイトル、リード、編集コメント、結論に限定し、比較・確認事項・FAQは簡潔な実用文とします。
+
+商品見出しは楽天の商品名全文を転載せず、「ブランドまたはショップ＋シリーズ・識別名＋商品種別」へ短縮します。元の商品名は選択商品データに保持します。比較表の特徴と向いている暮らしは30文字以内を目安にし、affiliateUrlは専用フィールドへ保持して表示用セルや本文には入れません。
+
+APIにない寸法、素材、保証、耐久性、座り心地は推測せず、確認対象を具体的にしたうえで「商品ページで確認」と記載します。v1の下書きと履歴は引き続き読み込み可能で、履歴上はv1・v2を区別して表示します。将来OpenAI APIによる自動生成へ切り替える場合も、Prompt Version 2.0と同じ文章量・短縮名・比較・誠実性ルールを使用してください。
+
 ## Rakuten Ichiba Item Search API
 
 The Rakuten API runs in a Vercel Serverless Function. The public
