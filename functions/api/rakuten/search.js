@@ -132,11 +132,14 @@ export async function onRequest(context) {
 
   let apiResponse;
   try {
-    apiResponse = await fetch(apiUrl, {
+    const apiRequest = new Request(apiUrl, {
       headers: {
         Referer: RAKUTEN_REGISTERED_APP_URL,
       },
+      referrer: RAKUTEN_REGISTERED_APP_URL,
+      referrerPolicy: "unsafe-url",
     });
+    apiResponse = await fetch(apiRequest);
   } catch {
     return jsonResponse(
       { error: "楽天市場商品検索APIへ接続できませんでした。" },
