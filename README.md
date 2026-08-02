@@ -100,3 +100,48 @@ For a future API-based workflow, replace the manual ChatGPT copy/import step
 with a server call that returns the same version `1.0` JSON schema. The existing
 Prompt Builder, importer, Quality Gate, template generator, and AI Research
 Engine can remain as fallbacks.
+
+## MARGIN Publish System v1
+
+Article Builder can publish a reviewed article through `POST /api/publish/article`.
+The Cloudflare Pages Function proxies the request to Vercel, where the article
+HTML, article JSON, article index, sitemap, and RSS feed are committed through
+the GitHub Git Data API as one atomic commit. Cloudflare Pages then deploys the
+new commit through its existing Git integration.
+
+### Vercel Environment Variables
+
+Configure these for the Production environment and redeploy Vercel:
+
+- `GITHUB_TOKEN`
+- `GITHUB_OWNER` (recommended: `junichi-11`)
+- `GITHUB_REPO` (recommended: `futari-kurashi`)
+- `GITHUB_BRANCH` (recommended: `main`)
+- `MARGIN_PUBLISH_SECRET`
+- `PUBLIC_SITE_ORIGIN` (recommended: `https://futari-kurashi.pages.dev`)
+- `PUBLISH_DEPLOY_TIMEOUT_MS` (optional; default: `120000`)
+
+The fine-grained GitHub token must be limited to this repository with
+**Contents: Read and write** and **Metadata: Read**. Do not grant unrelated
+permissions.
+
+Cloudflare Pages uses `PUBLISH_VERCEL_ORIGIN` for the Vercel origin and falls
+back to the existing `RAKUTEN_VERCEL_ORIGIN` when it is not set.
+
+### Publishing workflow
+
+1. Create the article in Article Builder.
+2. Import and review the ChatGPT JSON.
+3. Confirm the Quality Gate.
+4. Preview the current article content.
+5. Select **公開する**.
+6. Enter the publish key. It is kept only in `sessionStorage` for that tab.
+7. Confirm the four publication acknowledgements.
+8. Publish the six generated files in one GitHub commit.
+9. Wait for the Cloudflare Pages deployment and open the published URL.
+
+Never place the GitHub token or publish secret in HTML, source control,
+localStorage, API responses, or logs. Verify product prices, stock, shipping,
+and delivery information immediately before publishing. The operator remains
+responsible for the published content after automated publication. Search
+Console index submission is not implemented in v1.
