@@ -58,6 +58,9 @@ const sendJson = (response, status, body, cacheControl = "no-store") => {
   response.json(body);
 };
 
+const hasEnvironmentValue = (value) =>
+  typeof value === "string" && value.trim().length > 0;
+
 export default async function handler(request, response) {
   if (request.method !== "GET") {
     response.setHeader("Allow", "GET");
@@ -73,18 +76,33 @@ export default async function handler(request, response) {
     });
   }
 
-  const applicationId = process.env.RAKUTEN_APPLICATION_ID;
-  const accessKey = process.env.RAKUTEN_ACCESS_KEY;
-  const affiliateId = process.env.RAKUTEN_AFFILIATE_ID;
+  const env = process.env;
+  const applicationId = env.RAKUTEN_APPLICATION_ID;
+  const accessKey = env.RAKUTEN_ACCESS_KEY;
+  const affiliateId = env.RAKUTEN_AFFILIATE_ID;
+  const environmentStatus = {
+    RAKUTEN_APPLICATION_ID: hasEnvironmentValue(applicationId),
+    RAKUTEN_ACCESS_KEY: hasEnvironmentValue(accessKey),
+    RAKUTEN_AFFILIATE_ID: hasEnvironmentValue(affiliateId),
+    RAKUTEN_HTTP_REFERER: hasEnvironmentValue(env.RAKUTEN_HTTP_REFERER),
+  };
 
-  if (!applicationId || !accessKey || !affiliateId) {
+  // Only binding presence is logged. Secret values are never included.
+  console.info("Rakuten environment binding status", environmentStatus);
+
+  if (
+    !environmentStatus.RAKUTEN_APPLICATION_ID ||
+    !environmentStatus.RAKUTEN_ACCESS_KEY ||
+    !environmentStatus.RAKUTEN_AFFILIATE_ID
+  ) {
     return sendJson(response, 500, {
       error: "Set the Rakuten API credentials in Vercel Environment Variables.",
+      bindings: environmentStatus,
     });
   }
 
   const configuredReferer =
-    process.env.RAKUTEN_HTTP_REFERER || DEFAULT_HTTP_REFERER;
+    env.RAKUTEN_HTTP_REFERER || DEFAULT_HTTP_REFERER;
   let refererUrl;
   try {
     refererUrl = new URL(configuredReferer);
