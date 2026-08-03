@@ -1,6 +1,15 @@
 import { createHash, timingSafeEqual } from "node:crypto";
-import { renderArticlesIndexPage, renderSitemapXml, renderFeedXml } from "../../lib/discovery-renderers.mjs";
-import { renderArticlePageV2 } from "../../lib/article-template-v2.mjs";
+
+let renderArticlesIndexPage, renderSitemapXml, renderFeedXml, renderArticlePageV2;
+async function ensureRenderers() {
+  if (renderArticlePageV2) return;
+  const [discovery, article] = await Promise.all([
+    import("../../lib/discovery-renderers.mjs"),
+    import("../../lib/article-template-v2.mjs")
+  ]);
+  ({ renderArticlesIndexPage, renderSitemapXml, renderFeedXml } = discovery);
+  ({ renderArticlePageV2 } = article);
+}
 
 export const config = { maxDuration: 180 };
 
@@ -95,6 +104,7 @@ async function commitFiles(files, message, env) {
 }
 
 async function publishHandler(req, res) {
+  await ensureRenderers();
   const origin = req.headers.origin || "";
   if (req.method === "OPTIONS") { if (!allowedOrigin(origin)) return json(res, 403, { error: "Originが許可されていません。" }, null); res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS"); res.setHeader("Access-Control-Allow-Headers", "Content-Type, X-Margin-Publish-Key, Idempotency-Key"); return json(res, 204, {}, origin); }
   if (req.method !== "POST") { res.setHeader("Allow", "POST"); return json(res, 405, { error: "POSTのみ利用できます。" }, allowedOrigin(origin) ? origin : null); }
