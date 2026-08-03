@@ -32,7 +32,9 @@ mock.comparisonTable = {
 const visibleComparison = mock.comparisonTable.rows.flatMap(row => Object.entries(row).filter(([key]) => !/url/i.test(key)).map(([, value]) => String(value)));
 const html = renderArticlePageV2({ ...mock, articleType: "比較・おすすめ記事", target: "新婚・2人暮らし", roomType: "ワンルーム" }, "https://futari-kurashi.pages.dev", mock.publishedAt, mock.updatedAt);
 const checks = {
-  "Prompt Version 2.0": builder.includes('chatgptPromptVersion="2.0"') && builder.includes("Prompt Version 2.0"),
+  "Prompt Version 3.0": builder.includes('chatgptPromptVersion="3.0"') && builder.includes("Prompt Version 3.0") && builder.includes('$("#build-prompt").onclick=generatePromptV3'),
+  "article.json file output": builder.includes('ファイル名「article.json」のUTF-8 JSONファイルとして生成・添付してください') && builder.includes("article.jsonを添付しました。") && builder.includes("JSON.parseできる有効なJSON"),
+  "immutable product identifiers": builder.includes("itemCode、role、affiliateUrlは一字も変更せず"),
   "v1 history compatibility": builder.includes('h.promptVersion||"1.0"'),
   "JSON Import v2 wiring": builder.includes("renderImportPreview(validateImportV5(raw))") && builder.includes("articleState={article:d.article,sections:d.sections,productBlocks:d.productBlocks,comparisonTable:d.comparisonTable,faq:d.faq,seo:d.seo}"),
   "draft persistence": builder.includes("chatgptPromptVersion,chatgptPromptHistory") && builder.includes("saveDraft();els.importDialog.close()"),
