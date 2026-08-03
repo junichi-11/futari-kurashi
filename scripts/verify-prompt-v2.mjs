@@ -3,6 +3,14 @@ import { renderArticlePageV2 } from "../lib/article-template-v2.mjs";
 
 const source = JSON.parse(await readFile("articles/newlywed-one-room-two-seater-sofa/article.json", "utf8"));
 const builder = await readFile("admin/articles.html", "utf8");
+const scannerSource = builder.match(/const AFFILIATE_LEAK_MARKERS=[\s\S]+?(?=\n    function validateImportV5)/)?.[0] || "";
+const findAffiliateLeakage = scannerSource ? Function(`${scannerSource};return findAffiliateLeakage`)() : () => [];
+const validLeakageState = { article: {}, sections: [], productBlocks: [{ affiliateUrl: "https://hb.afl.rakuten.co.jp/hgc/example/?rafcid=value" }], comparisonTable: { rows: [{ affiliateUrl: "https://hb.afl.rakuten.co.jp/hgc/example/" }] }, faq: [], seo: {} };
+const invalidLeakageState = structuredClone(validLeakageState);
+invalidLeakageState.productBlocks[0].summary = "link https://hb.afl.rakuten.co.jp/hgc/example/?rafcid=value";
+invalidLeakageState.comparisonTable.rows[0].feature = "item.rakuten.co.jp/shop/item";
+invalidLeakageState.faq.push({ question: "https://example.test", answer: "確認" });
+const invalidLeaks = findAffiliateLeakage(invalidLeakageState);
 const mock = structuredClone(source);
 mock.article.lead = `${mock.article.lead} 価格やレビューだけで決めず、部屋との相性を確かめるための視点も整理します。`;
 mock.productBlocks = mock.productBlocks.map(block => ({ ...block, editorComment: block.editorComment.length >= 80 ? block.editorComment : `${block.editorComment} 比較時は部屋条件との整合も確認します。` }));
@@ -29,7 +37,13 @@ const checks = {
   "comparison display is concise": visibleComparison.every(cell => cell.length <= 80) && visibleComparison.every(cell => !cell.includes("http")),
   "FAQ 3-5": mock.faq.length >= 3 && mock.faq.length <= 5,
   "specific facts to verify": mock.seo.factsToVerify.some(item => /寸法|梱包|素材|保証|返品/.test(item)),
-  "Template v2 render": html.includes("article-hero") && html.includes("comparison-grid") && ![...html.matchAll(/<article class="compare-card">([\s\S]*?)<\/article>/g)].some(match => match[1].replace(/<[^>]+>/g, "").includes("https://"))
+  "Template v2 render": html.includes("article-hero") && html.includes("comparison-grid") && ![...html.matchAll(/<article class="compare-card">([\s\S]*?)<\/article>/g)].some(match => match[1].replace(/<[^>]+>/g, "").includes("https://")),
+  "shared affiliate leakage scanner": builder.includes("function findAffiliateLeakage(state)"),
+  "import leakage path reporting": builder.includes("affiliateUrlが許可フィールド外へ露出しています") && builder.includes("leakageMessage(leaks)"),
+  "publish leakage validation": builder.includes("function publishIssues(){const payload=publishPayload(),issues=[],leaks=findAffiliateLeakage(payload)"),
+  "debug leakage location": builder.includes("affiliateUrl leakage location") && builder.includes("`path\\n${leak.path}`")
+  ,"affiliateUrl field allowlist": findAffiliateLeakage(validLeakageState).length === 0
+  ,"leak paths are exact": ["productBlocks[0].summary", "comparisonTable.rows[0].feature", "faq[0].question"].every(path => invalidLeaks.some(leak => leak.path === path))
 };
 for (const [name, passed] of Object.entries(checks)) console.log(`${passed ? "PASS" : "FAIL"} ${name}`);
 const qualityGate = Object.values(checks).every(Boolean) ? "PASS" : "ERROR";
