@@ -217,6 +217,26 @@ back to the existing `RAKUTEN_VERCEL_ORIGIN` when it is not set.
 8. Publish the six generated files in one GitHub commit.
 9. Wait for the Cloudflare Pages deployment and open the published URL.
 
+### Rebuild Published Articles
+
+Published articles are not rendered from JSON on every request. The Publish
+System stores `articles/{slug}/article.json` as the canonical article data and
+writes a static `articles/{slug}/index.html` at publish time. Static delivery
+keeps the public site fast and resilient, but a later template change does not
+automatically alter previously published HTML.
+
+Article Builder therefore provides **Rebuild Published Articles**. It calls
+`POST /api/publish/rebuild`, reads every Published entry from
+`articles/index.json`, renders its saved `article.json` with the current Article
+Template, and replaces all affected article HTML files in one atomic GitHub
+commit. Article JSON, article metadata, publication dates, sitemap, and feed are
+not changed. If the generated HTML is already current, no duplicate commit is
+created. The endpoint uses the same `MARGIN_PUBLISH_SECRET`; the key remains in
+`sessionStorage` only.
+
+New articles always use the current template when published. Run the rebuild
+after a template release to apply it to past articles as well.
+
 Never place the GitHub token or publish secret in HTML, source control,
 localStorage, API responses, or logs. Verify product prices, stock, shipping,
 and delivery information immediately before publishing. The operator remains
