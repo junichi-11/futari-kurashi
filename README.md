@@ -120,7 +120,7 @@ returned by ChatGPT Plus without using an API key or making an external request.
 4. Enter the article brief in Article Builder.
 5. Generate and copy the ChatGPT prompt.
 6. Paste the prompt into ChatGPT Plus.
-7. Paste the returned JSON into Article Builder.
+7. Save the returned JSON as a UTF-8 `.json` file and load it in Article Builder.
 8. Review the Quality Gate and approve the import.
 9. Save the article draft.
 10. Export the finished HTML.
@@ -130,6 +130,20 @@ Quality Gate status are stored with the article draft in localStorage. The
 importer removes Markdown code fences, rejects unselected products and unsafe
 URLs, strips dangerous embedded tags, and never overwrites the current draft
 before explicit approval.
+
+### Recommended JSON import flow
+
+ChatGPTで記事JSONを作成 → UTF-8の`.json`ファイルとして保存 → Article
+Builderの「JSONファイルを選択」から読み込み → Quality Gateを確認 →
+「承認して反映」の順で運用します。ファイルは最大2MBで、HTMLやMarkdown、
+ブラウザのリンク変換を通さず生テキストとして読み込みます。従来の貼り付けも
+利用できますが、`https://`を含む長い楽天リンクがMarkdownリンクへ変換される
+可能性があるため、JSONファイル経由を推奨します。
+
+Importerは `](https://`、URLエンコードされたJSONキー、300文字以上の商品見出し、
+200文字以上のメインキーワードを検出すると、コピー時のリンク変換による破損として
+Quality Gateを停止します。読み込み後はファイル名、文字数、`JSON.parse`結果を画面で
+確認してください。
 
 For a future API-based workflow, replace the manual ChatGPT copy/import step
 with a server call that returns the same version `1.0` JSON schema. The existing
