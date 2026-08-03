@@ -1,7 +1,25 @@
 {
   "version": "1.0",
-  "updatedAt": "2026-08-02T15:48:26.106Z",
+  "updatedAt": "2026-08-03T09:29:40.179Z",
   "articles": [
+    {
+      "articleId": "article-1785749354029",
+      "slug": "couple-1ldk-irregular-dining-table",
+      "url": "/articles/couple-1ldk-irregular-dining-table/",
+      "displayTitle": "ふたりの食卓に余白をつくる、変形ダイニングテーブル5選",
+      "seoTitle": "変形ダイニングテーブル5選｜1LDKの同棲生活に合う選び方",
+      "metaDescription": "1LDKで同棲を始めるふたりに向けて、変形ダイニングテーブル5商品を比較。壁付けのしやすさ、セット内容、価格帯、天板形状など、購入前に確認したいポイントを整理します。",
+      "publishedAt": "2026-08-03T09:29:39.433Z",
+      "updatedAt": "2026-08-03T09:29:40.179Z",
+      "articleType": "比較・おすすめ記事",
+      "target": "新婚",
+      "roomType": "ワンルーム",
+      "editorialThemes": [],
+      "mainKeyword": "変形ダイニングテーブル 1LDK",
+      "productCount": 5,
+      "thumbnail": "https://thumbnail.image.rakuten.co.jp/@0_mall/rcmd/cabinet/az17/az-tap-003.jpg?_ex=128x128",
+      "status": "Published"
+    },
     {
       "articleId": "article-1785685550115",
       "slug": "newlywed-one-room-two-seater-sofa",
