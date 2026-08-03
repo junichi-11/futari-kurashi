@@ -1,7 +1,25 @@
 {
   "version": "1.0",
-  "updatedAt": "2026-08-03T09:29:40.179Z",
+  "updatedAt": "2026-08-03T16:00:58.730Z",
   "articles": [
+    {
+      "articleId": "article-1785772815930",
+      "slug": "newlywed-one-room-pendant-light",
+      "url": "/articles/newlywed-one-room-pendant-light/",
+      "displayTitle": "ふたりの食卓をやさしく照らす、ペンダントライト5選",
+      "seoTitle": "新婚のワンルームに合うペンダントライト5選と選び方",
+      "metaDescription": "新婚のワンルームに取り入れやすいペンダントライト5商品を比較。灯数、調光・調色、LED対応、素材感、価格帯など、購入前に確認したいポイントを整理します。",
+      "publishedAt": "2026-08-03T16:00:56.913Z",
+      "updatedAt": "2026-08-03T16:00:58.730Z",
+      "articleType": "比較・おすすめ記事",
+      "target": "新婚",
+      "roomType": "ワンルーム",
+      "editorialThemes": [],
+      "mainKeyword": "ペンダントライト 新婚 ワンルーム",
+      "productCount": 5,
+      "thumbnail": "https://thumbnail.image.rakuten.co.jp/@0_mall/air-rhizome/cabinet/140/g1g-kago1.jpg?_ex=128x128",
+      "status": "Published"
+    },
     {
       "articleId": "article-1785749354029",
       "slug": "couple-1ldk-irregular-dining-table",
