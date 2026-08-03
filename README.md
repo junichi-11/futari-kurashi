@@ -105,6 +105,15 @@ article creation can continue without an API key. The provider-facing request
 and rule-based generator are kept separate to allow a future AI implementation
 to replace the provider without changing the Article Builder data structure.
 
+Article theme and display title may be empty when planning starts. Product
+selection alone generates five plans. Each plan separates `planningTheme`
+(editor-facing concept) from `displayTitle` (public H1), and includes SEO title,
+meta description, slug, keywords, audience, room type, editorial themes,
+article type, and rationale. Applying a plan writes `planningTheme` to the
+existing theme field and stores both `theme` and `planningTheme` in new drafts.
+Older drafts that only contain `theme` remain compatible. If editable text
+fields already contain values, Article Builder asks before overwriting them.
+
 Planner suggestions are starting points, not verified product claims. Review
 product facts and editorial suitability before generating or publishing an
 article.
@@ -157,6 +166,11 @@ The Cloudflare Pages Function proxies the request to Vercel, where the article
 HTML, article JSON, article index, sitemap, and RSS feed are committed through
 the GitHub Git Data API as one atomic commit. Cloudflare Pages then deploys the
 new commit through its existing Git integration.
+
+Cloudflare and Vercel return `application/json` for success and error responses.
+The publish dialog records HTTP status, response headers, and the raw response
+body under **Publish Response Debug**. If an upstream service unexpectedly
+returns plain text, the builder displays that text without calling `JSON.parse`.
 
 ### Vercel Environment Variables
 

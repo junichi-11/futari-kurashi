@@ -94,7 +94,7 @@ async function commitFiles(files, message, env) {
   return commit.sha;
 }
 
-export default async function handler(req, res) {
+async function publishHandler(req, res) {
   const origin = req.headers.origin || "";
   if (req.method === "OPTIONS") { if (!allowedOrigin(origin)) return json(res, 403, { error: "Originが許可されていません。" }, null); res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS"); res.setHeader("Access-Control-Allow-Headers", "Content-Type, X-Margin-Publish-Key, Idempotency-Key"); return json(res, 204, {}, origin); }
   if (req.method !== "POST") { res.setHeader("Allow", "POST"); return json(res, 405, { error: "POSTのみ利用できます。" }, allowedOrigin(origin) ? origin : null); }
@@ -135,5 +135,17 @@ export default async function handler(req, res) {
     if (error.code === "rate_limit") return json(res, 429, { error: "GitHub APIのレート制限に達しました。" }, origin);
     if (error.status === 401 || error.status === 403) return json(res, 502, { error: "GitHub Tokenの権限を確認してください。" }, origin);
     return json(res, 502, { error: "GitHubへの公開処理に失敗しました。" }, origin);
+  }
+}
+
+export default async function handler(req, res) {
+  try {
+    return await publishHandler(req, res);
+  } catch (error) {
+    return json(res, 500, {
+      ok: false,
+      error: error instanceof Error ? error.message : "A server error occurred.",
+      ...(process.env.NODE_ENV === "development" && error instanceof Error ? { stack: error.stack } : {})
+    }, allowedOrigin(req.headers.origin || "") ? req.headers.origin : null);
   }
 }
