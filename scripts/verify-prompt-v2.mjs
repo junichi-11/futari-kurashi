@@ -4,7 +4,8 @@ import { renderArticlePageV2 } from "../lib/article-template-v2.mjs";
 const source = JSON.parse(await readFile("articles/newlywed-one-room-two-seater-sofa/article.json", "utf8"));
 const builder = await readFile("admin/articles.html", "utf8");
 const scannerSource = builder.match(/const AFFILIATE_LEAK_MARKERS=[\s\S]+?(?=\n    function validateImportV5)/)?.[0] || "";
-const findAffiliateLeakage = scannerSource ? Function(`${scannerSource};return findAffiliateLeakage`)() : () => [];
+const scanner = scannerSource ? Function(`${scannerSource};return {findAffiliateLeakage,inspectAffiliateLeakageNodes}`)() : { findAffiliateLeakage: () => [], inspectAffiliateLeakageNodes: () => [] };
+const { findAffiliateLeakage, inspectAffiliateLeakageNodes } = scanner;
 const validLeakageState = { article: {}, sections: [], productBlocks: [{ heading: "Re:CENO 2人掛けソファ", affiliateUrl: "https://hb.afl.rakuten.co.jp/hgc/example/?rafcid=value" }], comparisonTable: { rows: [{ product: "Re:CENO 2人掛けソファ", affiliateUrl: "https://hb.afl.rakuten.co.jp/hgc/example/" }] }, faq: [], seo: { mainKeyword: "新婚 2人掛けソファ" } };
 const invalidLeakageState = structuredClone(validLeakageState);
 invalidLeakageState.productBlocks[0].summary = "link https://hb.afl.rakuten.co.jp/hgc/example/?rafcid=value";
@@ -38,14 +39,17 @@ const checks = {
   "FAQ 3-5": mock.faq.length >= 3 && mock.faq.length <= 5,
   "specific facts to verify": mock.seo.factsToVerify.some(item => /寸法|梱包|素材|保証|返品/.test(item)),
   "Template v2 render": html.includes("article-hero") && html.includes("comparison-grid") && ![...html.matchAll(/<article class="compare-card">([\s\S]*?)<\/article>/g)].some(match => match[1].replace(/<[^>]+>/g, "").includes("https://")),
-  "shared affiliate leakage scanner": builder.includes("function walkAffiliateLeakageNode(node,path,leaks)") && builder.includes("function findAffiliateLeakage(state)"),
+  "shared affiliate leakage scanner": builder.includes("function walkAffiliateLeakageNode(node,path,records)") && builder.includes("function inspectAffiliateLeakageNodes(state)") && builder.includes("function findAffiliateLeakage(state)"),
   "import leakage path reporting": builder.includes("affiliateUrlが許可フィールド外へ露出しています") && builder.includes("leakageMessage(leaks)"),
   "publish leakage validation": builder.includes("function publishIssues(){const payload=publishPayload(),issues=[],leaks=findAffiliateLeakage(payload)"),
-  "debug leakage location": builder.includes("affiliateUrl leakage location") && builder.includes("`path\\n${leak.path}`") && builder.includes("`matchIndex\\n${leak.index}`")
+  "debug leakage location": builder.includes("affiliateUrl leakage location") && builder.includes("all inspected string nodes") && builder.includes("`node.length:\\n${record.length}`") && builder.includes("`node:\\n${record.node}`") && builder.includes("`matched substring:\\n${record.matches.length")
   ,"affiliateUrl field allowlist": findAffiliateLeakage(validLeakageState).length === 0
   ,"leak paths are exact": ["productBlocks[0].summary", "comparisonTable.rows[0].feature", "faq[0].question"].every(path => invalidLeaks.some(leak => leak.path === path))
 };
 for (const [name, passed] of Object.entries(checks)) console.log(`${passed ? "PASS" : "FAIL"} ${name}`);
 const qualityGate = Object.values(checks).every(Boolean) ? "PASS" : "ERROR";
+for (const record of inspectAffiliateLeakageNodes(validLeakageState).filter(record => ["productBlocks[0].heading", "comparisonTable.rows[0].product", "seo.mainKeyword"].includes(record.path))) {
+  console.log(`TRACE ${record.path} length=${record.length} matched=${record.matches.length ? record.matches.map(match => `${match.marker}@${match.index}`).join(",") : "なし"} node=${record.node}`);
+}
 console.log(`Quality Gate mock: ${qualityGate}`);
 if (qualityGate === "ERROR") process.exitCode = 1;
