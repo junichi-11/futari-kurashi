@@ -106,6 +106,13 @@
     .button-quiet { min-height: 40px; border-color: var(--line); background: transparent; color: var(--ink); }
     .search-button { min-width: 132px; min-height: 58px; }
     .search-note { margin: 14px 0 0; color: var(--muted); font-size: 11px; }
+    .search-tools { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-top: 26px; padding-top: 24px; border-top: 1px solid var(--line); }
+    .tool-field { display: grid; gap: 7px; min-width: 0; }
+    .tool-field label { color: var(--muted); font-size: 9px; letter-spacing: .1em; text-transform: uppercase; }
+    .tool-control { width: 100%; min-height: 44px; padding: 8px 10px; border: 1px solid var(--line); border-radius: 0; background: #fff; color: var(--ink); font: inherit; font-size: 12px; }
+    .tool-checks { display: flex; flex-wrap: wrap; gap: 8px 18px; grid-column: 1 / -1; }
+    .tool-check { display: inline-flex; align-items: center; gap: 7px; color: var(--muted); font-size: 11px; }
+    .tool-check input { width: 16px; height: 16px; accent-color: var(--ink); }
 
     .section { margin-top: 112px; }
     .section-head { display: flex; justify-content: space-between; gap: 24px; align-items: end; padding-bottom: 20px; border-bottom: 1px solid var(--line); }
@@ -157,6 +164,8 @@
     .card-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 20px; }
     .affiliate-link { display: grid; place-items: center; text-decoration: none; }
     .affiliate-link[aria-disabled="true"] { pointer-events: none; opacity: .38; }
+    .load-more-wrap { display: grid; place-items: center; margin-top: 52px; }
+    .load-more-wrap .button { min-width: 220px; }
 
     .saved-toolbar { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 14px; margin-top: 24px; }
     .saved-note { margin: 0; color: var(--muted); font-size: 11px; }
@@ -193,6 +202,7 @@
       h1 { font-size: 44px; }
       .search-panel { margin-top: 48px; padding: 20px; }
       .search-form { grid-template-columns: 1fr; }
+      .search-tools { grid-template-columns: 1fr 1fr; }
       .search-button { width: 100%; }
       .section { margin-top: 80px; }
       .section-head { align-items: start; flex-direction: column; gap: 8px; }
@@ -208,6 +218,10 @@
       .saved-actions { grid-column: 1 / -1; }
       .saved-actions .button { flex: 1; padding-inline: 10px; }
       .dialog-inner { padding: 28px 24px; }
+    }
+
+    @media (max-width: 430px) {
+      .search-tools { grid-template-columns: 1fr; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -240,7 +254,14 @@
         <input id="search-input" class="search-input" type="search" name="q" minlength="2" autocomplete="off" placeholder="&#20363;&#65306;&#12477;&#12501;&#12449; &#22825;&#28982;&#26408;" required>
         <button id="search-button" class="button search-button" type="submit">&#26908;&#32034;&#12377;&#12427;</button>
       </form>
-      <p class="search-note">2&#25991;&#23383;&#20197;&#19978;&#12391;&#26908;&#32034;&#12290;&#26908;&#32034;&#32080;&#26524;&#12399;&#26368;&#22823;12&#20214;&#12391;&#12377;&#12290;</p>
+      <p class="search-note">2文字以上で検索。1ページ最大30件を取得し、必要なだけ追加表示できます。</p>
+      <div class="search-tools" aria-label="検索条件">
+        <div class="tool-field"><label for="sort-results">並び順</label><select id="sort-results" class="tool-control"><option value="standard">楽天順位</option><option value="-reviewCount">レビュー件数</option><option value="-reviewAverage">レビュー評価</option><option value="+itemPrice">価格（安い順）</option><option value="-itemPrice">価格（高い順）</option><option value="-updateTimestamp">新着</option></select></div>
+        <div class="tool-field"><label for="min-price">最低価格</label><input id="min-price" class="tool-control" type="number" min="0" inputmode="numeric" placeholder="指定なし"></div>
+        <div class="tool-field"><label for="max-price">最高価格</label><input id="max-price" class="tool-control" type="number" min="0" inputmode="numeric" placeholder="指定なし"></div>
+        <div class="tool-field"><label for="shop-filter">ショップ</label><select id="shop-filter" class="tool-control"><option value="">すべて</option></select></div>
+        <div class="tool-checks"><label class="tool-check"><input id="rating-filter" type="checkbox">レビュー4.0以上</label><label class="tool-check"><input id="review-count-filter" type="checkbox">レビュー100件以上</label><label class="tool-check"><input id="availability-filter" type="checkbox">在庫あり</label></div>
+      </div>
     </section>
 
     <section class="section" aria-labelledby="results-title">
@@ -253,6 +274,7 @@
       </div>
       <div id="result-state" class="state" role="status" aria-live="polite">&#12461;&#12540;&#12527;&#12540;&#12489;&#12434;&#20837;&#21147;&#12375;&#12390;&#21830;&#21697;&#12434;&#25506;&#12375;&#12390;&#12367;&#12384;&#12373;&#12356;&#12290;</div>
       <div id="result-grid" class="product-grid" aria-live="polite"></div>
+      <div id="load-more-wrap" class="load-more-wrap" hidden><button id="load-more" class="button button-secondary" type="button">さらに読み込む</button></div>
     </section>
 
     <section class="section" aria-labelledby="saved-title">
@@ -291,6 +313,9 @@
       "use strict";
 
       const STORAGE_KEY = "margin.productCandidates.v1";
+      const SEARCH_STATE_KEY = "margin.productManager.search.v2";
+      const SEARCH_CACHE_KEY = "margin.productManager.cache.v2";
+      const PAGE_SIZE = 30;
       const elements = {
         form: document.querySelector("#search-form"),
         input: document.querySelector("#search-input"),
@@ -298,6 +323,15 @@
         resultState: document.querySelector("#result-state"),
         resultGrid: document.querySelector("#result-grid"),
         resultMeta: document.querySelector("#result-meta"),
+        sort: document.querySelector("#sort-results"),
+        minPrice: document.querySelector("#min-price"),
+        maxPrice: document.querySelector("#max-price"),
+        shopFilter: document.querySelector("#shop-filter"),
+        ratingFilter: document.querySelector("#rating-filter"),
+        reviewCountFilter: document.querySelector("#review-count-filter"),
+        availabilityFilter: document.querySelector("#availability-filter"),
+        loadMoreWrap: document.querySelector("#load-more-wrap"),
+        loadMore: document.querySelector("#load-more"),
         savedList: document.querySelector("#saved-list"),
         savedEmpty: document.querySelector("#saved-empty"),
         savedCount: document.querySelector("#saved-count"),
@@ -315,6 +349,11 @@
       const selectedCodes = new Set();
       let activeController = null;
       let toastTimer = null;
+      let searchItems = [];
+      let currentKeyword = "";
+      let currentPage = 0;
+      let currentPageCount = 0;
+      let currentTotal = 0;
 
       function loadCandidates() {
         try {
@@ -535,45 +574,107 @@
         window.location.href = `/admin/articles.html?items=${query}`;
       }
 
-      async function search(keyword) {
-        if (Array.from(keyword).length < 2) {
-          setSearchState("error", "\u691c\u7d22\u30ad\u30fc\u30ef\u30fc\u30c9\u306f2\u6587\u5b57\u4ee5\u4e0a\u3067\u5165\u529b\u3057\u3066\u304f\u3060\u3055\u3044\u3002");
-          elements.input.focus();
-          return;
-        }
+      function readJsonStorage(key, fallback) {
+        try { return JSON.parse(localStorage.getItem(key) || "null") ?? fallback; } catch { return fallback; }
+      }
 
+      function searchState() {
+        return {
+          keyword: elements.input.value.trim(), sort: elements.sort.value,
+          minPrice: elements.minPrice.value, maxPrice: elements.maxPrice.value,
+          shop: elements.shopFilter.value, rating4: elements.ratingFilter.checked,
+          review100: elements.reviewCountFilter.checked, available: elements.availabilityFilter.checked,
+        };
+      }
+
+      function persistSearchState() {
+        try { localStorage.setItem(SEARCH_STATE_KEY, JSON.stringify(searchState())); } catch {}
+      }
+
+      function cacheKey(keyword, page) { return `${keyword}\n${elements.sort.value}\n${page}\n${PAGE_SIZE}`; }
+
+      function readCachedPage(key) {
+        const cache = readJsonStorage(SEARCH_CACHE_KEY, {}), entry = cache[key];
+        return entry && Date.now() - entry.savedAt < 30 * 60 * 1000 ? entry.payload : null;
+      }
+
+      function writeCachedPage(key, payload) {
+        try {
+          const cache = readJsonStorage(SEARCH_CACHE_KEY, {});
+          cache[key] = { savedAt: Date.now(), payload };
+          const trimmed = Object.fromEntries(Object.entries(cache).sort((a,b)=>b[1].savedAt-a[1].savedAt).slice(0, 50));
+          localStorage.setItem(SEARCH_CACHE_KEY, JSON.stringify(trimmed));
+        } catch {}
+      }
+
+      function updateShopOptions() {
+        const selected = elements.shopFilter.value;
+        const shops = [...new Set(searchItems.map(item => item.shopName).filter(Boolean))].sort((a,b)=>a.localeCompare(b,"ja"));
+        elements.shopFilter.replaceChildren(new Option("すべて", ""), ...shops.map(shop => new Option(shop, shop)));
+        if (shops.includes(selected)) elements.shopFilter.value = selected;
+      }
+
+      function filteredItems() {
+        const min = Number(elements.minPrice.value) || 0, max = Number(elements.maxPrice.value) || Infinity;
+        return searchItems.filter(item => {
+          const price = Number(item.price) || 0;
+          return price >= min && price <= max && (!elements.shopFilter.value || item.shopName === elements.shopFilter.value)
+            && (!elements.ratingFilter.checked || Number(item.reviewAverage) >= 4)
+            && (!elements.reviewCountFilter.checked || Number(item.reviewCount) >= 100)
+            && (!elements.availabilityFilter.checked || Number(item.availability) === 1);
+        });
+      }
+
+      function renderSearchResults() {
+        const items = filteredItems();
+        elements.resultGrid.replaceChildren();
+        elements.resultMeta.textContent = currentKeyword ? `${currentKeyword} / ${items.length}表示・${searchItems.length}取得 / 全${currentTotal || "-"}件` : "未検索";
+        if (!searchItems.length) {
+          setSearchState("empty", "条件に合う商品が見つかりませんでした。別のキーワードを試してください。");
+        } else if (!items.length) {
+          setSearchState("empty", "現在のフィルターに合う商品はありません。条件を緩めるか、さらに読み込んでください。");
+        } else {
+          elements.resultState.hidden = true;
+          items.forEach(item => elements.resultGrid.append(createProductCard(item)));
+        }
+        elements.loadMoreWrap.hidden = !currentKeyword || currentPage >= currentPageCount;
+        persistSearchState();
+      }
+
+      async function fetchPage(keyword, page) {
+        const key = cacheKey(keyword, page), cached = readCachedPage(key);
+        if (cached) return cached;
+        const params = new URLSearchParams({ q: keyword, page: String(page), hits: String(PAGE_SIZE), sort: elements.sort.value });
+        const response = await fetch(`/api/rakuten/search?${params}`, { headers: { Accept: "application/json" }, signal: activeController.signal });
+        let payload; try { payload = await response.json(); } catch { payload = null; }
+        if (!response.ok) throw new Error(payload?.error || `API error (${response.status})`);
+        writeCachedPage(key, payload);
+        return payload;
+      }
+
+      async function search(keyword, { append = false } = {}) {
+        if (Array.from(keyword).length < 2) {
+          setSearchState("error", "検索キーワードは2文字以上で入力してください。"); elements.input.focus(); return;
+        }
         if (activeController) activeController.abort();
         activeController = new AbortController();
-        elements.searchButton.disabled = true;
-        elements.searchButton.textContent = "\u691c\u7d22\u4e2d";
-        elements.resultGrid.replaceChildren();
-        elements.resultMeta.textContent = keyword;
-        setSearchState("loading", "\u697d\u5929\u5e02\u5834\u304b\u3089\u5019\u88dc\u3092\u63a2\u3057\u3066\u3044\u307e\u3059\u3002");
-
+        const page = append ? currentPage + 1 : 1;
+        elements.searchButton.disabled = true; elements.loadMore.disabled = true;
+        elements.searchButton.textContent = "検索中"; elements.loadMore.textContent = "読み込み中";
+        if (!append) { searchItems = []; currentPage = 0; currentKeyword = keyword; elements.resultGrid.replaceChildren(); }
+        setSearchState("loading", append ? "次の商品候補を読み込んでいます。" : "楽天市場から候補を探しています。");
         try {
-          const response = await fetch(`/api/rakuten/search?q=${encodeURIComponent(keyword)}`, {
-            headers: { Accept: "application/json" },
-            signal: activeController.signal,
-          });
-          let payload;
-          try { payload = await response.json(); } catch { payload = null; }
-          if (!response.ok) throw new Error(payload?.error || `API error (${response.status})`);
-          const items = Array.isArray(payload?.items) ? payload.items : [];
-          elements.resultMeta.textContent = `${payload.keyword || keyword} / ${items.length} products`;
-          if (items.length === 0) {
-            setSearchState("empty", "\u6761\u4ef6\u306b\u5408\u3046\u5546\u54c1\u304c\u898b\u3064\u304b\u308a\u307e\u305b\u3093\u3067\u3057\u305f\u3002\u5225\u306e\u30ad\u30fc\u30ef\u30fc\u30c9\u3092\u8a66\u3057\u3066\u304f\u3060\u3055\u3044\u3002");
-            return;
-          }
-          elements.resultState.hidden = true;
-          items.forEach((item) => elements.resultGrid.append(createProductCard(item)));
+          const payload = await fetchPage(keyword, page), incoming = Array.isArray(payload?.items) ? payload.items : [];
+          const byCode = new Map(searchItems.map(item => [item.itemCode, item]));
+          incoming.forEach(item => byCode.set(item.itemCode, item));
+          searchItems = [...byCode.values()]; currentPage = Number(payload.page) || page;
+          currentPageCount = Math.min(Number(payload.pageCount) || currentPage, 100); currentTotal = Number(payload.count) || searchItems.length;
+          updateShopOptions(); renderSearchResults();
         } catch (error) {
-          if (error.name !== "AbortError") {
-            setSearchState("error", `\u691c\u7d22\u3067\u304d\u307e\u305b\u3093\u3067\u3057\u305f\u3002${error.message ? ` ${error.message}` : ""}`);
-            elements.resultMeta.textContent = "API error";
-          }
+          if (error.name !== "AbortError") { setSearchState("error", `検索できませんでした。${error.message ? ` ${error.message}` : ""}`); elements.resultMeta.textContent = "API error"; }
         } finally {
-          elements.searchButton.disabled = false;
-          elements.searchButton.textContent = "\u691c\u7d22\u3059\u308b";
+          elements.searchButton.disabled = false; elements.loadMore.disabled = false;
+          elements.searchButton.textContent = "検索する"; elements.loadMore.textContent = "さらに読み込む";
         }
       }
 
@@ -595,6 +696,11 @@
         event.preventDefault();
         search(elements.input.value.trim());
       });
+      elements.loadMore.addEventListener("click", () => search(currentKeyword, { append: true }));
+      elements.sort.addEventListener("change", () => { persistSearchState(); if (elements.input.value.trim()) search(elements.input.value.trim()); });
+      [elements.minPrice, elements.maxPrice, elements.shopFilter, elements.ratingFilter, elements.reviewCountFilter, elements.availabilityFilter].forEach(control => {
+        control.addEventListener("change", renderSearchResults);
+      });
       elements.exportButton.addEventListener("click", exportCandidates);
       elements.createArticleButton.addEventListener("click", createArticleFromSelection);
       elements.dialogClose.addEventListener("click", () => elements.dialog.close());
@@ -603,10 +709,22 @@
       });
 
       renderCandidates();
-      const initialQuery = new URLSearchParams(window.location.search).get("q")?.trim();
+      const savedSearch = readJsonStorage(SEARCH_STATE_KEY, {});
+      elements.sort.value = savedSearch.sort || "standard";
+      elements.minPrice.value = savedSearch.minPrice || "";
+      elements.maxPrice.value = savedSearch.maxPrice || "";
+      elements.ratingFilter.checked = Boolean(savedSearch.rating4);
+      elements.reviewCountFilter.checked = Boolean(savedSearch.review100);
+      elements.availabilityFilter.checked = Boolean(savedSearch.available);
+      const initialQuery = new URLSearchParams(window.location.search).get("q")?.trim() || savedSearch.keyword?.trim();
       if (initialQuery) {
         elements.input.value = initialQuery;
-        search(initialQuery);
+        search(initialQuery).then(() => {
+          if (savedSearch.shop && [...elements.shopFilter.options].some(option => option.value === savedSearch.shop)) {
+            elements.shopFilter.value = savedSearch.shop;
+            renderSearchResults();
+          }
+        });
       }
     })();
   </script>

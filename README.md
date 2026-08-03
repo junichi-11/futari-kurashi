@@ -120,6 +120,12 @@ Planner suggestions are starting points, not verified product claims. Review
 product facts and editorial suitability before generating or publishing an
 article.
 
+## MARGIN Product Manager v2
+
+楽天検索は1ページ最大30件を取得し、「さらに読み込む」で楽天APIの次ページを最大100ページまで追加できます。並び順は楽天順位、レビュー件数、レビュー評価、価格の昇順・降順、新着に対応します。価格帯、ショップ、レビュー4.0以上、レビュー100件以上、在庫ありの条件は取得済み商品へ即時適用されます。
+
+検索ワード、並び順、フィルターはブラウザのlocalStorageへ保存します。取得済みページも検索語・並び順・ページ単位で30分間キャッシュし、同じ検索で楽天APIを再呼び出さないようにします。キャッシュは新しい50ページ分を保持します。候補商品の保存形式 `margin.productCandidates.v1` は変更していないため、既存Article Builderとの互換性を維持します。
+
 ## ChatGPT Plus editorial workflow
 
 The Article Builder can create a self-contained prompt and import the JSON

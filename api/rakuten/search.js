@@ -1,6 +1,16 @@
 const RAKUTEN_SEARCH_ENDPOINT =
   "https://openapi.rakuten.co.jp/ichibams/api/IchibaItem/Search/20260701";
 const DEFAULT_HTTP_REFERER = "https://futari-kurashi.pages.dev/";
+const MAX_HITS = 30;
+const MAX_PAGE = 100;
+const ALLOWED_SORTS = new Set([
+  "standard",
+  "-reviewCount",
+  "-reviewAverage",
+  "+itemPrice",
+  "-itemPrice",
+  "-updateTimestamp",
+]);
 
 const numberOrZero = (value) => {
   const number = Number(value);
@@ -69,6 +79,12 @@ export default async function handler(request, response) {
 
   const requestUrl = new URL(request.url, "https://function.local");
   const keyword = requestUrl.searchParams.get("q")?.trim() ?? "";
+  const requestedPage = Number.parseInt(requestUrl.searchParams.get("page") ?? "1", 10);
+  const requestedHits = Number.parseInt(requestUrl.searchParams.get("hits") ?? String(MAX_HITS), 10);
+  const requestedSort = requestUrl.searchParams.get("sort") ?? "standard";
+  const page = Number.isInteger(requestedPage) ? Math.min(Math.max(requestedPage, 1), MAX_PAGE) : 1;
+  const hits = Number.isInteger(requestedHits) ? Math.min(Math.max(requestedHits, 1), MAX_HITS) : MAX_HITS;
+  const sort = ALLOWED_SORTS.has(requestedSort) ? requestedSort : "standard";
 
   if (Array.from(keyword).length < 2) {
     return sendJson(response, 400, {
@@ -126,9 +142,9 @@ export default async function handler(request, response) {
     keyword,
     format: "json",
     formatVersion: "2",
-    hits: "12",
-    page: "1",
-    sort: "standard",
+    hits: String(hits),
+    page: String(page),
+    sort,
     imageFlag: "1",
     availability: "1",
   }).toString();
@@ -182,7 +198,7 @@ export default async function handler(request, response) {
 
   const sourceItems = data.items ?? data.Items ?? [];
   const items = Array.isArray(sourceItems)
-    ? sourceItems.slice(0, 12).map(normalizeItem)
+    ? sourceItems.slice(0, hits).map(normalizeItem)
     : [];
 
   return sendJson(

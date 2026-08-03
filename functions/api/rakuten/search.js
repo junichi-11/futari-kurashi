@@ -44,6 +44,10 @@ export async function onRequest(context) {
 
   const upstreamUrl = new URL("/api/rakuten/search", vercelOrigin);
   upstreamUrl.searchParams.set("q", keyword);
+  for (const name of ["page", "hits", "sort"]) {
+    const value = requestUrl.searchParams.get(name);
+    if (value) upstreamUrl.searchParams.set(name, value);
+  }
 
   let upstreamResponse;
   try {
