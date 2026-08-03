@@ -16,6 +16,12 @@ Article BuilderのChatGPT連携はPrompt Version 3.0を標準とします。Chat
 
 APIにない寸法、素材、保証、耐久性、座り心地は推測せず、確認対象を具体的にしたうえで「商品ページで確認」と記載します。`itemCode`、`role`、`affiliateUrl` は選択商品データから変更しません。v1・v2の下書きと履歴は引き続き読み込み可能で、履歴上は各Prompt Versionを区別して表示します。将来OpenAI APIによる自動生成へ切り替える場合も、Prompt Version 3.0と同じSchema・文章品質・誠実性ルールを使用してください。
 
+## MARGIN Article Template v3
+
+楽天の商品画像は、楽天画像ホストがサイズ指定に対応する場合に高解像度URLを生成し、商品セクションでは480px・800px、比較カードでは160px・320px・480pxの `srcset` を出力します。楽天画像ホストで確認できた800pxの上限を超える架空のwidth descriptorは指定しません。ブラウザが表示幅と端末解像度に合う画像を選択するため、Retina表示と転送量を両立します。
+
+商品画像と比較画像は4:3へ統一し、`object-fit: contain` で商品全体を見切れにくく表示します。`width`・`height`・`aspect-ratio`で表示領域を予約し、CLSを抑えます。`loading="lazy"` と `decoding="async"` は維持します。既存のarticle.json Schema、Article Builder、Publish Systemとの互換性は変更しません。
+
 ## Rakuten Ichiba Item Search API
 
 The Rakuten API runs in a Vercel Serverless Function. The public

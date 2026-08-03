@@ -1,5 +1,5 @@
 import { readFile } from "node:fs/promises";
-import { renderArticlePageV2 } from "../lib/article-template-v2.mjs";
+import { renderArticlePageV3 } from "../lib/article-template-v2.mjs";
 
 const source = JSON.parse(await readFile("articles/newlywed-one-room-two-seater-sofa/article.json", "utf8"));
 const builder = await readFile("admin/articles.html", "utf8");
@@ -30,7 +30,7 @@ mock.comparisonTable = {
   })
 };
 const visibleComparison = mock.comparisonTable.rows.flatMap(row => Object.entries(row).filter(([key]) => !/url/i.test(key)).map(([, value]) => String(value)));
-const html = renderArticlePageV2({ ...mock, articleType: "比較・おすすめ記事", target: "新婚・2人暮らし", roomType: "ワンルーム" }, "https://futari-kurashi.pages.dev", mock.publishedAt, mock.updatedAt);
+const html = renderArticlePageV3({ ...mock, articleType: "比較・おすすめ記事", target: "新婚・2人暮らし", roomType: "ワンルーム" }, "https://futari-kurashi.pages.dev", mock.publishedAt, mock.updatedAt);
 const checks = {
   "Prompt Version 3.0": builder.includes('chatgptPromptVersion="3.0"') && builder.includes("Prompt Version 3.0") && builder.includes('$("#build-prompt").onclick=generatePromptV3'),
   "article.json file output": builder.includes('ファイル名「article.json」のUTF-8 JSONファイルとして生成・添付してください') && builder.includes("article.jsonを添付しました。") && builder.includes("JSON.parseできる有効なJSON"),
@@ -47,7 +47,9 @@ const checks = {
   "comparison display is concise": visibleComparison.every(cell => cell.length <= 80) && visibleComparison.every(cell => !cell.includes("http")),
   "FAQ 3-5": mock.faq.length >= 3 && mock.faq.length <= 5,
   "specific facts to verify": mock.seo.factsToVerify.some(item => /寸法|梱包|素材|保証|返品/.test(item)),
-  "Template v2 render": html.includes("article-hero") && html.includes("comparison-grid") && ![...html.matchAll(/<article class="compare-card">([\s\S]*?)<\/article>/g)].some(match => match[1].replace(/<[^>]+>/g, "").includes("https://")),
+  "Template v3 render": html.includes("article-hero") && html.includes("comparison-grid") && ![...html.matchAll(/<article class="compare-card">([\s\S]*?)<\/article>/g)].some(match => match[1].replace(/<[^>]+>/g, "").includes("https://")),
+  "responsive product images": /class="product-visual"><img[^>]+srcset="[^"]+ 480w,[^"]+ 800w"[^>]+width="960" height="720" loading="lazy" decoding="async"/.test(html),
+  "responsive comparison images": /class="compare-product"><img[^>]+srcset="[^"]+ 160w,[^"]+ 320w,[^"]+ 480w"[^>]+width="160" height="120" loading="lazy" decoding="async"/.test(html),
   "shared affiliate leakage scanner": builder.includes("function walkAffiliateLeakageNode(node,path,records)") && builder.includes("function inspectAffiliateLeakageNodes(state)") && builder.includes("function findAffiliateLeakage(state)"),
   "import leakage path reporting": builder.includes("affiliateUrlが許可フィールド外へ露出しています") && builder.includes("leakageMessage(leaks)"),
   "publish leakage validation": builder.includes("function publishIssues(){const payload=publishPayload(),issues=[],leaks=findAffiliateLeakage(payload)"),
