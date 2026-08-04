@@ -8,13 +8,20 @@ Publish Systemで新しい記事を公開すると、記事HTML・記事JSONと�
 
 ## MARGIN Article Generation Prompt v3
 
-Article BuilderのChatGPT連携はPrompt Version 3.0を標準とします。ChatGPTへJSON本文を返させず、JSON構文検証済みの `article.json`（UTF-8）を生成・添付させます。チャット本文には「article.jsonを添付しました。」だけを返すよう指示します。記事データの `version` は引き続き `1.0` とし、既存のJSON Import、Quality Gate、Publish Systemとの互換性を維持します。
+Article BuilderのChatGPT連携はPrompt Version 3.1を標準とします。ChatGPTへJSON本文を返させず、JSON構文検証済みの `{slug}.json`（UTF-8）を生成・添付させます。記事データの `version` は引き続き `1.0` とし、既存のJSON Import、Quality Gate、Publish Systemとの互換性を維持します。
+
+Prompt Version 3.1では、固定の `article.json` を廃止し、記事slugと同じ
+`{slug}.json` を標準ファイル名とします。slugが空の場合はArticle Builderが
+候補を用意し、ChatGPTにも記事内容から有効なslugを確定するよう指示します。
+Import前にはファイル名・JSON内slug・現在編集中のslugを比較し、選択商品、
+`productBlocks`、`comparisonTable.rows` のitemCode・role・affiliateUrlを3者で
+完全照合します。検証と利用者の承認が終わるまで編集中データは変更しません。
 
 文章品質のルールはPrompt Version 2.0を継承します。リードは180〜280文字、H2本文は120〜300文字、商品summaryは90〜180文字、editorCommentは80〜160文字、FAQ回答は100〜220文字、結論は220〜380文字を目安にします。詩的表現はタイトル、リード、編集コメント、結論に限定し、比較・確認事項・FAQは簡潔な実用文とします。
 
 商品見出しは楽天の商品名全文を転載せず、「ブランドまたはショップ＋シリーズ・識別名＋商品種別」へ短縮します。元の商品名は選択商品データに保持します。比較表の特徴と向いている暮らしは30文字以内を目安にし、affiliateUrlは専用フィールドへ保持して表示用セルや本文には入れません。
 
-APIにない寸法、素材、保証、耐久性、座り心地は推測せず、確認対象を具体的にしたうえで「商品ページで確認」と記載します。`itemCode`、`role`、`affiliateUrl` は選択商品データから変更しません。v1・v2の下書きと履歴は引き続き読み込み可能で、履歴上は各Prompt Versionを区別して表示します。将来OpenAI APIによる自動生成へ切り替える場合も、Prompt Version 3.0と同じSchema・文章品質・誠実性ルールを使用してください。
+APIにない寸法、素材、保証、耐久性、座り心地は推測せず、確認対象を具体的にしたうえで「商品ページで確認」と記載します。`itemCode`、`role`、`affiliateUrl` は選択商品データから変更しません。v1・v2の下書きと履歴は引き続き読み込み可能で、履歴上は各Prompt Versionを区別して表示します。将来OpenAI APIによる自動生成へ切り替える場合も、Prompt Version 3.1と同じSchema・文章品質・誠実性ルールを使用してください。
 
 ## MARGIN Article Template v3
 
@@ -156,7 +163,7 @@ before explicit approval.
 
 ### Recommended JSON import flow
 
-Article BuilderでPrompt Version 3.0を生成 → ChatGPTで `article.json`（UTF-8）を生成・添付 → 添付ファイルを保存 → Article
+Article BuilderでPrompt Version 3.1を生成 → ChatGPTで `{slug}.json`（UTF-8）を生成・添付 → 添付ファイルを保存 → Article
 Builderの「JSONファイルを選択」から読み込み → Quality Gateを確認 →
 「承認して反映」の順で運用します。ファイルは最大2MBで、HTMLやMarkdown、
 ブラウザのリンク変換を通さず生テキストとして読み込みます。従来の貼り付けも
