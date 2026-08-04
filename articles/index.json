@@ -1,7 +1,25 @@
 {
   "version": "1.0",
-  "updatedAt": "2026-08-04T14:59:45.894Z",
+  "updatedAt": "2026-08-04T15:07:38.344Z",
   "articles": [
+    {
+      "articleId": "article-1785856047556",
+      "slug": "newlywed-2ldk-side-table",
+      "url": "/articles/newlywed-2ldk-side-table/",
+      "displayTitle": "ふたりのくつろぎに余白を添える、2LDK向けサイドテーブル6選",
+      "seoTitle": "新婚の2LDKに合うサイドテーブル6選と選び方",
+      "metaDescription": "新婚の2LDKに取り入れやすいサイドテーブル6商品を比較。高さ、幅、素材、収納、差し込み、兼用性など購入前の確認点を整理します。",
+      "publishedAt": "2026-08-04T15:07:37.580Z",
+      "updatedAt": "2026-08-04T15:07:38.344Z",
+      "articleType": "比較・おすすめ記事",
+      "target": "新婚",
+      "roomType": "2LDK",
+      "editorialThemes": [],
+      "mainKeyword": "サイドテーブル 新婚 2LDK",
+      "productCount": 6,
+      "thumbnail": "https://thumbnail.image.rakuten.co.jp/@0_mall/rcmdin/cabinet/b807/b8-princeaha.jpg?_ex=128x128",
+      "status": "Published"
+    },
     {
       "articleId": "article-1785855572902",
       "slug": "newlywed-1ldk-open-rack",
