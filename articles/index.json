@@ -1,7 +1,25 @@
 {
   "version": "1.0",
-  "updatedAt": "2026-08-04T14:34:57.308Z",
+  "updatedAt": "2026-08-04T14:47:36.173Z",
   "articles": [
+    {
+      "articleId": "article-1785854835432",
+      "slug": "newlywed-1ldk-art-panel",
+      "url": "/articles/newlywed-1ldk-art-panel/",
+      "displayTitle": "ふたりの壁に静かな余白をつくる、1LDK向けアート6選",
+      "seoTitle": "新婚の1LDKに合うアートパネル6選と飾り方のポイント",
+      "metaDescription": "新婚の1LDKに取り入れやすいアートパネル6商品を比較。サイズ、フレーム、立体感、設置方法、デジタル表示など購入前の確認点を整理します。",
+      "publishedAt": "2026-08-04T14:47:34.556Z",
+      "updatedAt": "2026-08-04T14:47:36.173Z",
+      "articleType": "比較・おすすめ記事",
+      "target": "新婚",
+      "roomType": "1LDK",
+      "editorialThemes": [],
+      "mainKeyword": "アートパネル 新婚 1LDK",
+      "productCount": 6,
+      "thumbnail": "https://thumbnail.image.rakuten.co.jp/@0_mall/nattyandco/cabinet/item/006/artp007.jpg?_ex=128x128",
+      "status": "Published"
+    },
     {
       "articleId": "article-1785854068491",
       "slug": "newlywed-1ldk-one-seater-sofa",
