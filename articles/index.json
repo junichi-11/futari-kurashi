@@ -1,7 +1,25 @@
 {
   "version": "1.0",
-  "updatedAt": "2026-08-04T14:47:36.173Z",
+  "updatedAt": "2026-08-04T14:59:45.894Z",
   "articles": [
+    {
+      "articleId": "article-1785855572902",
+      "slug": "newlywed-1ldk-open-rack",
+      "url": "/articles/newlywed-1ldk-open-rack/",
+      "displayTitle": "ふたりの暮らしを軽やかに整える、1LDK向けオープンラック6選",
+      "seoTitle": "新婚の1LDKに合うオープンラック6選と選び方",
+      "metaDescription": "新婚の1LDKに取り入れやすいオープンラック6商品を比較。伸縮、完成品、間仕切り、奥行き、素材、サイズ選びなど購入前の確認点を整理します。",
+      "publishedAt": "2026-08-04T14:59:44.643Z",
+      "updatedAt": "2026-08-04T14:59:45.894Z",
+      "articleType": "比較・おすすめ記事",
+      "target": "新婚",
+      "roomType": "1LDK",
+      "editorialThemes": [],
+      "mainKeyword": "オープンラック 新婚 1LDK",
+      "productCount": 6,
+      "thumbnail": "https://thumbnail.image.rakuten.co.jp/@0_mall/arne-style/cabinet/point5-kagu/0000a01723.jpg?_ex=128x128",
+      "status": "Published"
+    },
     {
       "articleId": "article-1785854835432",
       "slug": "newlywed-1ldk-art-panel",
