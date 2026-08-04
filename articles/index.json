@@ -1,7 +1,25 @@
 {
   "version": "1.0",
-  "updatedAt": "2026-08-03T16:00:58.730Z",
+  "updatedAt": "2026-08-04T14:34:57.308Z",
   "articles": [
+    {
+      "articleId": "article-1785854068491",
+      "slug": "newlywed-1ldk-one-seater-sofa",
+      "url": "/articles/newlywed-1ldk-one-seater-sofa/",
+      "displayTitle": "ふたりの居場所を穏やかに分ける、1LDK向け1人掛けソファ5選",
+      "seoTitle": "新婚の1LDKに合う1人掛けソファ5選と選び方",
+      "metaDescription": "新婚の1LDKに取り入れやすい1人掛けソファ5商品を比較。ロータイプ、木製フレーム、カバーリング、搬入条件など購入前の確認点を整理します。",
+      "publishedAt": "2026-08-04T14:34:55.986Z",
+      "updatedAt": "2026-08-04T14:34:57.308Z",
+      "articleType": "比較・おすすめ記事",
+      "target": "新婚",
+      "roomType": "1LDK",
+      "editorialThemes": [],
+      "mainKeyword": "1人掛けソファ 新婚 1LDK",
+      "productCount": 5,
+      "thumbnail": "https://thumbnail.image.rakuten.co.jp/@0_mall/risopale/cabinet/prd-img/sf-soroi/sf-soroi_l_r.jpg?_ex=128x128",
+      "status": "Published"
+    },
     {
       "articleId": "article-1785772815930",
       "slug": "newlywed-one-room-pendant-light",
