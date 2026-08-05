@@ -1,7 +1,28 @@
 {
   "version": "1.0",
-  "updatedAt": "2026-08-05T13:23:57.081Z",
+  "updatedAt": "2026-08-05T13:43:59.268Z",
   "articles": [
+    {
+      "articleId": "article-1785937423735",
+      "slug": "newlywed-2ldk-dining-chair-selection",
+      "url": "/articles/newlywed-2ldk-dining-chair-selection/",
+      "displayTitle": "新婚2LDKに、食卓の余白をつくるダイニングチェア5選",
+      "seoTitle": "新婚2LDK向けダイニングチェア5選｜ナチュラルとモダンで比較",
+      "metaDescription": "新婚の2LDKに合わせやすいダイニングチェア5点を比較。1脚・2脚セット、肘付き、ペーパーコード、木と鉄の違いと、購入前に確認したい座面高や寸法を整理します。",
+      "publishedAt": "2026-08-05T13:43:58.051Z",
+      "updatedAt": "2026-08-05T13:43:59.268Z",
+      "articleType": "比較・おすすめ記事",
+      "target": "新婚",
+      "roomType": "2LDK",
+      "editorialThemes": [
+        "ナチュラル",
+        "モダン"
+      ],
+      "mainKeyword": "新婚 2LDK ダイニングチェア",
+      "productCount": 5,
+      "thumbnail": "https://thumbnail.image.rakuten.co.jp/@0_mall/kagkaiino/cabinet/sq/chair/2030010_r.jpg?_ex=128x128",
+      "status": "Published"
+    },
     {
       "articleId": "article-1785936224056",
       "slug": "newlywed-1ldk-tv-board-selection",
