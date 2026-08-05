@@ -1,7 +1,25 @@
 {
   "version": "1.0",
-  "updatedAt": "2026-08-04T15:39:46.216Z",
+  "updatedAt": "2026-08-05T13:07:24.857Z",
   "articles": [
+    {
+      "articleId": "article-1785935213913",
+      "slug": "newlywed-2ldk-living-storage-selection",
+      "url": "/articles/newlywed-2ldk-living-storage-selection/",
+      "displayTitle": "新婚2LDKの暮らしに、静かな余白をつくる収納家具6選",
+      "seoTitle": "新婚2LDKの収納家具6選｜リビングを整える選び方と購入前比較",
+      "metaDescription": "新婚の2LDKに取り入れやすい収納家具6点を比較。オープン棚、キャビネット、サイドボード、ハイタイプ収納の違いと、設置前に確認したい寸法・収納量・搬入条件を整理します。",
+      "publishedAt": "2026-08-05T13:07:23.762Z",
+      "updatedAt": "2026-08-05T13:07:24.857Z",
+      "articleType": "比較・おすすめ記事",
+      "target": "新婚",
+      "roomType": "2LDK",
+      "editorialThemes": [],
+      "mainKeyword": "新婚 2LDK 収納家具",
+      "productCount": 6,
+      "thumbnail": "https://thumbnail.image.rakuten.co.jp/@0_mall/antdesignstore/cabinet/23/s-65-1-b.jpg?_ex=128x128",
+      "status": "Published"
+    },
     {
       "articleId": "article-1785857947413",
       "slug": "newlywed-1ldk-full-length-mirror-selection",
