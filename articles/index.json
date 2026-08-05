@@ -1,7 +1,25 @@
 {
   "version": "1.0",
-  "updatedAt": "2026-08-05T13:07:24.857Z",
+  "updatedAt": "2026-08-05T13:23:57.081Z",
   "articles": [
+    {
+      "articleId": "article-1785936224056",
+      "slug": "newlywed-1ldk-tv-board-selection",
+      "url": "/articles/newlywed-1ldk-tv-board-selection/",
+      "displayTitle": "新婚1LDKの余白を整えるテレビボード5選",
+      "seoTitle": "新婚1LDK向けテレビボード5選｜サイズと収納で比較",
+      "metaDescription": "新婚の1LDKに置きやすいテレビボード5点を比較。幅、収納、完成品かどうか、配線のしやすさ、部屋への圧迫感を基準に選び方と購入前の確認事項を整理します。",
+      "publishedAt": "2026-08-05T13:23:55.915Z",
+      "updatedAt": "2026-08-05T13:23:57.081Z",
+      "articleType": "比較・おすすめ記事",
+      "target": "新婚",
+      "roomType": "1LDK",
+      "editorialThemes": [],
+      "mainKeyword": "新婚 1LDK テレビボード",
+      "productCount": 5,
+      "thumbnail": "https://thumbnail.image.rakuten.co.jp/@0_mall/kawaguchikagu/cabinet/gauss/wn1.jpg?_ex=128x128",
+      "status": "Published"
+    },
     {
       "articleId": "article-1785935213913",
       "slug": "newlywed-2ldk-living-storage-selection",
