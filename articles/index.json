@@ -1,7 +1,28 @@
 {
   "version": "1.0",
-  "updatedAt": "2026-08-05T13:43:59.268Z",
+  "updatedAt": "2026-08-08T06:33:33.981Z",
   "articles": [
+    {
+      "articleId": "article-1786170781747",
+      "slug": "newlywed-2ldk-natural-sofa-selection",
+      "url": "/articles/newlywed-2ldk-natural-sofa-selection/",
+      "displayTitle": "新婚2LDKに、長く寄り添うナチュラルソファ6選",
+      "seoTitle": "新婚2LDK向けナチュラルソファ6選｜天然木とサイズで比較",
+      "metaDescription": "新婚の2LDKに合わせやすいナチュラル系ソファ6点を比較。2人掛け、ソファベッド、ローソファ、カウチの違いと、天然木フレームやサイズ、購入前の確認事項を整理します。",
+      "publishedAt": "2026-08-08T06:33:32.767Z",
+      "updatedAt": "2026-08-08T06:33:33.981Z",
+      "articleType": "比較・おすすめ記事",
+      "target": "新婚",
+      "roomType": "2LDK",
+      "editorialThemes": [
+        "ナチュラル",
+        "長く使える"
+      ],
+      "mainKeyword": "新婚 2LDK ソファ",
+      "productCount": 6,
+      "thumbnail": "https://thumbnail.image.rakuten.co.jp/@0_mall/tansu/cabinet/07131939/73200002_10gy.jpg?_ex=128x128",
+      "status": "Published"
+    },
     {
       "articleId": "article-1785937423735",
       "slug": "newlywed-2ldk-dining-chair-selection",
