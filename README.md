@@ -249,3 +249,24 @@ localStorage, API responses, or logs. Verify product prices, stock, shipping,
 and delivery information immediately before publishing. The operator remains
 responsible for the published content after automated publication. Search
 Console index submission is not implemented in v1.
+
+## Affiliate disclosure and legal pages
+
+Published articles that contain a Rakuten affiliate URL display an always-visible
+`広告` disclosure immediately after the lead and before the table of contents.
+If `article.disclosure` is missing or invalid, the renderer uses the standard
+MARGIN disclosure instead; it does not duplicate a valid disclosure. Product
+images, product names, and CTA links use the saved affiliate URL without
+decoding, re-encoding, shortening, or removing query parameters. The CTA label
+is `楽天市場で見る`.
+
+Prices, stock, shipping, and delivery dates can change. A missing or zero price
+is rendered as `楽天市場で確認`, and a product without collected review data is
+rendered as `評価情報なし` rather than a zero-star score. Operators must verify
+all product information on Rakuten immediately before publication.
+
+The public footer links to `/about/`, `/privacy/`, `/contact/`,
+`/affiliate-disclosure/`, and `/disclaimer/`. These pages are also included in
+the generated sitemap. The same rules apply to new publications and to
+**Rebuild Published Articles**, because both use the shared Article Template v3
+renderer.
