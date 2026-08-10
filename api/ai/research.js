@@ -1,10 +1,3 @@
-const OPENAI_ENDPOINT = "https://api.openai.com/v1/responses";
-const DEFAULT_MODEL = "gpt-5-nano";
-const REQUEST_TIMEOUT_MS = 45_000;
-const RATE_WINDOW_MS = 10 * 60 * 1000;
-const RATE_LIMIT = 6;
-const requestsByClient = new Map();
-
 const json = (response, status, body) => {
   response.status(status);
   response.setHeader("Content-Type", "application/json; charset=utf-8");
@@ -12,230 +5,46 @@ const json = (response, status, body) => {
   response.json(body);
 };
 
-const text = (value, limit) =>
-  typeof value === "string" ? value.trim().slice(0, limit) : "";
-const list = (value, limit, itemLimit = 120) =>
-  Array.isArray(value)
-    ? value.slice(0, limit).map((item) => text(item, itemLimit)).filter(Boolean)
-    : [];
-const number = (value) => (Number.isFinite(Number(value)) ? Number(value) : 0);
-
-const sanitizeInput = (body) => ({
-  theme: text(body?.theme, 200),
-  articleType: text(body?.articleType, 80),
-  target: text(body?.target, 120),
-  roomType: text(body?.roomType, 120),
-  editorialThemes: list(body?.editorialThemes, 12, 40),
-  mainKeyword: text(body?.mainKeyword, 120),
-  relatedKeywords: list(body?.relatedKeywords, 20, 120),
-  memo: text(body?.memo, 2000),
-  selectedProducts: Array.isArray(body?.selectedProducts)
-    ? body.selectedProducts.slice(0, 20).map((product) => ({
-        itemCode: text(product?.itemCode, 160),
-        name: text(product?.name, 300),
-        price: number(product?.price),
-        shopName: text(product?.shopName, 200),
-        reviewAverage: number(product?.reviewAverage),
-        reviewCount: number(product?.reviewCount),
-        catchcopy: text(product?.catchcopy, 500),
-      }))
-    : [],
+const text = (value, limit) => typeof value === "string" ? value.trim().slice(0, limit) : "";
+const list = (value, limit, itemLimit = 120) => Array.isArray(value) ? value.slice(0, limit).map(item => text(item, itemLimit)).filter(Boolean) : [];
+const inputOf = body => ({
+  theme: text(body?.theme, 200), articleType: text(body?.articleType, 80) || "比較・おすすめ記事",
+  target: text(body?.target, 120) || "ふたり暮らし", roomType: text(body?.roomType, 120) || "1LDK",
+  editorialThemes: list(body?.editorialThemes, 12, 40), mainKeyword: text(body?.mainKeyword, 120),
+  relatedKeywords: list(body?.relatedKeywords, 20, 120), memo: text(body?.memo, 2000),
+  selectedProducts: Array.isArray(body?.selectedProducts) ? body.selectedProducts.slice(0, 20) : []
 });
 
-const stringArray = { type: "array", items: { type: "string" } };
-const object = (properties) => ({
-  type: "object",
-  additionalProperties: false,
-  required: Object.keys(properties),
-  properties,
-});
-
-const researchSchema = object({
-  searchIntent: object({
-    primaryIntent: { type: "string" },
-    secondaryIntents: stringArray,
-    readerSituation: { type: "string" },
-    readerProblems: stringArray,
-    readerQuestions: stringArray,
-  }),
-  editorialDirection: object({
-    articleGoal: { type: "string" },
-    marginPointOfView: { type: "string" },
-    tone: { type: "string" },
-    avoid: stringArray,
-  }),
-  titleSuggestions: {
-    type: "array",
-    minItems: 5,
-    maxItems: 5,
-    items: object({
-      displayTitle: { type: "string" },
-      seoTitle: { type: "string" },
-      reason: { type: "string" },
-    }),
-  },
-  recommendedStructure: {
-    type: "array",
-    items: object({
-      id: { type: "string" },
-      level: { type: "integer", enum: [2] },
-      heading: { type: "string" },
-      purpose: { type: "string" },
-      subheadings: {
-        type: "array",
-        items: object({
-          level: { type: "integer", enum: [3] },
-          heading: { type: "string" },
-          purpose: { type: "string" },
-        }),
-      },
-    }),
-  },
-  productStrategy: object({
-    recommendedProductCount: { type: "integer" },
-    selectionCriteria: stringArray,
-    recommendedRoles: stringArray,
-    excludeConditions: stringArray,
-    rakutenSearchQueries: { type: "array", maxItems: 5, items: { type: "string" } },
-    comparisonAngles: stringArray,
-    compositionBias: stringArray,
-    missingProductTypes: stringArray,
-    selectedProductRecommendations: {
-      type: "array",
-      items: object({
-        itemCode: { type: "string" },
-        suggestedRole: { type: "string" },
-        suggestedOrder: { type: "integer" },
-        comparisonAngle: { type: "string" },
-        recommendation: { type: "string" },
-        shouldExclude: { type: "boolean" },
-      }),
-    },
-  }),
-  seoSupport: object({
-    mainKeyword: { type: "string" },
-    relatedKeywords: stringArray,
-    questionsToAnswer: stringArray,
-    internalLinkIdeas: stringArray,
-    metaDescriptionDraft: { type: "string" },
-    slugSuggestion: { type: "string" },
-  }),
-  researchNotes: object({
-    factsToVerify: stringArray,
-    claimsToAvoid: stringArray,
-    missingInformation: stringArray,
-  }),
-});
-
-const systemPrompt = `You are the planning desk for MARGIN, a Japanese lifestyle editorial medium about furniture, appliances, and interiors for newlyweds, cohabiting couples, and two-person households.
-Brand values: quietness, space, attachment, honesty.
-Decision priority: 1 reader trust, 2 fit with daily life, 3 editorial quality, 4 design, 5 search acquisition, 6 revenue.
-Write all output in natural Japanese. Support editorial judgment; do not imitate a ranking or sales site.
-Never invent search volume, ranking, competitor counts, or keyword difficulty. State that external SEO data is required when such data would be needed.
-Never infer product dimensions, materials, durability, comfort, shipping, or availability. Separate product-page descriptions from editorial observations.
-Never use claims equivalent to: absolute recommendation, buy or lose, No.1, dirt cheap, god-tier item, suits everyone, or other pressure language.
-Do not restate Rakuten product copy as verified fact.
-Create exactly five title suggestions. Create an H2/H3 structure suited to the article type. Rakuten queries must be no more than five short, concrete Japanese search phrases.
-When selected products exist, propose roles, order, comparison angles, bias, missing types, and possible exclusions. Suggestions must not pretend to have changed the products.`;
-
-const clientKey = (request) =>
-  String(request.headers["x-forwarded-for"] || request.socket?.remoteAddress || "unknown")
-    .split(",")[0]
-    .trim();
-
-const isRateLimited = (key) => {
-  const now = Date.now();
-  const recent = (requestsByClient.get(key) || []).filter((time) => now - time < RATE_WINDOW_MS);
-  if (recent.length >= RATE_LIMIT) return true;
-  recent.push(now);
-  requestsByClient.set(key, recent);
-  return false;
+const categoryOf = input => {
+  const source = `${input.theme} ${input.mainKeyword} ${input.selectedProducts.map(item => item?.name || "").join(" ")}`;
+  for (const value of ["ダイニングテーブル", "ダイニングチェア", "サイドテーブル", "テレビボード", "ペンダントライト", "フロアライト", "全身鏡", "オープンラック", "キャビネット", "ソファ", "ラグ", "照明", "デスク", "ベッド", "収納家具"]) if (source.includes(value)) return value;
+  return "家具";
 };
 
-const outputText = (payload) => {
-  if (typeof payload?.output_text === "string") return payload.output_text;
-  for (const item of payload?.output || []) {
-    for (const part of item?.content || []) {
-      if (part?.type === "output_text" && typeof part.text === "string") return part.text;
-    }
-  }
-  return "";
+const buildResearch = input => {
+  const category = categoryOf(input), keyword = input.mainKeyword || `${input.roomType} ${category}`;
+  const titles = [
+    `${input.roomType}で置きやすい${category}を、使い方から比べる`,
+    `${category}選びで先に確認したい、サイズと使い方`,
+    `${input.target}に合う${category}｜価格と特徴を比較`,
+    `${category}は何で選ぶ？${input.roomType}の判断基準`,
+    `長く使うために比べたい${category}の条件`
+  ];
+  const structure = ["先に確認しておきたいこと", "今回比べる基準", "商品ごとの違い", "注文前の確認事項"].map((heading, index) => ({id:`rule-${index + 1}`, level:2, heading, purpose:`${category}を選ぶための判断材料を整理する。`, subheadings:[]}));
+  return {
+    searchIntent:{primaryIntent:`${category}の違いを理解して選びたい`,secondaryIntents:["価格と特徴を比較したい","設置前の確認事項を知りたい"],readerSituation:`${input.target}が${input.roomType}に置く家具を検討している。`,readerProblems:["商品名だけでは違いが分かりにくい","未確認の仕様を整理したい"],readerQuestions:["どの条件を先に比べるか","購入前に何を確認するか"]},
+    editorialDirection:{articleGoal:"読者が商品ごとの差と確認事項を把握できること。",marginPointOfView:"順位ではなく用途と条件から選択理由を示す。",tone:"簡潔で誠実",avoid:["未確認仕様の断定","過度な購入訴求","定型的な情緒表現の反復"]},
+    titleSuggestions:titles.map((displayTitle,index)=>({displayTitle,seoTitle:`${keyword}｜${index ? "選び方" : "特徴を比較"} | MARGIN`,reason:"検索意図と具体的な判断材料を両立するため。"})),
+    recommendedStructure:structure,
+    productStrategy:{recommendedProductCount:input.selectedProducts.length || 5,selectionCriteria:["用途の違いが分かる","価格と商品情報を確認できる"],recommendedRoles:["Best Balance","Compact Living","Long-Term Choice"],excludeConditions:["商品情報を確認できない","記事テーマと用途が合わない"],rakutenSearchQueries:[keyword,`${category} ${input.roomType}`,`${category} 比較`].slice(0,5),comparisonAngles:["価格","用途","確認事項"],compositionBias:[],missingProductTypes:[],selectedProductRecommendations:input.selectedProducts.map((product,index)=>({itemCode:text(product?.itemCode,160),suggestedRole:"",suggestedOrder:index+1,comparisonAngle:"用途と価格",recommendation:"保存済み情報をもとに人が最終判断する。",shouldExclude:false}))},
+    seoSupport:{mainKeyword:keyword,relatedKeywords:[...new Set([...input.relatedKeywords,`${category} 比較`,`${category} 選び方`])].slice(0,10),questionsToAnswer:["選ぶ基準は何か","注文前に何を確認するか"],internalLinkIdeas:[`${category}の選び方`,` ${input.roomType}の家具選び`.trim()],metaDescriptionDraft:`${input.target}が${input.roomType}で使う${category}を、価格、用途、確認事項から比較します。`,slugSuggestion:""},
+    researchNotes:{factsToVerify:["寸法、素材、送料、在庫、納期は商品ページで確認"],claimsToAvoid:["耐久性や使い心地の断定"],missingInformation:["APIに含まれない仕様"]}
+  };
 };
 
-export default async function handler(request, response) {
-  if (request.method !== "POST") {
-    response.setHeader("Allow", "POST");
-    return json(response, 405, { error: "Method Not Allowed" });
-  }
-
-  if (!process.env.OPENAI_API_KEY?.trim()) {
-    return json(response, 500, {
-      error: "VercelのEnvironment VariablesにOPENAI_API_KEYを登録してください。",
-    });
-  }
-
-  if (isRateLimited(clientKey(request))) {
-    return json(response, 429, { error: "AIリサーチの実行回数が上限に達しました。しばらく待ってから再度お試しください。" });
-  }
-
-  const input = sanitizeInput(request.body);
-  if (!input.theme) {
-    return json(response, 400, { error: "記事テーマを入力してください。" });
-  }
-
-  const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
-  let upstream;
-  try {
-    upstream = await fetch(OPENAI_ENDPOINT, {
-      method: "POST",
-      signal: controller.signal,
-      headers: {
-        Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        model: process.env.OPENAI_MODEL?.trim() || DEFAULT_MODEL,
-        instructions: systemPrompt,
-        input: JSON.stringify(input),
-        max_output_tokens: 7000,
-        text: {
-          format: {
-            type: "json_schema",
-            name: "margin_article_research",
-            strict: true,
-            schema: researchSchema,
-          },
-        },
-      }),
-    });
-  } catch (error) {
-    clearTimeout(timeout);
-    return json(response, error?.name === "AbortError" ? 504 : 502, {
-      error: error?.name === "AbortError"
-        ? "AIリサーチがタイムアウトしました。既存のテンプレート生成をご利用ください。"
-        : "AIリサーチへ接続できませんでした。既存のテンプレート生成をご利用ください。",
-    });
-  }
-  clearTimeout(timeout);
-
-  if (!upstream.ok) {
-    return json(response, upstream.status === 429 ? 429 : 502, {
-      error: upstream.status === 429
-        ? "AIリサーチが混み合っています。しばらく待ってから再度お試しください。"
-        : "AIリサーチを完了できませんでした。既存のテンプレート生成をご利用ください。",
-    });
-  }
-
-  let research;
-  try {
-    const payload = await upstream.json();
-    research = JSON.parse(outputText(payload));
-  } catch {
-    return json(response, 502, {
-      error: "AIリサーチ結果を解析できませんでした。既存のテンプレート生成をご利用ください。",
-    });
-  }
-
-  return json(response, 200, { research, generatedAt: new Date().toISOString() });
+export default function handler(request, response) {
+  if (request.method !== "POST") { response.setHeader("Allow", "POST"); return json(response, 405, {error:"Method Not Allowed"}); }
+  const input = inputOf(request.body);
+  if (!input.theme) return json(response, 400, {error:"記事テーマを入力してください。"});
+  return json(response, 200, {research:buildResearch(input), generatedAt:new Date().toISOString(), source:"MARGIN rule-based planner"});
 }

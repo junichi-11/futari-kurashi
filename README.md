@@ -8,9 +8,9 @@ Publish Systemで新しい記事を公開すると、記事HTML・記事JSONと�
 
 ## MARGIN Article Generation Prompt v3
 
-Article BuilderのChatGPT連携はPrompt Version 3.1を標準とします。ChatGPTへJSON本文を返させず、JSON構文検証済みの `{slug}.json`（UTF-8）を生成・添付させます。記事データの `version` は引き続き `1.0` とし、既存のJSON Import、Quality Gate、Publish Systemとの互換性を維持します。
+Article BuilderのChatGPT連携はPrompt Version 3.2を標準とします。ChatGPTへJSON本文を返させず、JSON構文検証済みの `{slug}.json`（UTF-8）を生成・添付させます。記事データの `version` は引き続き `1.0` とし、既存のJSON Import、Quality Gate、Publish Systemとの互換性を維持します。
 
-Prompt Version 3.1では、固定の `article.json` を廃止し、記事slugと同じ
+Prompt Version 3.2では、固定の `article.json` を廃止し、記事slugと同じ
 `{slug}.json` を標準ファイル名とします。slugが空の場合はArticle Builderが
 候補を用意し、ChatGPTにも記事内容から有効なslugを確定するよう指示します。
 Import前にはファイル名・JSON内slug・現在編集中のslugを比較し、選択商品、
@@ -21,7 +21,7 @@ Import前にはファイル名・JSON内slug・現在編集中のslugを比較�
 
 商品見出しは楽天の商品名全文を転載せず、「ブランドまたはショップ＋シリーズ・識別名＋商品種別」へ短縮します。元の商品名は選択商品データに保持します。比較表の特徴と向いている暮らしは30文字以内を目安にし、affiliateUrlは専用フィールドへ保持して表示用セルや本文には入れません。
 
-APIにない寸法、素材、保証、耐久性、座り心地は推測せず、確認対象を具体的にしたうえで「商品ページで確認」と記載します。`itemCode`、`role`、`affiliateUrl` は選択商品データから変更しません。v1・v2の下書きと履歴は引き続き読み込み可能で、履歴上は各Prompt Versionを区別して表示します。将来OpenAI APIによる自動生成へ切り替える場合も、Prompt Version 3.1と同じSchema・文章品質・誠実性ルールを使用してください。
+APIにない寸法、素材、保証、耐久性、座り心地は推測せず、確認対象を具体的にしたうえで「商品ページで確認」と記載します。`itemCode`、`role`、`affiliateUrl` は選択商品データから変更しません。v1・v2の下書きと履歴は引き続き読み込み可能で、履歴上は各Prompt Versionを区別して表示します。現在のPrompt Versionは3.2で、OpenAI APIを使わずChatGPT Plusへ人が貼り付ける運用です。
 
 ## MARGIN Article Template v3
 
@@ -76,49 +76,33 @@ Never commit `RAKUTEN_ACCESS_KEY` or any other credential to source code,
 README files, or `.env` files. Store all credentials in Vercel Environment
 Variables.
 
-## MARGIN AI Research Engine
+## MARGIN Rule-based Research
 
-The Article Builder uses the admin-only `POST /api/ai/research` endpoint to
-propose search intent, editorial direction, titles, article structure, and
-Rakuten search queries. Template generation remains available when AI research
-is unavailable. AI research results are planning assistance and are saved only
-in the browser's localStorage with the article draft.
-
-### Vercel Environment Variables
-
-In **Vercel -> futari-kurashi -> Settings -> Environment Variables**, add the
-following to the **Production** environment, then redeploy:
-
-- `OPENAI_API_KEY` (required)
-- `OPENAI_MODEL` (optional; the function uses a cost-conscious default)
-
-Do not save the API key in GitHub, HTML, client-side JavaScript, logs, or API
-responses. This endpoint is intended for the MARGIN administration screen;
-full administrator authentication is not included in v1. The endpoint accepts
-POST only, applies input limits and basic per-instance rate limiting, and sends
-`Cache-Control: no-store`.
+The admin-only `POST /api/ai/research` endpoint now uses MARGIN's deterministic
+rule-based planner. It does not call OpenAI or another paid AI API and requires
+no AI environment variable. Its output keeps the existing research schema so
+saved drafts remain compatible. Results are planning assistance and are saved
+with the browser-local article draft.
 
 AI does not have verified search-volume, ranking, competitor-count, or keyword
 difficulty data. A human editor must review all output before publication.
 Product dimensions, materials, shipping, stock, and other specifications must
 be verified on the relevant Rakuten product page.
 
-### AI Editorial Planner
+### Advanced Planning
 
-After selecting products in Product Manager, open Article Builder and choose
-**AI企画を5案つくる**. The planner evaluates the selected product names, shops,
+After selecting products in Product Manager, open the folded **Advanced
+Planning** section when extra planning support is needed. The planner evaluates
+the selected product names, shops,
 prices, review counts and averages, editorial roles, descriptions, and inferred
 category. It returns five distinct editorial directions with titles, SEO
 metadata, keywords, audience, room type, editorial themes, article type, slug,
 and an editor-facing planning note.
 
-Selecting a plan fills the existing Article Builder fields in one action. The
-planner first attempts to use the existing `/api/ai/research` service. When the
-OpenAI service or environment variable is unavailable, it automatically uses
-the local `ruleBasedEditorialPlans(input)` generator, so product selection and
-article creation can continue without an API key. The provider-facing request
-and rule-based generator are kept separate to allow a future AI implementation
-to replace the provider without changing the Article Builder data structure.
+Selecting a plan fills the existing Article Builder fields in one action. Both
+Idea Bank and Advanced Planning are rule-based. The normal workflow is Idea
+Bank -> article conditions -> product selection -> ChatGPT Plus manual round
+trip; no paid AI API is used.
 
 Article theme and display title may be empty when planning starts. Product
 selection alone generates five plans. Each plan separates `planningTheme`
@@ -163,7 +147,7 @@ before explicit approval.
 
 ### Recommended JSON import flow
 
-Article BuilderでPrompt Version 3.1を生成 → ChatGPTで `{slug}.json`（UTF-8）を生成・添付 → 添付ファイルを保存 → Article
+Article BuilderでPrompt Version 3.2を生成 → ChatGPTで `{slug}.json`（UTF-8）を生成・添付 → 添付ファイルを保存 → Article
 Builderの「JSONファイルを選択」から読み込み → Quality Gateを確認 →
 「承認して反映」の順で運用します。ファイルは最大2MBで、HTMLやMarkdown、
 ブラウザのリンク変換を通さず生テキストとして読み込みます。従来の貼り付けも
@@ -175,10 +159,9 @@ Importerは `](https://`、URLエンコードされたJSONキー、300文字以�
 Quality Gateを停止します。読み込み後はファイル名、文字数、`JSON.parse`結果を画面で
 確認してください。
 
-For a future API-based workflow, replace the manual ChatGPT copy/import step
-with a server call that returns the same version `1.0` JSON schema. The existing
-Prompt Builder, importer, Quality Gate, template generator, and AI Research
-Engine can remain as fallbacks.
+The current workflow intentionally keeps the manual ChatGPT Plus copy/import
+step. Prompt Builder, importer, Quality Gate, template generator, Idea Bank,
+and rule-based planning work without a paid AI API.
 
 ## MARGIN Publish System v1
 
