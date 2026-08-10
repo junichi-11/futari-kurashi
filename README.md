@@ -270,3 +270,12 @@ The public footer links to `/about/`, `/privacy/`, `/contact/`,
 the generated sitemap. The same rules apply to new publications and to
 **Rebuild Published Articles**, because both use the shared Article Template v3
 renderer.
+
+### Published product refresh
+
+Article Builder provides single-article and all-published-article Rakuten data
+refresh controls. `POST /api/publish/refresh-products` deduplicates `itemCode`
+lookups, preserves `itemCode`, `affiliateUrl`, `role`, article copy, slug, and
+`publishedAt`, and commits only articles whose price, review, shop, name, image,
+or API availability changed. Only affected article HTML is rebuilt. The result
+panel reports updated, unchanged, unavailable, and failed products.

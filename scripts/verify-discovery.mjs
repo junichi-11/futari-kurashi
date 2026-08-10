@@ -16,7 +16,7 @@ const checks = {
   "product and comparison affiliate CTAs": (detail.match(/nofollow sponsored noopener/g) || []).length >= article.products.length * 2 && (detail.match(/楽天市場で見る/g) || []).length >= article.products.length * 2,
   "strict Rakuten links": article.products.every(product => { try { const url = new URL(product.affiliateUrl); return url.protocol === "https:" && url.hostname === "hb.afl.rakuten.co.jp"; } catch { return false; } }),
   "top discovery link": top.includes('href="/articles/"') && top.includes("/articles/index.json"),
-  "list normal links": list.includes("a.url") && list.includes('rel="canonical"'),
+  "list normal links": list.includes("MarginArticleCards.render") && list.includes('rel="canonical"') && list.includes('/assets/article-cards.js'),
   "detail navigation": detail.includes('href="/articles/"') && detail.includes('href="/"') && detail.includes("MORE FROM MARGIN"),
   "detail schemas and OG": detail.includes('"@type":"Article"') && detail.includes('"@type":"BreadcrumbList"') && detail.includes('property="og:image"'),
   "sitemap URLs": ["/", "/articles/", `/articles/${slug}/`].every(path => sitemap.includes(`https://futari-kurashi.pages.dev${path}`)),

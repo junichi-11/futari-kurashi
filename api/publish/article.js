@@ -16,6 +16,7 @@ export const config = { maxDuration: 180 };
 const REQUIRED_ENV = ["GITHUB_TOKEN", "GITHUB_OWNER", "GITHUB_REPO", "GITHUB_BRANCH", "MARGIN_PUBLISH_SECRET"];
 const RESERVED = new Set(["admin", "api", "assets", "articles", "index", "sitemap", "feed", "rss", "robots", "favicon"]);
 const ALLOWED_ORIGIN = "https://futari-kurashi.pages.dev";
+const VERCEL_ORIGIN = "https://futari-kurashi.vercel.app";
 const recentPublishes = new Map();
 const encoder = new TextEncoder();
 
@@ -27,7 +28,8 @@ const json = (res, status, body, origin = ALLOWED_ORIGIN) => {
   if (origin) res.setHeader("Access-Control-Allow-Origin", origin);
   return res.json(body);
 };
-const allowedOrigin = (origin) => origin === ALLOWED_ORIGIN || /^https:\/\/[a-z0-9-]+\.futari-kurashi\.pages\.dev$/i.test(origin || "");
+const allowedOrigin = (origin) => origin === ALLOWED_ORIGIN || origin === VERCEL_ORIGIN || /^https:\/\/[a-z0-9-]+\.futari-kurashi\.pages\.dev$/i.test(origin || "");
+const cardImage = value => { try { const url = new URL(cleanText(value)); if (url.hostname === "thumbnail.image.rakuten.co.jp") url.searchParams.set("_ex", "960x720"); return url.toString(); } catch { return cleanText(value); } };
 const safeEqual = (left, right) => {
   const a = createHash("sha256").update(String(left || "")).digest();
   const b = createHash("sha256").update(String(right || "")).digest();
@@ -131,7 +133,7 @@ async function publishHandler(req, res) {
     if (existingArticle?.source?.contentHash === contentHash) return json(res, 200, { status: "published", articleId: validation.articleId, slug: validation.slug, publishedUrl: `${siteOrigin}/articles/${validation.slug}/`, githubCommitSha: existingArticle.source.githubCommitSha || "", githubCommitUrl: existingArticle.source.githubCommitSha ? `https://github.com/${env.owner}/${env.repo}/commit/${existingArticle.source.githubCommitSha}` : "", publishedAt: existingArticle.publishedAt, updatedAt: existingArticle.updatedAt, deploymentVerified: true, idempotent: true }, origin);
     const publishedAt = existingArticle?.publishedAt || iso(req.body.publishedAt, now), updatedAt = now;
     const articleRecord = { version: "1.0", articleId: validation.articleId, status: "Published", publishedAt, updatedAt, article: normalized.article, sections: normalized.sections || [], products: normalized.products || [], productBlocks: normalized.productBlocks || [], comparisonTable: normalized.comparisonTable || {}, faq: normalized.faq || [], seo: normalized.seo || {}, qualityGate: normalized.qualityGate || {}, source: { promptVersion: cleanText(normalized.source?.promptVersion), builderVersion: cleanText(normalized.source?.builderVersion || "1.0"), contentHash } };
-    const entry = { articleId: validation.articleId, slug: validation.slug, url: `/articles/${validation.slug}/`, displayTitle: cleanText(normalized.article.displayTitle), seoTitle: cleanText(normalized.article.seoTitle), metaDescription: cleanText(normalized.article.metaDescription), publishedAt, updatedAt, articleType: cleanText(normalized.articleType), target: cleanText(normalized.target), roomType: cleanText(normalized.roomType), editorialThemes: Array.isArray(normalized.editorialThemes) ? normalized.editorialThemes.map(cleanText) : [], mainKeyword: cleanText(normalized.seo?.mainKeyword), productCount: validation.products.length, thumbnail: cleanText(validation.products[0]?.imageUrl), status: "Published" };
+    const entry = { articleId: validation.articleId, slug: validation.slug, url: `/articles/${validation.slug}/`, displayTitle: cleanText(normalized.article.displayTitle), seoTitle: cleanText(normalized.article.seoTitle), metaDescription: cleanText(normalized.article.metaDescription), publishedAt, updatedAt, articleType: cleanText(normalized.articleType), target: cleanText(normalized.target), roomType: cleanText(normalized.roomType), editorialThemes: Array.isArray(normalized.editorialThemes) ? normalized.editorialThemes.map(cleanText) : [], mainKeyword: cleanText(normalized.seo?.mainKeyword), productCount: validation.products.length, thumbnail: cardImage(normalized.article.cardImage || normalized.article.coverImage || normalized.article.heroImage || validation.products[0]?.imageUrl), status: "Published" };
     const articles = existingIndex.articles.filter((article) => article.articleId !== validation.articleId && article.slug !== validation.slug); articles.push(entry); articles.sort((a, b) => Date.parse(b.publishedAt) - Date.parse(a.publishedAt));
     const index = { version: "1.0", updatedAt, articles }, publishedUrl = `${siteOrigin}/articles/${validation.slug}/`;
     const files = { [`articles/${validation.slug}/index.html`]: renderArticlePageV3({ ...normalized, publishedAt, updatedAt }, siteOrigin, publishedAt, updatedAt), [`articles/${validation.slug}/article.json`]: JSON.stringify(articleRecord, null, 2) + "\n", "articles/index.json": JSON.stringify(index, null, 2) + "\n", "articles/index.html": renderArticlesIndexPage(siteOrigin), "sitemap.xml": renderSitemapXml(index, siteOrigin), "feed.xml": renderFeedXml(index, siteOrigin) };

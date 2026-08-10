@@ -1,0 +1,15 @@
+import { readFile } from "node:fs/promises";
+import refreshHandler from "../api/publish/refresh-products.js";
+import { onRequest as refreshProxy } from "../functions/api/publish/refresh-products.js";
+const expect=(condition,label)=>{console.log(`${condition?"PASS":"FAIL"} ${label}`);if(!condition)process.exitCode=1};
+const admin=await readFile("admin/articles.html","utf8"),top=await readFile("index.html","utf8"),list=await readFile("articles/index.html","utf8"),cards=await readFile("assets/article-cards.js","utf8"),refresh=await readFile("api/publish/refresh-products.js","utf8");
+expect(/<select id="room"[^>]*><option>1LDK<\/option>/.test(admin),"new article roomType defaults to 1LDK");
+expect(admin.includes('setSelect(els.room,els.roomCustom,"1LDK")'),"next new article resets roomType to 1LDK");
+expect(admin.includes("商品情報を最新化")&&admin.includes("公開記事の商品情報を一括最新化"),"single and bulk refresh controls");
+expect(top.includes("/assets/article-cards.js")&&list.includes("/assets/article-cards.js"),"shared article card renderer");
+expect(cards.includes('searchParams.set("_ex","960x720")')&&cards.includes("srcset")&&cards.includes('loading="lazy"'),"high resolution responsive card images");
+expect(refresh.includes("const records=new Map(),uses=new Map()")&&refresh.includes("for(const itemCode of uses.keys())"),"itemCode requests are deduplicated");
+expect(refresh.includes('["itemCode","affiliateUrl","role"]')&&refresh.includes("record.publishedAt,record.updatedAt"),"immutable product and publication fields retained");
+expect(refresh.includes('if(!affected.length)')&&refresh.includes("rebuildArticles:affected.length"),"unchanged data skips commit and only affected articles rebuild");
+const mockRes=()=>({statusCode:0,headers:{},status(code){this.statusCode=code;return this},setHeader(k,v){this.headers[k]=v},json(body){this.body=body;return body}}),res=mockRes();await refreshHandler({method:"GET",headers:{}},res);expect(res.statusCode===405,"Vercel refresh API rejects GET");
+const proxy=await refreshProxy({request:new Request("https://futari-kurashi.pages.dev/api/publish/refresh-products",{method:"GET"}),env:{}});expect(proxy.status===405,"Cloudflare refresh proxy rejects GET");

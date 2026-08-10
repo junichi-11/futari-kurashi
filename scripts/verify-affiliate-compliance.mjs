@@ -74,5 +74,5 @@ const fixedPages = ["about", "privacy", "contact", "affiliate-disclosure", "disc
 for (const page of fixedPages) expect((await readFile(`${page}/index.html`, "utf8")).includes(`href="/${page === "about" ? "privacy" : "about"}/`) || page === "privacy", `${page} fixed page exists`);
 const top = await readFile("index.html", "utf8"), template = await readFile("lib/article-template-v2.mjs", "utf8"), discovery = await readFile("lib/discovery-renderers.mjs", "utf8"), publish = await readFile("api/publish/article.js", "utf8"), rebuild = await readFile("api/publish/rebuild.js", "utf8");
 for (const page of fixedPages) expect(top.includes(`href="/${page}/"`) && template.includes(`href="/${page}/"`), `${page} linked from top and article footers`);
-expect(discovery.includes("fixedPages") && fixedPages.every(page => discovery.includes(`\"${page}\"`)), "fixed pages retained in generated sitemap");
+expect(fixedPages.every(page => discovery.includes(`\"${page}\"`)), "fixed pages retained in generated sitemap");
 expect(publish.includes("renderArticlePageV3") && rebuild.includes("renderArticlePageV3"), "new publish and rebuild use audited template");

@@ -10,7 +10,7 @@ export const config = { maxDuration: 180 };
 
 const ALLOWED_ORIGIN = "https://futari-kurashi.pages.dev";
 const REQUIRED_ENV = ["GITHUB_TOKEN", "GITHUB_OWNER", "GITHUB_REPO", "GITHUB_BRANCH", "MARGIN_PUBLISH_SECRET"];
-const allowedOrigin = origin => origin === ALLOWED_ORIGIN || /^https:\/\/[a-z0-9-]+\.futari-kurashi\.pages\.dev$/i.test(origin || "");
+const allowedOrigin = origin => origin === ALLOWED_ORIGIN || origin === "https://futari-kurashi.vercel.app" || /^https:\/\/[a-z0-9-]+\.futari-kurashi\.pages\.dev$/i.test(origin || "");
 const safeEqual = (left, right) => timingSafeEqual(createHash("sha256").update(String(left || "")).digest(), createHash("sha256").update(String(right || "")).digest());
 const json = (response, status, body, origin = ALLOWED_ORIGIN) => {
   response.status(status);
@@ -30,12 +30,12 @@ async function github(path, env, options = {}) {
   return data;
 }
 
-async function readFile(path, env) {
+export async function readFile(path, env) {
   const data = await github(`/contents/${path}?ref=${encodeURIComponent(env.branch)}`, env);
   return Buffer.from(data.content || "", "base64").toString("utf8");
 }
 
-async function commitFiles(files, env) {
+export async function commitFiles(files, env, message = `Rebuild published articles with Article Template v3\n\nArticles: ${Object.keys(files).length}`) {
   const ref = await github(`/git/ref/heads/${encodeURIComponent(env.branch)}`, env);
   const parent = await github(`/git/commits/${ref.object.sha}`, env);
   const tree = [];
@@ -45,7 +45,7 @@ async function commitFiles(files, env) {
   }
   const nextTree = await github("/git/trees", env, { method: "POST", body: JSON.stringify({ base_tree: parent.tree.sha, tree }) });
   if (nextTree.sha === parent.tree.sha) return { sha: ref.object.sha, unchanged: true };
-  const commit = await github("/git/commits", env, { method: "POST", body: JSON.stringify({ message: `Rebuild published articles with Article Template v3\n\nArticles: ${tree.length}`, tree: nextTree.sha, parents: [ref.object.sha] }) });
+  const commit = await github("/git/commits", env, { method: "POST", body: JSON.stringify({ message, tree: nextTree.sha, parents: [ref.object.sha] }) });
   await github(`/git/refs/heads/${encodeURIComponent(env.branch)}`, env, { method: "PATCH", body: JSON.stringify({ sha: commit.sha, force: false }) });
   return { sha: commit.sha, unchanged: false };
 }
