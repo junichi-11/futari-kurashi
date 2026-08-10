@@ -1,7 +1,28 @@
 {
   "version": "1.0",
-  "updatedAt": "2026-08-08T06:33:33.981Z",
+  "updatedAt": "2026-08-10T06:22:08.129Z",
   "articles": [
+    {
+      "articleId": "article-1786342724670",
+      "slug": "newlywed-2ldk-modern-modular-sofa-selection",
+      "url": "/articles/newlywed-2ldk-modern-modular-sofa-selection/",
+      "displayTitle": "新婚2LDKに、愛着を育てるモダンソファ6選",
+      "seoTitle": "新婚2LDK向けモダンソファ6選｜ユニットとカウチで比較",
+      "metaDescription": "新婚の2LDKに合わせやすいモダンソファ6点を比較。ユニット、カウチ、リクライニング、ロータイプの違いと、サイズ・組み合わせ・搬入前の確認事項を整理します。",
+      "publishedAt": "2026-08-10T06:22:06.944Z",
+      "updatedAt": "2026-08-10T06:22:08.129Z",
+      "articleType": "比較・おすすめ記事",
+      "target": "同棲",
+      "roomType": "1LDK",
+      "editorialThemes": [
+        "愛着",
+        "モダン"
+      ],
+      "mainKeyword": "新婚 2LDK ソファ",
+      "productCount": 6,
+      "thumbnail": "https://thumbnail.image.rakuten.co.jp/@0_mall/t-interior/cabinet/item/usual/chf001.jpg?_ex=960x720",
+      "status": "Published"
+    },
     {
       "articleId": "article-1786170781747",
       "slug": "newlywed-2ldk-natural-sofa-selection",
