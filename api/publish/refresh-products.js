@@ -1,7 +1,7 @@
 import { createHash, timingSafeEqual } from "node:crypto";
-import { renderArticlePageV3 } from "../../lib/article-template-v2.mjs";
-import { renderArticlesIndexPage, renderSitemapXml, renderFeedXml } from "../../lib/discovery-renderers.mjs";
-export const config = { maxDuration: 300 };
+let renderArticlePageV3,renderArticlesIndexPage,renderSitemapXml,renderFeedXml;
+async function loadRenderers(){if(renderArticlePageV3)return;const [article,discovery]=await Promise.all([import("../../lib/article-template-v2.mjs"),import("../../lib/discovery-renderers.mjs")]);({renderArticlePageV3}=article);({renderArticlesIndexPage,renderSitemapXml,renderFeedXml}=discovery);}
+export const config = { maxDuration: 180 };
 const ALLOWED = ["https://futari-kurashi.pages.dev", "https://futari-kurashi.vercel.app"];
 const safe = (a,b) => timingSafeEqual(createHash("sha256").update(String(a||"")).digest(), createHash("sha256").update(String(b||"")).digest());
 const json = (res,status,body) => { res.status(status); res.setHeader("Content-Type","application/json; charset=utf-8"); res.setHeader("Cache-Control","no-store"); return res.json(body); };
@@ -18,7 +18,7 @@ export default async function handler(req,res){
   const requestOrigin=req.headers.origin||""; if(!ALLOWED.includes(requestOrigin)&&!/^https:\/\/[a-z0-9-]+\.futari-kurashi\.pages\.dev$/i.test(requestOrigin)) return json(res,403,{error:"Originが許可されていません。"});
   const required=["GITHUB_TOKEN","GITHUB_OWNER","GITHUB_REPO","GITHUB_BRANCH","MARGIN_PUBLISH_SECRET"],missing=required.filter(name=>!String(process.env[name]||"").trim()); if(missing.length) return json(res,500,{error:"環境変数が不足しています。",missing});
   if(!safe(req.headers["x-margin-publish-key"],process.env.MARGIN_PUBLISH_SECRET)) return json(res,401,{error:"公開認証に失敗しました。"});
-  const env={token:process.env.GITHUB_TOKEN,owner:process.env.GITHUB_OWNER,repo:process.env.GITHUB_REPO,branch:process.env.GITHUB_BRANCH},site=String(process.env.PUBLIC_SITE_ORIGIN||"https://futari-kurashi.vercel.app").replace(/\/$/,""),apiOrigin=`${req.headers["x-forwarded-proto"]||"https"}://${req.headers.host}`;
+  await loadRenderers(); const env={token:process.env.GITHUB_TOKEN,owner:process.env.GITHUB_OWNER,repo:process.env.GITHUB_REPO,branch:process.env.GITHUB_BRANCH},site=String(process.env.PUBLIC_SITE_ORIGIN||"https://futari-kurashi.vercel.app").replace(/\/$/,""),apiOrigin=`${req.headers["x-forwarded-proto"]||"https"}://${req.headers.host}`;
   const index=JSON.parse(await readFile("articles/index.json",env)),requested=String(req.body?.slug||"").trim(),entries=(index.articles||[]).filter(item=>item.status==="Published"&&(!requested||item.slug===requested)); if(requested&&!entries.length) return json(res,404,{error:"公開記事が見つかりません。"});
   const records=new Map(),uses=new Map(); for(const entry of entries){ const record=JSON.parse(await readFile(`articles/${entry.slug}/article.json`,env)); records.set(entry.slug,record); for(const product of record.products||[]){ if(!uses.has(product.itemCode)) uses.set(product.itemCode,[]); uses.get(product.itemCode).push(entry.slug); } }
   const fetched=new Map(),failures=[]; for(const itemCode of uses.keys()){ try { fetched.set(itemCode,await lookup(itemCode,apiOrigin)); } catch(error){ failures.push({itemCode,slugs:uses.get(itemCode),error:error.message}); fetched.set(itemCode,{__error:true}); } }
