@@ -1,7 +1,27 @@
 {
   "version": "1.0",
-  "updatedAt": "2026-08-10T06:22:08.129Z",
+  "updatedAt": "2026-08-10T15:01:22.408Z",
   "articles": [
+    {
+      "articleId": "article-1786373254971",
+      "slug": "couple-1ldk-lift-top-table-selection",
+      "url": "/articles/couple-1ldk-lift-top-table-selection/",
+      "displayTitle": "食事も仕事も一台で。1LDK向け昇降テーブル8選",
+      "seoTitle": "ワンルームで仕事兼用に使える昇降デスク8選｜食事にも対応",
+      "metaDescription": "1LDKやワンルームで、食事と仕事を一台で兼ねたい人向けに昇降テーブル8点を比較。幅、高さ調節、収納、昇降方式、在宅ワーク時の使いやすさを確認します。",
+      "publishedAt": "2026-08-10T15:01:21.028Z",
+      "updatedAt": "2026-08-10T15:01:22.408Z",
+      "articleType": "比較・おすすめ記事",
+      "target": "同棲",
+      "roomType": "1LDK",
+      "editorialThemes": [
+        "モダン"
+      ],
+      "mainKeyword": "ワンルーム デスク 仕事兼用",
+      "productCount": 8,
+      "thumbnail": "https://thumbnail.image.rakuten.co.jp/@0_mall/guyii/cabinet/10467599/10467601/13267605/imgrc0146067036.jpg?_ex=960x720",
+      "status": "Published"
+    },
     {
       "articleId": "article-1786342724670",
       "slug": "newlywed-2ldk-modern-modular-sofa-selection",
