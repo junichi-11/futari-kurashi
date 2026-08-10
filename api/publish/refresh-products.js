@@ -1,5 +1,4 @@
 import { createHash, timingSafeEqual } from "node:crypto";
-import { readFile, commitFiles } from "./rebuild.js";
 import { renderArticlePageV3 } from "../../lib/article-template-v2.mjs";
 import { renderArticlesIndexPage, renderSitemapXml, renderFeedXml } from "../../lib/discovery-renderers.mjs";
 export const config = { maxDuration: 300 };
@@ -8,6 +7,10 @@ const safe = (a,b) => timingSafeEqual(createHash("sha256").update(String(a||""))
 const json = (res,status,body) => { res.status(status); res.setHeader("Content-Type","application/json; charset=utf-8"); res.setHeader("Cache-Control","no-store"); return res.json(body); };
 const high = value => { try { const url=new URL(String(value||"")); if(url.hostname==="thumbnail.image.rakuten.co.jp") url.searchParams.set("_ex","960x720"); return url.toString(); } catch { return String(value||""); } };
 const comparable = product => ({ name:product.name, price:Number(product.price)||0, imageUrl:product.imageUrl, shopName:product.shopName, reviewAverage:Number(product.reviewAverage)||0, reviewCount:Number(product.reviewCount)||0, availability:Number(product.availability)||0 });
+const githubHeaders=token=>({Authorization:`Bearer ${token}`,Accept:"application/vnd.github+json","X-GitHub-Api-Version":"2022-11-28","Content-Type":"application/json"});
+async function github(path,env,options={}){const response=await fetch(`https://api.github.com/repos/${env.owner}/${env.repo}${path}`,{...options,headers:{...githubHeaders(env.token),...(options.headers||{})}}),body=await response.text();if(!response.ok)throw new Error(`GitHub API ${response.status}`);return body?JSON.parse(body):null;}
+async function readFile(path,env){const data=await github(`/contents/${path}?ref=${encodeURIComponent(env.branch)}`,env);return Buffer.from(data.content||"","base64").toString("utf8");}
+async function commitFiles(files,env,message){const ref=await github(`/git/ref/heads/${encodeURIComponent(env.branch)}`,env),parent=await github(`/git/commits/${ref.object.sha}`,env),tree=[];for(const [path,content] of Object.entries(files)){const blob=await github("/git/blobs",env,{method:"POST",body:JSON.stringify({content,encoding:"utf-8"})});tree.push({path,mode:"100644",type:"blob",sha:blob.sha});}const next=await github("/git/trees",env,{method:"POST",body:JSON.stringify({base_tree:parent.tree.sha,tree})});if(next.sha===parent.tree.sha)return{sha:ref.object.sha,unchanged:true};const commit=await github("/git/commits",env,{method:"POST",body:JSON.stringify({message,tree:next.sha,parents:[ref.object.sha]})});await github(`/git/refs/heads/${encodeURIComponent(env.branch)}`,env,{method:"PATCH",body:JSON.stringify({sha:commit.sha,force:false})});return{sha:commit.sha,unchanged:false};}
 async function lookup(itemCode,origin){ const response=await fetch(`${origin}/api/rakuten/search?q=${encodeURIComponent(itemCode)}&hits=30`); if(!response.ok) throw new Error(`Rakuten API ${response.status}`); const data=await response.json(); return (data.items||[]).find(item=>item.itemCode===itemCode)||null; }
 export default async function handler(req,res){
  try {
