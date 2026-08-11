@@ -42,6 +42,24 @@ const sha256 = (value) => createHash("sha256").update(value).digest("hex");
 const iso = (value, fallback = new Date().toISOString()) => Number.isNaN(Date.parse(value || "")) ? fallback : new Date(value).toISOString();
 const slugValid = (slug) => /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug) && slug.length <= 80 && !RESERVED.has(slug);
 const affiliateValid = (value) => { try { const url = new URL(value); return url.protocol === "https:" && url.hostname === "hb.afl.rakuten.co.jp"; } catch { return false; } };
+export function editorialPublishText(body = {}) {
+  const values = [], add = value => {
+    if (Array.isArray(value)) value.forEach(add);
+    else if (value && typeof value === "object") Object.entries(value).forEach(([key, item]) => { if (!["affiliateUrl", "itemCode"].includes(key)) add(item); });
+    else if (typeof value === "string") values.push(value);
+  };
+  const article = body.article || {};
+  add([article.displayTitle, article.seoTitle, article.metaDescription, article.lead, article.conclusion, article.editorialNote, article.disclosure]);
+  (body.sections || []).forEach(section => add([section.heading, section.body, section.items]));
+  (body.productBlocks || []).forEach(block => add([block.heading, block.summary, block.bestFor, block.checkPoints, block.editorComment]));
+  add(body.comparisonTable?.columns || []);
+  (body.comparisonTable?.rows || []).forEach(row => add(row));
+  (body.faq || []).forEach(item => add([item.question, item.answer]));
+  const seo = body.seo || {};
+  add([seo.mainKeyword, seo.relatedKeywords, seo.internalLinkIdeas, seo.factsToVerify]);
+  return values;
+}
+export const hasRetiredLayoutTerm = body => editorialPublishText(body).some(value => value.includes("\u30ef\u30f3\u30eb\u30fc\u30e0"));
 const githubHeaders = (token) => ({ Authorization: `Bearer ${token}`, Accept: "application/vnd.github+json", "X-GitHub-Api-Version": "2022-11-28", "Content-Type": "application/json" });
 
 async function githubRequest(path, env, options = {}) {
@@ -63,7 +81,7 @@ function validatePayload(body) {
   const errors = [];
   const articleId = cleanText(body?.articleId), article = body?.article || {}, slug = cleanText(article.slug);
   if (!cleanText(body?.livingArea)) errors.push("生活エリアがありません。");
-  if (JSON.stringify(body).includes("\u30ef\u30f3\u30eb\u30fc\u30e0")) errors.push("使用しない間取り表現が含まれています。");
+  if (hasRetiredLayoutTerm(body)) errors.push("使用しない間取り表現が含まれています。");
   if (!articleId) errors.push("articleIdがありません。");
   if (!slugValid(slug)) errors.push("URLスラッグが不正です。");
   for (const key of ["displayTitle", "seoTitle", "metaDescription", "lead"]) if (!cleanText(article[key])) errors.push(`${key}がありません。`);
