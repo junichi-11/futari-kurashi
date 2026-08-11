@@ -19,8 +19,8 @@ const checks = {
   "list normal links": list.includes("MarginArticleCards.render") && list.includes('rel="canonical"') && list.includes('/assets/article-cards.js'),
   "detail navigation": detail.includes('href="/articles/"') && detail.includes('href="/"') && detail.includes("MORE FROM MARGIN"),
   "detail schemas and OG": detail.includes('"@type":"Article"') && detail.includes('"@type":"BreadcrumbList"') && detail.includes('property="og:image"'),
-  "sitemap URLs": ["/", "/articles/", `/articles/${slug}/`].every(path => sitemap.includes(`https://futari-kurashi.pages.dev${path}`)),
-  "feed article": Boolean(metadata) && feed.includes(metadata.displayTitle) && feed.includes(`https://futari-kurashi.pages.dev${metadata.url}`),
+  "sitemap URLs": ["/", "/articles/", `/articles/${slug}/`].every(path => sitemap.includes(`https://futari-kurashi.vercel.app${path}`)),
+  "feed article": Boolean(metadata) && feed.includes(metadata.displayTitle) && feed.includes(`https://futari-kurashi.vercel.app${metadata.url}`),
   "XML envelope": sitemap.startsWith("<?xml") && sitemap.endsWith("</urlset>\n") && feed.startsWith("<?xml") && feed.endsWith("</rss>\n")
 };
 for (const [name, passed] of Object.entries(checks)) console.log(`${passed ? "PASS" : "FAIL"} ${name}`);

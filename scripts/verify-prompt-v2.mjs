@@ -30,7 +30,7 @@ mock.comparisonTable = {
   })
 };
 const visibleComparison = mock.comparisonTable.rows.flatMap(row => Object.entries(row).filter(([key]) => !/url/i.test(key)).map(([, value]) => String(value)));
-const html = renderArticlePageV3({ ...mock, articleType: "比較・おすすめ記事", target: "新婚・2人暮らし", roomType: "ワンルーム" }, "https://futari-kurashi.pages.dev", mock.publishedAt, mock.updatedAt);
+const html = renderArticlePageV3({ ...mock, articleType: "比較・おすすめ記事", target: "新婚・2人暮らし", livingArea: "リビング" }, "https://futari-kurashi.vercel.app", mock.publishedAt, mock.updatedAt);
 const checks = {
   "Prompt Version 3.2": builder.includes('chatgptPromptVersion="3.2"') && builder.includes("Prompt Version 3.2") && builder.includes("generatePromptV32"),
   "slug JSON file output": builder.includes('ファイル名「{slug}.json」') && builder.includes("{slug}.jsonを添付しました。") && builder.includes("JSON.parseできる有効なUTF-8 JSON"),

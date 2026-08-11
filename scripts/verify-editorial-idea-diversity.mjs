@@ -3,8 +3,8 @@ import fs from "node:fs";
 const builder = fs.readFileSync(new URL("../admin/articles.html", import.meta.url), "utf8");
 const checks = {
   "Idea Bank UI": ["次の記事候補", "Editorial Idea Bank", "このテーマで作る", "もっと見る"],
-  "Idea filters": ["idea-room", "idea-space", "idea-category", "idea-target"],
-  "Idea axes": ["ideaRooms", "ideaTargets", "ideaDefinitions", "challenge", "angle"],
+  "Idea filters": ["idea-area", "idea-category", "idea-target", "idea-challenge"],
+  "Idea axes": ["ideaAreas", "ideaTargets", "ideaDefinitions", "livingArea", "challenge", "angle"],
   "Published and draft dedupe": ["publishedArticleMeta", "articles/index.json", "read(DRAFT_KEY,[])", "normalizedIdea"],
   "Builder field application": ["els.theme.value=idea.theme", "els.mainKeyword.value=idea.mainKeyword", "setSelect(els.target", "setSelect(els.room"],
   "Prompt Version 3.2": ["generatePromptV32", 'chatgptPromptVersion="3.2"', "Prompt Version 3.2"],

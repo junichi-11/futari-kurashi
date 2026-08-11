@@ -185,7 +185,15 @@ Configure these for the Production environment and redeploy Vercel:
 - `GITHUB_REPO` (recommended: `futari-kurashi`)
 - `GITHUB_BRANCH` (recommended: `main`)
 - `MARGIN_PUBLISH_SECRET`
-- `PUBLIC_SITE_ORIGIN` (recommended: `https://futari-kurashi.pages.dev`)
+- `PUBLIC_SITE_ORIGIN` (Production canonical: `https://futari-kurashi.vercel.app`)
+
+## Editorial taxonomy
+
+MARGINの記事企画と公開分類は、`target × livingArea × productCategory × lifeProblem × selectionAngle` を基本モデルとします。居室数ではなく、家具を使う場所・動線・用途を主要な判断軸にします。
+
+生活エリアは、リビング、ダイニング、リビング・ダイニング、寝室、収納、水まわり、玄関、ワークスペースを基本とします。旧下書きの `roomType` は読み込み時だけ互換変換し、新規下書き・Prompt・公開indexには保存しません。
+
+公開URLの唯一の基準は `https://futari-kurashi.vercel.app` です。canonical、OG、JSON-LD、sitemap、RSS、公開レスポンスはこのoriginへ統一します。Cloudflare Pagesはmirror/API中継として運用できますが、公開ページのcanonicalには使用しません。
 - `PUBLISH_DEPLOY_TIMEOUT_MS` (optional; default: `120000`)
 
 The fine-grained GitHub token must be limited to this repository with

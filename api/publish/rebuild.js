@@ -60,7 +60,7 @@ async function rebuildHandler(request, response) {
   if (!safeEqual(request.headers["x-margin-publish-key"], process.env.MARGIN_PUBLISH_SECRET)) return json(response, 401, { error: "公開認証に失敗しました。" }, origin);
 
   const env = { token: process.env.GITHUB_TOKEN, owner: process.env.GITHUB_OWNER, repo: process.env.GITHUB_REPO, branch: process.env.GITHUB_BRANCH };
-  const siteOrigin = String(process.env.PUBLIC_SITE_ORIGIN || ALLOWED_ORIGIN).replace(/\/$/, "");
+  const siteOrigin = String(process.env.PUBLIC_SITE_ORIGIN || "https://futari-kurashi.vercel.app").replace(/\/$/, "");
   try {
     const index = JSON.parse(await readFile("articles/index.json", env));
     const articles = (index.articles || []).filter(article => article.status === "Published");
@@ -71,7 +71,7 @@ async function rebuildHandler(request, response) {
     for (const metadata of articles) {
       if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(metadata.slug || "")) throw new Error("Invalid article slug");
       const record = JSON.parse(await readFile(`articles/${metadata.slug}/article.json`, env));
-      files[`articles/${metadata.slug}/index.html`] = render({ ...record, articleType: metadata.articleType, target: metadata.target, roomType: metadata.roomType, editorialThemes: metadata.editorialThemes }, siteOrigin, record.publishedAt, record.updatedAt);
+      files[`articles/${metadata.slug}/index.html`] = render({ ...record, articleType: metadata.articleType, target: metadata.target, livingArea: metadata.livingArea, productCategory: metadata.productCategory, editorialThemes: metadata.editorialThemes }, siteOrigin, record.publishedAt, record.updatedAt);
       rebuilt.push({ articleId: record.articleId, slug: metadata.slug, url: `${siteOrigin}${metadata.url}` });
     }
     const result = await commitFiles(files, env);
