@@ -1,7 +1,26 @@
 {
   "version": "1.0",
-  "updatedAt": "2026-08-11T00:00:00.000Z",
+  "updatedAt": "2026-08-11T15:28:04.098Z",
   "articles": [
+    {
+      "articleId": "article-1786462069927",
+      "slug": "couple-living-side-table-selection",
+      "url": "/articles/couple-living-side-table-selection/",
+      "displayTitle": "高さと置き方で比べる、同棲リビングのサイドテーブル6選",
+      "seoTitle": "同棲リビング向けサイドテーブル6選｜高さ・素材・設置方法を比較",
+      "metaDescription": "同棲中のリビングで使いやすいサイドテーブル6点を比較。高さ、天板サイズ、木・金属・レジンなどの素材、設置方法、収納性、購入前の確認事項を整理します。",
+      "publishedAt": "2026-08-11T15:28:03.053Z",
+      "updatedAt": "2026-08-11T15:28:04.098Z",
+      "articleType": "比較・おすすめ記事",
+      "target": "同棲",
+      "livingArea": "リビング",
+      "productCategory": "サイドテーブル",
+      "editorialThemes": [],
+      "mainKeyword": "同棲 リビング サイドテーブル",
+      "productCount": 6,
+      "thumbnail": "https://thumbnail.image.rakuten.co.jp/@0_mall/asia-kobo/cabinet/item024/51317.jpg?_ex=960x720",
+      "status": "Published"
+    },
     {
       "articleId": "article-1786373254971",
       "slug": "couple-1ldk-lift-top-table-selection",
