@@ -1,7 +1,26 @@
 {
   "version": "1.0",
-  "updatedAt": "2026-08-11T15:28:04.098Z",
+  "updatedAt": "2026-08-12T03:54:27.339Z",
   "articles": [
+    {
+      "articleId": "article-1786506839012",
+      "slug": "newlywed-living-hay-furniture-selection",
+      "url": "/articles/newlywed-living-hay-furniture-selection/",
+      "displayTitle": "新婚リビングで選ぶ、HAYの家具と小物8選",
+      "seoTitle": "新婚リビング向けHAY家具8選｜テーブル・ラック・デスクを比較",
+      "metaDescription": "新婚のリビングに置きやすいHAY家具8点を比較。コートラック、ハンガーラック、テーブル、デスク、スツールの違いと、設置場所・サイズ・用途の確認ポイントを整理します。",
+      "publishedAt": "2026-08-12T03:54:24.349Z",
+      "updatedAt": "2026-08-12T03:54:27.339Z",
+      "articleType": "比較・おすすめ記事",
+      "target": "新婚",
+      "livingArea": "リビング",
+      "productCategory": "",
+      "editorialThemes": [],
+      "mainKeyword": "新婚 リビング HAY 家具",
+      "productCount": 8,
+      "thumbnail": "https://thumbnail.image.rakuten.co.jp/@0_mall/zuiun7/cabinet/04643587/04645123/04645149/knit00.jpg?_ex=960x720",
+      "status": "Published"
+    },
     {
       "articleId": "article-1786462069927",
       "slug": "couple-living-side-table-selection",
